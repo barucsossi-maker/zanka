@@ -264,21 +264,16 @@ try {
       }
     });
   
-  // --- Solution pour les timestamps (évite les warnings) ---
-  // Par défaut, Firestore utilise Timestamp objects
-  // On configure pour utiliser des Date JavaScript natives
-  // Important : ça simplifie l'affichage des dates dans les templates
-  db.settings({
-    timestampsInSnapshots: true
-  });
-
   // Authentication : Gère les connexions utilisateurs
   // Supporte : email/password, Google
   auth = firebase.auth();
   
   // Storage : Stockage d'images et vidéos
   // Utilisé pour : images produits, vidéos hero, avatars
-  storage = firebase.storage();
+  // Note : optionnel — désactivé si Storage pas encore activé dans la console
+  if (typeof firebase.storage === 'function') {
+    storage = firebase.storage();
+  }
 
 } catch (error) {
   // ─── Gestion d'erreur centralisée ─────────────────────────

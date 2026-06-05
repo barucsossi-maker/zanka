@@ -33,9 +33,12 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js" defer></script>
 
   <style>
     .reveal { opacity: 1; transform: none; }
+    .produit-badges { display:flex; gap:6px; margin-top:4px; flex-wrap:wrap; }
+    .produit-collection { font-size:0.75rem; color:var(--texte-muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px; }
   </style>
 </head>
 <body>
@@ -133,6 +136,8 @@
 
         <p class="produit-sous-categorie" id="sous-categorie">Chargement...</p>
         <h1 class="produit-nom" id="produit-nom">Chargement...</h1>
+        <div class="produit-badges" id="produit-badges"></div>
+        <p class="produit-collection" id="produit-collection"></p>
 
         <div class="produit-prix-wrapper">
           <span class="produit-prix" id="produit-prix"></span>
@@ -241,7 +246,7 @@
           </svg>
         </div>
         <div class="produit-accordeon-contenu">
-          <ul>
+          <ul id="desc-materiaux">
             <li>Cuir pleine fleur tannage végétal</li>
             <li>Doublure en suédine beige</li>
             <li>Fermeture éclair YKK laiton doré</li>
@@ -259,6 +264,18 @@
         </div>
         <div class="produit-accordeon-contenu" id="desc-dimensions">
           <p>Consultez la fiche technique du modèle.</p>
+        </div>
+      </div>
+
+      <div class="produit-accordeon" id="accordeon-caracteristiques" style="display:none;">
+        <div class="produit-accordeon-header js-accordeon-header">
+          Caractéristiques
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="produit-accordeon-contenu">
+          <ul id="desc-caracteristiques"></ul>
         </div>
       </div>
 
@@ -449,206 +466,280 @@
       return;
     }
 
-    /* ─── Recherche produit dans démo / Firestore ───────────── */
-    var produit = null;
-    for (var i = 0; i < PRODUITS_DEMO.length; i++) {
-      if (PRODUITS_DEMO[i].id === productId) {
-        produit = PRODUITS_DEMO[i];
-        break;
-      }
-    }
-
-    if (!produit) {
-      document.getElementById('produit-nom').textContent = 'Produit non trouvé';
-      return;
-    }
-
-    /* ─── Remplir la page ────────────────────────────────────── */
+    /* ─── Recherche produit dans Firestore, puis démo ───────── */
     var nomsCat = { backpacks: 'Backpacks', hommes: 'Hommes', femmes: 'Femmes' };
 
-    // Fil d'ariane
-    document.getElementById('cat-nom').textContent = nomsCat[produit.category] || produit.category;
-    document.getElementById('sous-categorie').textContent = nomsCat[produit.category] || produit.category;
-    document.getElementById('produit-nom').textContent = produit.name;
-
-    // Prix
-    document.getElementById('produit-prix').textContent = formaterPrix(produit.price);
-    document.getElementById('btn-prix').textContent = formaterPrix(produit.price);
-    if (produit.comparePrice) {
-      document.getElementById('produit-prix-ancien').textContent = formaterPrix(produit.comparePrice);
-      var economie = produit.comparePrice - produit.price;
-      document.getElementById('produit-economie').textContent = '(Économisez ' + formaterPrix(economie) + ')';
+    function chercherDansDemo(id) {
+      for (var i = 0; i < PRODUITS_DEMO.length; i++) {
+        if (PRODUITS_DEMO[i].id === id) return PRODUITS_DEMO[i];
+      }
+      return null;
     }
 
-    // Badge stock
-    if (produit.stock < 5) {
-      document.getElementById('stock-badge').style.display = 'inline-flex';
-      document.getElementById('stock-compte').textContent = produit.stock;
-    }
+    function afficherProduit(produit) {
+      if (!produit) {
+        document.getElementById('produit-nom').textContent = 'Produit non trouvé';
+        return;
+      }
 
-    // Galerie image
-    var imgEl = document.getElementById('img-principale-el');
-    imgEl.src = produit.images[0];
-    imgEl.alt = produit.name;
+      // Fil d'ariane
+      document.getElementById('cat-nom').textContent = nomsCat[produit.category] || produit.category;
+      document.getElementById('sous-categorie').textContent = nomsCat[produit.category] || produit.category;
+      document.getElementById('produit-nom').textContent = produit.name;
 
-    // Miniatures
-    var miniContainer = document.getElementById('miniatures');
-    miniContainer.innerHTML = '';
-    produit.images.forEach(function(src, idx) {
-      var img = document.createElement('img');
-      img.className = 'produit-miniature' + (idx === 0 ? ' active' : '');
-      img.src = src;
-      img.alt = 'Vue ' + (idx + 1);
-      img.addEventListener('click', function() {
-        document.getElementById('img-principale-el').src = src;
-        document.querySelectorAll('.produit-miniature').forEach(function(m) { m.classList.remove('active'); });
-        img.classList.add('active');
+      // Prix
+      document.getElementById('produit-prix').textContent = formaterPrix(produit.price);
+      document.getElementById('btn-prix').textContent = formaterPrix(produit.price);
+      if (produit.comparePrice) {
+        document.getElementById('produit-prix-ancien').textContent = formaterPrix(produit.comparePrice);
+        var economie = produit.comparePrice - produit.price;
+        document.getElementById('produit-economie').textContent = '(Économisez ' + formaterPrix(economie) + ')';
+      }
+
+      // Badges (nouveau, best-seller, promo)
+      var badgesHtml = '';
+      if (produit.isNew) badgesHtml += '<span class="carte-produit-badge" style="margin-right:6px;">Nouveau</span>';
+      if (produit.isBestseller) badgesHtml += '<span class="carte-produit-badge bestseller" style="margin-right:6px;">Best-seller</span>';
+      if (produit.isOnSale) badgesHtml += '<span class="carte-produit-badge" style="background:#e74c3c;color:#fff;">Promotion</span>';
+      document.getElementById('produit-badges').innerHTML = badgesHtml;
+
+      // Collection
+      var collEl = document.getElementById('produit-collection');
+      if (produit.collection) {
+        collEl.textContent = 'Collection ' + produit.collection.charAt(0).toUpperCase() + produit.collection.slice(1);
+        collEl.style.display = 'block';
+      } else {
+        collEl.style.display = 'none';
+      }
+
+      // Badge stock
+      if (produit.stock < 5) {
+        document.getElementById('stock-badge').style.display = 'inline-flex';
+        document.getElementById('stock-compte').textContent = produit.stock;
+      }
+
+      // Galerie image
+      var imgEl = document.getElementById('img-principale-el');
+      imgEl.src = produit.images[0];
+      imgEl.alt = produit.name;
+
+      // Miniatures
+      var miniContainer = document.getElementById('miniatures');
+      miniContainer.innerHTML = '';
+      produit.images.forEach(function(src, idx) {
+        var img = document.createElement('img');
+        img.className = 'produit-miniature' + (idx === 0 ? ' active' : '');
+        img.src = src;
+        img.alt = 'Vue ' + (idx + 1);
+        img.addEventListener('click', function() {
+          document.getElementById('img-principale-el').src = src;
+          document.querySelectorAll('.produit-miniature').forEach(function(m) { m.classList.remove('active'); });
+          img.classList.add('active');
+        });
+        miniContainer.appendChild(img);
       });
-      miniContainer.appendChild(img);
-    });
 
-    // Couleurs
-    var couleursContainer = document.getElementById('selecteur-couleurs');
-    couleursContainer.innerHTML = '';
-    var paletteCouleurs = {
-      'Sable': '#D4C5B5', 'Noir': '#1C1C1C', 'Chocolat': '#5C3D2E',
-      'Écru': '#F5EFE6', 'Brun': '#8B6F52'
-    };
-    produit.colors.forEach(function(c) {
-      var btn = document.createElement('button');
-      btn.className = 'produit-couleur' + (c === produit.colors[0] ? ' active' : '');
-      btn.style.background = paletteCouleurs[c] || '#ccc';
-      btn.title = c;
-      btn.dataset.couleur = c;
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.produit-couleur').forEach(function(b) { b.classList.remove('active'); });
-        this.classList.add('active');
-        document.getElementById('couleur-choisie').textContent = c;
-      });
-      couleursContainer.appendChild(btn);
-    });
-    document.getElementById('couleur-choisie').textContent = produit.colors[0];
-
-    // Description
-    document.getElementById('desc-texte').textContent = produit.description;
-
-    // Dimensions
-    document.getElementById('desc-dimensions').innerHTML = '<p>Consultez la fiche technique du modèle ' + produit.name + '.</p>';
-
-    // Title tag + SEO
-    document.title = produit.name + ' — ZANKA | Sacs de Luxe Artisanaux';
-    document.querySelector('meta[property="og:title"]').content = produit.name + ' — ZANKA';
-
-    // JSON-LD Product
-    var jsonld = {
-      '@context': 'https://schema.org',
-      '@type': 'Product',
-      'name': produit.name,
-      'description': produit.description,
-      'brand': { '@type': 'Brand', 'name': 'ZANKA' },
-      'offers': {
-        '@type': 'Offer',
-        'price': produit.price,
-        'priceCurrency': 'EUR',
-        'availability': produit.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-        'url': window.location.href
-      },
-      'image': produit.images[0]
-    };
-    if (produit.comparePrice) {
-      jsonld.offers.priceSpecification = {
-        '@type': 'PriceSpecification',
-        'price': produit.comparePrice,
-        'priceCurrency': 'EUR',
-        'priceType': 'https://schema.org/ListPrice'
+      // Couleurs
+      var couleursContainer = document.getElementById('selecteur-couleurs');
+      couleursContainer.innerHTML = '';
+      var paletteCouleurs = {
+        'Sable': '#D4C5B5', 'Noir': '#1C1C1C', 'Chocolat': '#5C3D2E',
+        'Écru': '#F5EFE6', 'Brun': '#8B6F52'
       };
-    }
-    document.getElementById('jsonld-produit').textContent = JSON.stringify(jsonld);
+      produit.colors.forEach(function(c) {
+        var btn = document.createElement('button');
+        btn.className = 'produit-couleur' + (c === produit.colors[0] ? ' active' : '');
+        btn.style.background = paletteCouleurs[c] || '#ccc';
+        btn.title = c;
+        btn.dataset.couleur = c;
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.produit-couleur').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          document.getElementById('couleur-choisie').textContent = c;
+        });
+        couleursContainer.appendChild(btn);
+      });
+      document.getElementById('couleur-choisie').textContent = produit.colors[0];
 
-    // Sticky bar
-    document.getElementById('sticky-img').src = produit.images[0];
-    document.getElementById('sticky-nom').textContent = produit.name;
-    document.getElementById('sticky-prix').textContent = formaterPrix(produit.price);
-    stickyCta = document.getElementById('sticky-cta');
+      // Description
+      document.getElementById('desc-texte').textContent = produit.description;
 
-    // Sticky bar apparition au scroll
-    var sticky = document.getElementById('sticky-bar');
-    var produitLayout = document.querySelector('.produit-layout');
-    if (produitLayout) {
-      window.addEventListener('scroll', function() {
-        var rect = produitLayout.getBoundingClientRect();
-        if (rect.bottom < window.innerHeight) {
-          sticky.classList.add('visible');
-        } else {
-          sticky.classList.remove('visible');
+      // Matériaux (dynamique)
+      var matEl = document.getElementById('desc-materiaux');
+      if (produit.materials && produit.materials.length > 0) {
+        matEl.innerHTML = '';
+        produit.materials.forEach(function(m) {
+          var li = document.createElement('li');
+          li.textContent = m;
+          matEl.appendChild(li);
+        });
+      }
+
+      // Dimensions
+      var dims = produit.dimensions;
+      var dimHtml = '';
+      if (dims && (dims.height || dims.width || dims.depth)) {
+        dimHtml = '<ul>';
+        if (dims.height) dimHtml += '<li>Hauteur : ' + dims.height + ' cm</li>';
+        if (dims.width) dimHtml += '<li>Largeur : ' + dims.width + ' cm</li>';
+        if (dims.depth) dimHtml += '<li>Profondeur : ' + dims.depth + ' cm</li>';
+        if (produit.weight) dimHtml += '<li>Poids : ' + (produit.weight >= 1000 ? (produit.weight / 1000) + ' kg' : produit.weight + ' g') + '</li>';
+        dimHtml += '</ul>';
+      } else {
+        dimHtml = '<p>Consultez la fiche technique du modèle ' + produit.name + '.</p>';
+      }
+      document.getElementById('desc-dimensions').innerHTML = dimHtml;
+
+      // Caractéristiques
+      var caracEl = document.getElementById('accordeon-caracteristiques');
+      var caracList = document.getElementById('desc-caracteristiques');
+      if (produit.features && produit.features.length > 0) {
+        caracEl.style.display = 'block';
+        caracList.innerHTML = '';
+        produit.features.forEach(function(f) {
+          var li = document.createElement('li');
+          li.textContent = f;
+          caracList.appendChild(li);
+        });
+      } else {
+        caracEl.style.display = 'none';
+      }
+
+      // Title tag + SEO
+      var seoTitre = (produit.seo && produit.seo.title) || (produit.name + ' — ZANKA | Sacs de Luxe Artisanaux');
+      var seoDesc = (produit.seo && produit.seo.description) || produit.shortDescription || 'Découvrez ' + produit.name + ' : cuir pleine fleur, fait main en France.';
+      document.title = seoTitre;
+      document.querySelector('meta[name="description"]').content = seoDesc;
+      document.querySelector('meta[property="og:title"]').content = produit.name + ' — ZANKA';
+      document.querySelector('meta[property="og:description"]').content = seoDesc;
+
+      // JSON-LD Product
+      var jsonld = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': produit.name,
+        'description': produit.description,
+        'brand': { '@type': 'Brand', 'name': 'ZANKA' },
+        'offers': {
+          '@type': 'Offer',
+          'price': produit.price,
+          'priceCurrency': 'EUR',
+          'availability': produit.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+          'url': window.location.href
+        },
+        'image': produit.images[0]
+      };
+      if (produit.comparePrice) {
+        jsonld.offers.priceSpecification = {
+          '@type': 'PriceSpecification',
+          'price': produit.comparePrice,
+          'priceCurrency': 'EUR',
+          'priceType': 'https://schema.org/ListPrice'
+        };
+      }
+      document.getElementById('jsonld-produit').textContent = JSON.stringify(jsonld);
+
+      // Sticky bar
+      document.getElementById('sticky-img').src = produit.images[0];
+      document.getElementById('sticky-nom').textContent = produit.name;
+      document.getElementById('sticky-prix').textContent = formaterPrix(produit.price);
+      stickyCta = document.getElementById('sticky-cta');
+
+      // Sticky bar apparition au scroll
+      var sticky = document.getElementById('sticky-bar');
+      var produitLayout = document.querySelector('.produit-layout');
+      if (produitLayout) {
+        window.addEventListener('scroll', function() {
+          var rect = produitLayout.getBoundingClientRect();
+          if (rect.bottom < window.innerHeight) {
+            sticky.classList.add('visible');
+          } else {
+            sticky.classList.remove('visible');
+          }
+        }, { passive: true });
+      }
+
+      // Social proof — stock limité
+      if (produit.stock < 10) {
+        document.getElementById('social-stock').style.display = 'inline';
+      }
+
+      /* ─── Accordéons ─────────────────────────────────────────── */
+      document.querySelectorAll('.js-accordeon-header').forEach(function(h) {
+        h.addEventListener('click', function() {
+          var parent = this.parentElement;
+          parent.classList.toggle('ouvert');
+        });
+      });
+
+      /* ─── Zoom loupe ─────────────────────────────────────────── */
+      var imgPrincipale = document.getElementById('img-principale');
+      var loupe = document.getElementById('zoom-loupe');
+      var imgEl2 = document.getElementById('img-principale-el');
+
+      if (imgPrincipale && loupe) {
+        imgPrincipale.addEventListener('mousemove', function(e) {
+          var rect = this.getBoundingClientRect();
+          var x = ((e.clientX - rect.left) / rect.width) * 100;
+          var y = ((e.clientY - rect.top) / rect.height) * 100;
+          loupe.style.left = (e.clientX - rect.left - 75) + 'px';
+          loupe.style.top = (e.clientY - rect.top - 75) + 'px';
+          loupe.style.backgroundImage = 'url(' + imgEl2.src + ')';
+          loupe.style.backgroundSize = rect.width * 1.8 + 'px ' + rect.height * 1.8 + 'px';
+          loupe.style.backgroundPosition = x + '% ' + y + '%';
+          loupe.classList.add('visible');
+          this.classList.add('zoom');
+        });
+        imgPrincipale.addEventListener('mouseleave', function() {
+          loupe.classList.remove('visible');
+          this.classList.remove('zoom');
+        });
+      }
+
+      /* ─── Similaires (même catégorie, exclure ce produit) ────── */
+      var similaires = [];
+      for (var j = 0; j < PRODUITS_DEMO.length; j++) {
+        if (PRODUITS_DEMO[j].id !== productId && PRODUITS_DEMO[j].category === produit.category) {
+          similaires.push(PRODUITS_DEMO[j]);
         }
-      }, { passive: true });
-    }
+      }
 
-    // Social proof — stock limité
-    if (produit.stock < 10) {
-      document.getElementById('social-stock').style.display = 'inline';
-    }
-
-    /* ─── Accordéons ─────────────────────────────────────────── */
-    document.querySelectorAll('.js-accordeon-header').forEach(function(h) {
-      h.addEventListener('click', function() {
-        var parent = this.parentElement;
-        parent.classList.toggle('ouvert');
-      });
-    });
-
-    /* ─── Zoom loupe ─────────────────────────────────────────── */
-    var imgPrincipale = document.getElementById('img-principale');
-    var loupe = document.getElementById('zoom-loupe');
-    var imgEl2 = document.getElementById('img-principale-el');
-
-    if (imgPrincipale && loupe) {
-      imgPrincipale.addEventListener('mousemove', function(e) {
-        var rect = this.getBoundingClientRect();
-        var x = ((e.clientX - rect.left) / rect.width) * 100;
-        var y = ((e.clientY - rect.top) / rect.height) * 100;
-        loupe.style.left = (e.clientX - rect.left - 75) + 'px';
-        loupe.style.top = (e.clientY - rect.top - 75) + 'px';
-        loupe.style.backgroundImage = 'url(' + imgEl2.src + ')';
-        loupe.style.backgroundSize = rect.width * 1.8 + 'px ' + rect.height * 1.8 + 'px';
-        loupe.style.backgroundPosition = x + '% ' + y + '%';
-        loupe.classList.add('visible');
-        this.classList.add('zoom');
-      });
-      imgPrincipale.addEventListener('mouseleave', function() {
-        loupe.classList.remove('visible');
-        this.classList.remove('zoom');
+      var simGrille = document.getElementById('similaires-grille');
+      simGrille.innerHTML = '';
+      similaires.slice(0, 4).forEach(function(p) {
+        var article = document.createElement('article');
+        article.className = 'carte-produit';
+        var badgeHtml = '';
+        if (p.isNew) badgeHtml = '<span class="carte-produit-badge">Nouveau</span>';
+        else if (p.isBestseller) badgeHtml = '<span class="carte-produit-badge bestseller">Best-seller</span>';
+        article.innerHTML =
+          '<a href="product.html?id=' + p.id + '">' +
+            '<div class="carte-produit-image">' +
+              '<img src="' + p.images[0] + '" alt="' + p.name + '" loading="lazy">' +
+              badgeHtml +
+            '</div>' +
+            '<h3 class="carte-produit-nom">' + p.name + '</h3>' +
+            '<p class="carte-produit-categorie">' + (nomsCat[p.category] || p.category) + '</p>' +
+            '<span class="carte-produit-prix">' + formaterPrix(p.price) + '</span>' +
+          '</a>';
+        simGrille.appendChild(article);
       });
     }
 
-    /* ─── Similaires (même catégorie, exclure ce produit) ────── */
-    var similaires = [];
-    for (var j = 0; j < PRODUITS_DEMO.length; j++) {
-      if (PRODUITS_DEMO[j].id !== productId && PRODUITS_DEMO[j].category === produit.category) {
-        similaires.push(PRODUITS_DEMO[j]);
+    function chargerProduitFirestore(id, callback) {
+      if (typeof window.db !== 'undefined' && window.db) {
+        window.db.collection('products').doc(id).get()
+          .then(function(doc) {
+            callback(doc.exists ? doc.data() : null);
+          })
+          .catch(function() { callback(null); });
+      } else {
+        callback(null);
       }
     }
 
-    var simGrille = document.getElementById('similaires-grille');
-    simGrille.innerHTML = '';
-    similaires.slice(0, 4).forEach(function(p) {
-      var article = document.createElement('article');
-      article.className = 'carte-produit';
-      var badgeHtml = '';
-      if (p.isNew) badgeHtml = '<span class="carte-produit-badge">Nouveau</span>';
-      else if (p.isBestseller) badgeHtml = '<span class="carte-produit-badge bestseller">Best-seller</span>';
-      article.innerHTML =
-        '<a href="product.html?id=' + p.id + '">' +
-          '<div class="carte-produit-image">' +
-            '<img src="' + p.images[0] + '" alt="' + p.name + '" loading="lazy">' +
-            badgeHtml +
-          '</div>' +
-          '<h3 class="carte-produit-nom">' + p.name + '</h3>' +
-          '<p class="carte-produit-categorie">' + (nomsCat[p.category] || p.category) + '</p>' +
-          '<span class="carte-produit-prix">' + formaterPrix(p.price) + '</span>' +
-        '</a>';
-      simGrille.appendChild(article);
+    chargerProduitFirestore(productId, function(p) {
+      afficherProduit(p || chercherDansDemo(productId));
     });
 
   })();
