@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — ZANKA Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-header">
+      <h1>ZANKA</h1>
+      <span>Administration</span>
+    </div>
+    <nav class="admin-sidebar-nav">
+      <a href="index.html" class="admin-nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Tableau de bord
+      </a>
+      <a href="orders.html" class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Commandes
+      </a>
+      <a href="products.html" class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        Produits
+      </a>
+      <a href="users.html" class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Utilisateurs
+      </a>
+      <a href="coupons.html" class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20 12H4"/><path d="M12 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg>
+        Codes Promo
+      </a>
+      <a href="newsletter.html" class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Newsletter
+      </a>
+      <a href="settings.html" class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Paramètres
+      </a>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <a href="../index.html" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Voir le site
+      </a>
+    </div>
+  </aside>
+  <div class="admin-main">
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <button class="admin-hamburger" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <h2>Tableau de bord</h2>
+      </div>
+      <div class="admin-header-right">
+        <span class="admin-user" id="admin-user-name"></span>
+        <a href="#" id="admin-logout-btn" class="btn-admin btn-admin-secondary btn-admin-sm" style="text-decoration:none;">Déconnexion</a>
+      </div>
+    </header>
+    <div class="admin-content">
+      <div class="stat-cards" id="stat-cards">
+        <div class="stat-card"><h3>Chiffre d'affaires (mois)</h3><div class="stat-value" id="stat-ca">—</div></div>
+        <div class="stat-card"><h3>Commandes (mois)</h3><div class="stat-value" id="stat-commandes">—</div></div>
+        <div class="stat-card"><h3>Produits en stock</h3><div class="stat-value" id="stat-stock">—</div></div>
+        <div class="stat-card"><h3>Clients inscrits</h3><div class="stat-value" id="stat-clients">—</div></div>
+      </div>
+      <div class="admin-grid-2">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Dernières commandes</h3>
+            <a href="orders.html" class="btn-admin btn-admin-secondary btn-admin-sm">Voir tout</a>
+          </div>
+          <div class="admin-card-body" id="recent-orders" style="padding:0 24px;">
+            <div class="admin-empty"><p>Aucune commande.</p></div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Activité récente</h3>
+          </div>
+          <div class="admin-card-body" id="recent-activity" style="padding:0 24px;">
+            <div class="admin-empty"><p>Aucune activité.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/admin.js"></script>
+  <script>
+    adminAuthCheck();
+    initAdminLayout();
+    var COMMANDES_DEMO = [
+      { orderId: "ZANKA-2026-0001", userId: "demo@zanka.fr", items: [{ name: "Sac à Dos Zephyr", price: 850, quantite: 1 }, { name: "Sacoche Berlinois", price: 450, quantite: 2 }], total: 2100, status: "delivered", createdAt: "2026-05-10T09:00:00Z" },
+      { orderId: "ZANKA-2026-0002", userId: "client@exemple.fr", items: [{ name: "Sac Cabas Aria", price: 1450, quantite: 1 }], total: 1573.08, status: "shipped", createdAt: "2026-05-28T11:00:00Z" },
+      { orderId: "ZANKA-2026-0003", userId: "marie@exemple.fr", items: [{ name: "Sac à Main Lune", price: 1280, quantite: 1 }], total: 1543.08, status: "pending", createdAt: "2026-06-03T15:00:00Z" },
+      { orderId: "ZANKA-2026-0004", userId: "paul@exemple.fr", items: [{ name: "Sac à Dos Voyageur", price: 1200, quantite: 1 }], total: 1200, status: "confirmed", createdAt: "2026-06-04T09:30:00Z" },
+      { orderId: "ZANKA-2026-0005", userId: "sophie@exemple.fr", items: [{ name: "Sac Bandoulière Nova", price: 890, quantite: 2 }], total: 1780, status: "preparing", createdAt: "2026-06-04T14:00:00Z" }
+    ];
+    var CA_MENSUEL = 0;
+    var COMMANDES_MOIS = 0;
+    var MOIS_ACTUEL = new Date().getMonth();
+    COMMANDES_DEMO.forEach(function(c) {
+      var d = new Date(c.createdAt);
+      if (d.getMonth() === MOIS_ACTUEL) {
+        CA_MENSUEL += c.total;
+        COMMANDES_MOIS++;
+      }
+    });
+    document.getElementById('stat-ca').textContent = formatPrix(CA_MENSUEL);
+    document.getElementById('stat-commandes').textContent = COMMANDES_MOIS;
+    document.getElementById('stat-stock').textContent = '47';
+    document.getElementById('stat-clients').textContent = '128';
+    var recentEl = document.getElementById('recent-orders');
+    recentEl.innerHTML = '';
+    COMMANDES_DEMO.slice(0, 5).forEach(function(c) {
+      var statusC = statusColor(c.status);
+      recentEl.innerHTML += '<div class="recent-order-item">' +
+        '<div class="recent-order-info">' +
+          '<span class="recent-order-id">' + c.orderId + '</span>' +
+          '<span class="recent-order-client">' + c.userId + ' · ' + formatDateShort(c.createdAt) + '</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:12px;">' +
+          statusBadge(c.status) +
+          '<span class="recent-order-total">' + formatPrix(c.total) + '</span>' +
+        '</div>' +
+      '</div>';
+    });
+    var activityEl = document.getElementById('recent-activity');
+    activityEl.innerHTML = '';
+    var activites = [
+      { texte: 'Nouvelle commande #ZANKA-2026-0005', date: 'Il y a 2 heures', icone: '🛒' },
+      { texte: 'Paiement confirmé #ZANKA-2026-0004', date: 'Il y a 5 heures', icone: '💳' },
+      { texte: 'Produit "Sac à Dos Voyageur" modifié', date: 'Hier', icone: '📦' },
+      { texte: 'Nouvel inscrit : sophie@exemple.fr', date: 'Hier', icone: '👤' },
+      { texte: 'Code promo ZANKA20 créé', date: 'Il y a 2 jours', icone: '🏷️' }
+    ];
+    activites.forEach(function(a) {
+      activityEl.innerHTML += '<div class="recent-order-item">' +
+        '<div class="recent-order-info">' +
+          '<span class="recent-order-id">' + a.icone + ' ' + a.texte + '</span>' +
+          '<span class="recent-order-client">' + a.date + '</span>' +
+        '</div>' +
+      '</div>';
+    });
+  </script>
+</body>
+</html>

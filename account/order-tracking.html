@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suivi de Commande — ZANKA</title>
+  <meta name="description" content="Suivez votre commande ZANKA en temps réel.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/account/order-tracking.html">
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    .tracking-page { padding: calc(var(--header-hauteur) + var(--space-xl)) 0 var(--space-2xl); }
+
+    .tracking-header {
+      text-align: center; margin-bottom: var(--space-2xl);
+    }
+
+    .tracking-numero {
+      font-family: var(--font-titres);
+      font-size: 1.8rem;
+      font-weight: var(--semibold);
+    }
+
+    .tracking-date {
+      font-size: var(--texte-sm);
+      color: var(--brun-chaud);
+    }
+
+    .tracking-header-statut {
+      margin-top: var(--space-xs);
+    }
+
+    /* ─── Timeline ──────────────────────── */
+    .tracking-timeline {
+      max-width: 600px;
+      margin: 0 auto var(--space-2xl);
+      padding: var(--space-lg);
+      border: var(--bordure-fine);
+    }
+
+    .tracking-etape {
+      display: flex;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      position: relative;
+    }
+
+    .tracking-etape:last-child { margin-bottom: 0; }
+
+    .tracking-point {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 32px;
+    }
+
+    .tracking-cercle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--ecru);
+      background: var(--blanc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .tracking-cercle.faite {
+      background: var(--noir-doux);
+      border-color: var(--noir-doux);
+    }
+
+    .tracking-cercle.active {
+      border-color: #C9A96E;
+      box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2);
+      animation: pulse-cercle 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-cercle {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2); }
+      50% { box-shadow: 0 0 0 8px rgba(201, 169, 110, 0.1); }
+    }
+
+    .tracking-cercle.annule {
+      background: #c62828;
+      border-color: #c62828;
+    }
+
+    .tracking-ligne {
+      width: 2px;
+      flex: 1;
+      background: var(--ecru);
+      min-height: 30px;
+    }
+
+    .tracking-ligne.faite {
+      background: var(--noir-doux);
+    }
+
+    .tracking-contenu {
+      padding-bottom: var(--space-md);
+    }
+
+    .tracking-libelle {
+      font-weight: var(--medium);
+      font-size: var(--texte-sm);
+    }
+
+    .tracking-desc {
+      font-size: var(--texte-xs);
+      color: var(--brun-chaud);
+      margin-top: 2px;
+    }
+
+    .tracking-date {
+      font-size: var(--texte-xs);
+      color: var(--brun-chaud);
+      margin-top: 2px;
+    }
+
+    /* ─── Infos ─────────────────────────── */
+    .tracking-infos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      max-width: 600px;
+      margin: 0 auto var(--space-2xl);
+    }
+
+    .tracking-info-card {
+      padding: var(--space-md);
+      border: var(--bordure-fine);
+    }
+
+    .tracking-info-titre {
+      font-size: var(--texte-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brun-chaud);
+      margin-bottom: var(--space-2xs);
+    }
+
+    .tracking-info-valeur {
+      font-size: var(--texte-sm);
+    }
+
+    .tracking-info-valeur a {
+      color: var(--noir-doux);
+      text-decoration: underline;
+    }
+
+    /* ─── Articles ──────────────────────── */
+    .tracking-articles {
+      max-width: 600px;
+      margin: 0 auto var(--space-2xl);
+      padding: var(--space-md);
+      border: var(--bordure-fine);
+    }
+
+    .tracking-articles-titre {
+      font-family: var(--font-titres);
+      font-size: var(--texte-base);
+      margin-bottom: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--bordure-fine);
+    }
+
+    /* ─── Accès public (sans connexion) ─── */
+    .tracking-public {
+      max-width: 400px;
+      margin: 0 auto var(--space-xl);
+      padding: var(--space-lg);
+      border: var(--bordure-fine);
+    }
+
+    .tracking-public h2 {
+      font-family: var(--font-titres);
+      font-size: var(--texte-lg);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .tracking-public input {
+      width: 100%;
+      padding: var(--space-xs);
+      border: 1px solid var(--ecru);
+      margin-bottom: var(--space-sm);
+      font-size: var(--texte-sm);
+    }
+
+    .tracking-public button {
+      width: 100%;
+    }
+
+    @media (max-width: 767px) {
+      .tracking-infos { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="../index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="../shop.html" class="header-lien">Backpacks</a>
+        <a href="../shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="../shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="../pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="../pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="../cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="conteneur tracking-page">
+
+    <!-- Vue si utilisateur connecté (depuis dashboard) -->
+    <div id="tracking-connecte">
+
+      <div class="tracking-header">
+        <div class="tracking-numero" id="tracking-numero">—</div>
+        <div class="tracking-date" id="tracking-date">—</div>
+        <div class="tracking-header-statut" id="tracking-statut"></div>
+      </div>
+
+      <div class="tracking-timeline" id="tracking-timeline">
+        <!-- Injecté par JS -->
+      </div>
+
+      <div class="tracking-infos">
+        <div class="tracking-info-card">
+          <div class="tracking-info-titre">Adresse de livraison</div>
+          <div class="tracking-info-valeur" id="tracking-adresse">—</div>
+        </div>
+        <div class="tracking-info-card">
+          <div class="tracking-info-titre">Livraison estimée</div>
+          <div class="tracking-info-valeur" id="tracking-estimee">—</div>
+        </div>
+        <div class="tracking-info-card" id="tracking-transporteur" style="display:none;">
+          <div class="tracking-info-titre">Transporteur</div>
+          <div class="tracking-info-valeur">
+            <span id="tracking-carrier"></span> — <span id="tracking-numero-suivi"></span><br>
+            <a href="#" id="tracking-lien" target="_blank">Suivre sur le site du transporteur →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tracking-articles">
+        <div class="tracking-articles-titre">Articles dans cette commande</div>
+        <div id="tracking-articles"></div>
+      </div>
+    </div>
+
+    <!-- Vue publique (sans connexion) -->
+    <div id="tracking-public" style="display:none;">
+      <div class="tracking-public">
+        <h2>Suivre ma commande</h2>
+        <input type="text" id="public-order-id" placeholder="Numéro de commande (ex: ZANKA-2026-0001)">
+        <input type="email" id="public-email" placeholder="E-mail utilisé à la commande">
+        <button class="btn btn-primaire" id="public-btn">Suivre</button>
+        <p id="public-error" style="font-size:var(--texte-xs);color:#c62828;margin-top:var(--space-xs);display:none;"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="../shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="../shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="../shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="../shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li><a href="../pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/firebase-config.js" defer></script>
+  <script src="../js/tracking.js" defer></script>
+
+  <script defer>
+  (function() {
+    var header = document.querySelector('.header');
+    if (header) {
+      function toggleHeader() { header.classList.toggle('header-scrolle', window.scrollY > 60); }
+      toggleHeader();
+      window.addEventListener('scroll', toggleHeader, { passive: true });
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var orderId = params.get('id');
+
+    var connecte = document.getElementById('tracking-connecte');
+    var publique = document.getElementById('tracking-public');
+
+    if (orderId) {
+      // Mode connecté : on charge la commande via orders.js
+      connecte.style.display = 'block';
+      publique.style.display = 'none';
+
+      // On charge orders.js s'il n'est pas déjà chargé
+      var script = document.createElement('script');
+      script.src = '../js/orders.js';
+      script.onload = function() {
+        chargerCommande(orderId, function(commande) {
+          if (commande) {
+            initialiserTracking(commande);
+          } else {
+            document.querySelector('.tracking-header .tracking-numero').textContent = 'Commande introuvable';
+          }
+        });
+      };
+      document.body.appendChild(script);
+    } else {
+      // Mode public
+      connecte.style.display = 'none';
+      publique.style.display = 'block';
+    }
+
+    // Bouton de suivi public
+    var publicBtn = document.getElementById('public-btn');
+    if (publicBtn) {
+      publicBtn.addEventListener('click', function() {
+        var id = document.getElementById('public-order-id').value.trim();
+        var email = document.getElementById('public-email').value.trim();
+        var error = document.getElementById('public-error');
+
+        if (!id || !email) {
+          error.textContent = 'Veuillez remplir tous les champs.';
+          error.style.display = 'block';
+          return;
+        }
+
+        // Redirection vers la même page avec l'ID
+        window.location.href = 'order-tracking.html?id=' + encodeURIComponent(id);
+      });
+    }
+
+  })();
+  </script>
+
+</body>
+</html>

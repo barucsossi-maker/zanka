@@ -1,0 +1,458 @@
+/* =============================================================
+ * HOME.CSS — Styles spécifiques à la page d'accueil ZANKA
+ * ============================================================= */
+
+/* ═══════════════════════════════════════════════════════════════
+ * 1. HERO — Plein écran, image de fond, texte visible SANS JS
+ * ═══════════════════════════════════════════════════════════════
+ * Le texte est visible IMMÉDIATEMENT (pas d'opacity:0).
+ * GSAP ne fait qu'ENRICHIR l'expérience, pas la créer.
+ * ============================================================= */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  max-height: 1080px;
+  overflow: hidden;
+  background: var(--noir-doux);
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+.hero-contenu {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--blanc);
+  padding: 0 var(--space-lg);
+  padding-top: var(--header-hauteur);
+}
+
+.hero-sous-titre {
+  font-family: var(--font-corps);
+  font-size: var(--texte-sm);
+  font-weight: var(--light);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+  color: var(--or-mat);
+}
+
+.hero-titre {
+  font-family: var(--font-titres);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: var(--semibold);
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+  color: var(--blanc);
+}
+
+.hero-accroche {
+  font-family: var(--font-corps);
+  font-size: var(--texte-base);
+  font-weight: var(--light);
+  max-width: 480px;
+  margin-bottom: var(--space-xl);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hero-scroll-indicator span {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.5); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 2. BANNE DÉFILANTE — Infos livraison
+ * ═══════════════════════════════════════════════════════════════ */
+
+.bande-defilante {
+  background: var(--noir-doux);
+  color: var(--blanc);
+  padding: var(--space-xs) 0;
+  overflow: hidden;
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.bande-defilante-contenu {
+  display: inline-flex;
+  gap: var(--space-2xl);
+  animation: defile 25s linear infinite;
+}
+
+.bande-defilante-contenu span {
+  opacity: 0.6;
+}
+
+@keyframes defile {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 3. CATÉGORIES — Layout asymétrique
+ * ═══════════════════════════════════════════════════════════════ */
+
+.categories {
+  padding: var(--space-3xl) 0;
+  background: var(--blanc-casse);
+}
+
+.categories-asym {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-lg);
+}
+
+.categories-asym-droite {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.categorie-grande,
+.categorie-petite {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.categorie-grande {
+  aspect-ratio: 3 / 4;
+}
+
+.categorie-petite {
+  aspect-ratio: 3 / 2;
+}
+
+.categorie-grande img,
+.categorie-petite img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.categorie-grande:hover img,
+.categorie-petite:hover img {
+  transform: scale(1.06);
+}
+
+.categorie-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-xl);
+}
+
+.categorie-nom {
+  font-family: var(--font-titres);
+  font-size: var(--texte-xl);
+  font-weight: var(--semibold);
+  color: var(--blanc);
+  margin-bottom: var(--space-3xs);
+}
+
+.categorie-compte {
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 4. BESTSELLERS — Grille 4 colonnes
+ * ═══════════════════════════════════════════════════════════════ */
+
+.bestsellers {
+  padding: var(--space-3xl) 0;
+  background: var(--blanc);
+}
+
+.bestsellers-grille {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 5. HISTOIRE — Split screen storytelling
+ * ═══════════════════════════════════════════════════════════════ */
+
+.histoire {
+  padding: var(--space-4xl) 0;
+  background: var(--beige-sable);
+}
+
+.histoire-grille {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.histoire-image {
+  overflow: hidden;
+}
+
+.histoire-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.histoire-contenu {
+  padding: var(--space-md) 0;
+}
+
+.histoire-badge {
+  display: inline-block;
+  font-family: var(--font-corps);
+  font-size: 11px;
+  font-weight: var(--medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--space-3xs) var(--space-xs);
+  background: var(--ecru);
+  color: var(--brun-chaud);
+  margin-bottom: var(--space-md);
+}
+
+.histoire-titre {
+  font-family: var(--font-titres);
+  font-size: var(--texte-3xl);
+  font-weight: var(--semibold);
+  color: var(--noir-doux);
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+}
+
+.histoire-texte {
+  font-family: var(--font-corps);
+  font-size: var(--texte-base);
+  color: var(--brun-chaud);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+  max-width: 480px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 6. NEWSLETTER
+ * ═══════════════════════════════════════════════════════════════ */
+
+.newsletter {
+  padding: var(--space-4xl) 0;
+  background: var(--beige-sable);
+  text-align: center;
+}
+
+.newsletter-titre {
+  font-family: var(--font-titres);
+  font-size: var(--texte-2xl);
+  font-weight: var(--semibold);
+  color: var(--noir-doux);
+  margin-bottom: var(--space-sm);
+}
+
+.newsletter-texte {
+  font-family: var(--font-corps);
+  font-size: var(--texte-base);
+  color: var(--brun-chaud);
+  margin-bottom: var(--space-lg);
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: var(--space-xs);
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--blanc);
+  border: 1px solid var(--ecru);
+  font-family: var(--font-corps);
+  font-size: var(--texte-sm);
+}
+
+.newsletter-form input:focus {
+  border-color: var(--brun-chaud);
+  outline: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 7. CONFIANCE — Icônes valeurs
+ * ═══════════════════════════════════════════════════════════════ */
+
+.confiance {
+  padding: var(--space-3xl) 0;
+  background: var(--ecru);
+}
+
+.confiance-grille {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+.confiance-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs);
+}
+
+.confiance-icone {
+  font-size: 28px;
+  color: var(--brun-chaud);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confiance-titre {
+  font-family: var(--font-corps);
+  font-size: var(--texte-sm);
+  font-weight: var(--medium);
+  color: var(--noir-doux);
+}
+
+.confiance-texte {
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  color: var(--brun-chaud);
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * RESPONSIVE — Accueil
+ * ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1023px) {
+  .categories-asym {
+    grid-template-columns: 1fr;
+  }
+
+  .categories-asym-droite {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .categorie-grande {
+    aspect-ratio: 16 / 9;
+  }
+
+  .bestsellers-grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .histoire-grille {
+    grid-template-columns: 1fr;
+  }
+
+  .histoire-image img {
+    height: 300px;
+  }
+
+  .confiance-grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-titre {
+    font-size: 2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .categories-asym-droite {
+    grid-template-columns: 1fr;
+  }
+
+  .bestsellers-grille {
+    grid-template-columns: 1fr;
+  }
+
+  .confiance-grille {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+}

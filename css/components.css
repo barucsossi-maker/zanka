@@ -1,0 +1,320 @@
+/* =============================================================
+ * COMPONENTS.CSS — Boutons, cartes, formulaires, badges
+ * =============================================================
+ * Chaque composant est autonome : il peut être utilisé
+ * n'importe où sans dépendre du contexte.
+ * ============================================================= */
+
+/* ═══════════════════════════════════════════════════════════════
+ * 1. BOUTONS
+ * ═══════════════════════════════════════════════════════════════
+ * Le luxe se reconnaît aux détails : padding généreux,
+ * lettres espacées, transitions subtiles.
+ * ============================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  font-weight: var(--medium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-xl);
+  cursor: pointer;
+  transition: all var(--transition-moyenne);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Primaire : noir doux → standard du luxe */
+.btn-primaire {
+  background: var(--noir-doux);
+  color: var(--blanc);
+  border: 1px solid var(--noir-doux);
+}
+
+.btn-primaire:hover {
+  background: transparent;
+  color: var(--noir-doux);
+}
+
+/* Secondaire : contour fin, fond transparent */
+.btn-secondaire {
+  background: transparent;
+  color: var(--noir-doux);
+  border: 1px solid var(--noir-doux);
+}
+
+.btn-secondaire:hover {
+  background: var(--noir-doux);
+  color: var(--blanc);
+}
+
+/* Or : pour les accents luxe (upsell, premium) */
+.btn-or {
+  background: var(--or-mat);
+  color: var(--noir-doux);
+  border: 1px solid var(--or-mat);
+}
+
+.btn-or:hover {
+  background: transparent;
+  color: var(--or-mat);
+}
+
+/* Blanc : pour hero sur fond foncé */
+.btn-blanc {
+  background: var(--blanc);
+  color: var(--noir-doux);
+  border: 1px solid var(--blanc);
+}
+
+.btn-blanc:hover {
+  background: transparent;
+  color: var(--blanc);
+}
+
+/* Lien : simple texte souligné au hover */
+.btn-lien {
+  padding: 0;
+  background: none;
+  border: none;
+  letter-spacing: 0.08em;
+  color: var(--noir-doux);
+  position: relative;
+}
+
+.btn-lien::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--noir-doux);
+  transition: width var(--transition-moyenne);
+}
+
+.btn-lien:hover::after {
+  width: 100%;
+}
+
+/* Taille large : pour CTA hero */
+.btn-large {
+  padding: var(--space-md) var(--space-2xl);
+  font-size: var(--texte-sm);
+}
+
+/* État désactivé */
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 2. CARTES PRODUIT
+ * ═══════════════════════════════════════════════════════════════
+ * Carte produit : minimaliste, tout repose sur l'image.
+ * ============================================================= */
+
+.carte-produit {
+  position: relative;
+  cursor: pointer;
+}
+
+.carte-produit-image {
+  position: relative;
+  overflow: hidden;
+  background: var(--beige-sable);
+  aspect-ratio: 3 / 4;
+  margin-bottom: var(--space-sm);
+}
+
+.carte-produit-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-lente);
+}
+
+.carte-produit:hover .carte-produit-image img {
+  transform: scale(1.04);
+}
+
+.carte-produit-badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  font-weight: var(--medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: var(--space-3xs) var(--space-xs);
+  background: var(--noir-doux);
+  color: var(--blanc);
+  z-index: 2;
+}
+
+.carte-produit-badge.bestseller {
+  background: var(--or-mat);
+  color: var(--noir-doux);
+}
+
+.carte-produit-badge.promotion {
+  background: var(--erreur);
+}
+
+.carte-produit-nom {
+  font-family: var(--font-titres);
+  font-size: var(--texte-lg);
+  font-weight: var(--semibold);
+  color: var(--noir-doux);
+  margin-bottom: var(--space-3xs);
+}
+
+.carte-produit-categorie {
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  color: var(--brun-chaud);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2xs);
+}
+
+.carte-produit-prix {
+  font-family: var(--font-corps);
+  font-size: var(--texte-base);
+  font-weight: var(--medium);
+  color: var(--noir-doux);
+}
+
+.carte-produit-prix-ancien {
+  font-size: var(--texte-sm);
+  color: rgba(var(--noir-doux-rgb), 0.4);
+  text-decoration: line-through;
+  margin-left: var(--space-2xs);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 3. FORMULAIRES
+ * ═══════════════════════════════════════════════════════════════
+ * Design épuré : pas de bordures flashy, tout en finesse.
+ * ============================================================= */
+
+.input-groupe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.input-label {
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  font-weight: var(--medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--noir-doux);
+}
+
+.input-champ {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--blanc);
+  border: 1px solid rgba(var(--noir-doux-rgb), 0.12);
+  font-family: var(--font-corps);
+  font-size: var(--texte-base);
+  color: var(--noir-doux);
+  transition: border-color var(--transition-rapide);
+}
+
+.input-champ:focus {
+  border-color: var(--brun-chaud);
+  outline: none;
+}
+
+.input-champ::placeholder {
+  color: rgba(var(--noir-doux-rgb), 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 4. BADGES ET ÉTIQUETTES
+ * ═══════════════════════════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  font-family: var(--font-corps);
+  font-size: var(--texte-xs);
+  font-weight: var(--medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: var(--space-3xs) var(--space-xs);
+}
+
+.badge-noir {
+  background: var(--noir-doux);
+  color: var(--blanc);
+}
+
+.badge-or {
+  background: var(--or-mat);
+  color: var(--noir-doux);
+}
+
+.badge-beige {
+  background: var(--beige-sable);
+  color: var(--brun-chaud);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 5. NEWSLETTER
+ * ═══════════════════════════════════════════════════════════════ */
+
+.newsletter-section {
+  background: var(--beige-sable);
+  text-align: center;
+  padding: var(--space-4xl) var(--space-lg);
+}
+
+.newsletter-titre {
+  font-family: var(--font-titres);
+  font-size: var(--texte-3xl);
+  font-weight: var(--semibold);
+  color: var(--noir-doux);
+  margin-bottom: var(--space-sm);
+}
+
+.newsletter-texte {
+  font-family: var(--font-corps);
+  font-size: var(--texte-base);
+  color: var(--brun-chaud);
+  margin-bottom: var(--space-lg);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: var(--space-xs);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--blanc);
+  border: 1px solid rgba(var(--noir-doux-rgb), 0.1);
+  font-family: var(--font-corps);
+  font-size: var(--texte-sm);
+}
+
+.newsletter-form input:focus {
+  border-color: var(--brun-chaud);
+  outline: none;
+}

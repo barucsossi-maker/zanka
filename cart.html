@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panier — ZANKA | Sacs de Luxe Artisanaux</title>
+  <meta name="description" content="Votre panier ZANKA.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/cart.html">
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+
+  <style>
+    .reveal { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * HEADER
+  * ═══════════════════════════════════════════════════════════ -->
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="shop.html" class="header-lien">Backpacks</a>
+        <a href="shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-icone" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+        <a href="account/login.html" class="header-icone" aria-label="Mon compte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <a href="cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu mobile -->
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer" aria-label="Fermer le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <a href="shop.html">Backpacks</a>
+    <a href="shop.html?categorie=hommes">Hommes</a>
+    <a href="shop.html?categorie=femmes">Femmes</a>
+    <a href="pages/about.html">Notre Histoire</a>
+    <a href="pages/contact.html">Contact</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * PAGE PANIER
+  * ═══════════════════════════════════════════════════════════ -->
+  <div class="conteneur cart-page">
+
+    <h1 class="cart-titre">Mon Panier</h1>
+
+    <!-- Panier vide (caché par défaut) -->
+    <div class="cart-vide" id="panier-vide" style="display:none;">
+      <h2>Votre panier est vide</h2>
+      <p>Découvrez notre collection et ajoutez vos pièces préférées.</p>
+      <a href="shop.html" class="btn btn-primaire btn-large">Découvrir la Collection</a>
+    </div>
+
+    <div class="cart-layout" id="panier-contenu">
+
+      <!-- ═══ Colonne gauche : articles ═══ -->
+      <div>
+
+        <div class="cart-liste" id="cart-liste"></div>
+
+        <!-- Promo -->
+        <div class="cart-promo">
+          <input type="text" id="promo-input" placeholder="Code promo" class="js-promo-input">
+          <button class="btn btn-secondaire" id="promo-btn">Appliquer</button>
+        </div>
+        <p class="cart-promo-msg" id="promo-msg"></p>
+
+        <!-- Bundle suggestion -->
+        <div class="cart-bundle" id="cart-bundle" style="display:none;">
+          <h4 class="cart-bundle-titre" id="bundle-titre-panier">Complétez votre commande</h4>
+          <div id="bundle-suggestions"></div>
+          <button class="btn btn-secondaire" style="width:100%;margin-top:var(--space-sm);" id="bundle-ajouter">
+            Ajouter au panier — <span id="bundle-prix"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══ Colonne droite : récapitulatif ═══ -->
+      <aside class="cart-recap" id="cart-recap">
+        <h3>Récapitulatif</h3>
+
+        <div class="cart-recap-ligne">
+          <span>Sous-total</span>
+          <span id="recap-sous-total">0,00 €</span>
+        </div>
+
+        <div class="cart-recap-ligne" id="recap-reduction-ligne" style="display:none;">
+          <span>Réduction</span>
+          <span class="cart-recap-ligne.reduction" id="recap-reduction">-0,00 €</span>
+        </div>
+
+        <div class="cart-recap-ligne">
+          <span>Livraison</span>
+          <span id="recap-livraison">Calculée</span>
+        </div>
+
+        <select class="cart-livraison-select" id="livraison-mode">
+          <option value="standard">Standard (5,90 € — gratuit dès 200€)</option>
+          <option value="express">Express (12,90 € — 24h/48h)</option>
+          <option value="click-collect">Click & Collect (gratuit)</option>
+        </select>
+
+        <div class="cart-recap-ligne" style="font-size:var(--texte-xs);color:var(--brun-chaud);">
+          <span>Dont TVA 20%</span>
+          <span id="recap-tva">0,00 €</span>
+        </div>
+
+        <div class="cart-recap-ligne total">
+          <span>TOTAL</span>
+          <span id="recap-total">0,00 €</span>
+        </div>
+
+        <button class="btn btn-primaire cart-cta" id="btn-commander">Passer la commande</button>
+
+        <p style="font-size:var(--texte-xs);color:var(--brun-chaud);text-align:center;margin-top:var(--space-sm);">
+          Paiement 100% sécurisé • Retours gratuits 30 jours
+        </p>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ═══ Upsell "Vous aimerez aussi" ═══ -->
+  <section class="conteneur" style="padding-bottom:var(--space-3xl);">
+    <h3 class="similaires-titre" style="text-align:center;font-family:var(--font-titres);font-size:1.5rem;margin-bottom:var(--space-lg);">
+      Vous aimerez aussi
+    </h3>
+    <div class="similaires-grille" id="upsell-grille" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg);">
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * FOOTER
+  * ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="pages/contact.html">Contact</a></li>
+            <li><a href="pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * SCRIPTS
+  * ═══════════════════════════════════════════════════════════ -->
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/products.js" defer></script>
+  <script src="js/cart.js" defer></script>
+
+  <script defer>
+  (function() {
+    'use strict';
+
+    /* ─── Header scroll + Burger ────────────────────────────── */
+    var header = document.querySelector('.header');
+    if (header) {
+      function toggleHeader() { header.classList.toggle('header-scrolle', window.scrollY > 60); }
+      toggleHeader();
+      window.addEventListener('scroll', toggleHeader, { passive: true });
+    }
+    var burger = document.querySelector('.js-burger');
+    var menuMobile = document.querySelector('.js-menu-mobile');
+    var fermer = document.querySelector('.js-menu-fermer');
+    function fermerMenu() {
+      if (burger) burger.classList.remove('actif');
+      if (menuMobile) menuMobile.classList.remove('ouvert');
+      if (burger) burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    function ouvrirMenu() {
+      burger.classList.add('actif');
+      menuMobile.classList.add('ouvert');
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    if (burger && menuMobile) {
+      burger.addEventListener('click', function() { menuMobile.classList.contains('ouvert') ? fermerMenu() : ouvrirMenu(); });
+      if (fermer) fermer.addEventListener('click', fermerMenu);
+      menuMobile.querySelectorAll('a').forEach(function(l) { l.addEventListener('click', fermerMenu); });
+      menuMobile.addEventListener('click', function(e) { if (e.target === menuMobile) fermerMenu(); });
+    }
+
+    /* ─── Références DOM ─────────────────────────────────────── */
+    var cartListe = document.getElementById('cart-liste');
+    var panierVide = document.getElementById('panier-vide');
+    var panierContenu = document.getElementById('panier-contenu');
+    var recapSousTotal = document.getElementById('recap-sous-total');
+    var recapReduction = document.getElementById('recap-reduction');
+    var recapReductionLigne = document.getElementById('recap-reduction-ligne');
+    var recapLivraison = document.getElementById('recap-livraison');
+    var recapTVA = document.getElementById('recap-tva');
+    var recapTotal = document.getElementById('recap-total');
+    var promoInput = document.getElementById('promo-input');
+    var promoBtn = document.getElementById('promo-btn');
+    var promoMsg = document.getElementById('promo-msg');
+    var livraisonMode = document.getElementById('livraison-mode');
+    var btnCommander = document.getElementById('btn-commander');
+
+    /* ─── Afficher le panier ──────────────────────────────────── */
+    function afficherPanier() {
+      var panier = lirePanier();
+
+      if (panier.length === 0) {
+        panierVide.style.display = 'block';
+        panierContenu.style.display = 'none';
+        return;
+      }
+
+      panierVide.style.display = 'none';
+      panierContenu.style.display = 'grid';
+
+      // Articles
+      cartListe.innerHTML = panier.map(function(item, idx) {
+        return '<div class="cart-item" data-id="' + item.id + '" data-couleur="' + item.couleur + '" data-taille="' + item.taille + '">' +
+          '<img src="' + item.image + '" alt="' + item.name + '">' +
+          '<div class="cart-item-infos">' +
+            '<div class="cart-item-nom">' + item.name + '</div>' +
+            '<div class="cart-item-variante">' +
+              (item.couleur ? 'Couleur : ' + item.couleur : '') +
+              (item.taille ? ' | Taille : ' + item.taille : '') +
+            '</div>' +
+            '<div class="cart-item-prix">' + formaterPrix(item.price) + '</div>' +
+          '</div>' +
+          '<div class="cart-item-actions">' +
+            '<div class="cart-quantite">' +
+              '<button class="js-qte-moins" data-idx="' + idx + '">−</button>' +
+              '<span>' + item.quantite + '</span>' +
+              '<button class="js-qte-plus" data-idx="' + idx + '">+</button>' +
+            '</div>' +
+            '<div style="display:flex;gap:var(--space-sm);margin-top:var(--space-xs);">' +
+              '<button class="cart-sauvegarder js-sauvegarder" data-idx="' + idx + '">Sauvegarder</button>' +
+              '<button class="cart-supprimer js-supprimer" data-idx="' + idx + '">Supprimer</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      // Événements quantité
+      cartListe.querySelectorAll('.js-qte-plus').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var idx = parseInt(this.dataset.idx);
+          var item = panier[idx];
+          if (item.quantite < item.stock) {
+            modifierQuantite(item.id, item.couleur, item.taille, 1);
+            afficherPanier();
+          }
+        });
+      });
+
+      cartListe.querySelectorAll('.js-qte-moins').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var idx = parseInt(this.dataset.idx);
+          var item = panier[idx];
+          modifierQuantite(item.id, item.couleur, item.taille, -1);
+          afficherPanier();
+        });
+      });
+
+      cartListe.querySelectorAll('.js-supprimer').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var idx = parseInt(this.dataset.idx);
+          var item = panier[idx];
+          supprimerDuPanier(item.id, item.couleur, item.taille);
+          afficherPanier();
+        });
+      });
+
+      cartListe.querySelectorAll('.js-sauvegarder').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var idx = parseInt(this.dataset.idx);
+          var item = panier[idx];
+          supprimerDuPanier(item.id, item.couleur, item.taille);
+          alert(item.name + ' sauvegardé dans votre wishlist.');
+          afficherPanier();
+        });
+      });
+
+      majRecap();
+
+      // Bundle suggestion
+      var premiereCategorie = null;
+      for (var i = 0; i < panier.length; i++) {
+        for (var j = 0; j < PRODUITS_DEMO.length; j++) {
+          if (PRODUITS_DEMO[j].id === panier[i].id) {
+            premiereCategorie = PRODUITS_DEMO[j].category;
+            break;
+          }
+        }
+        if (premiereCategorie) break;
+      }
+
+      var bundleContainer = document.getElementById('cart-bundle');
+      var bundleSuggestions = document.getElementById('bundle-suggestions');
+      if (premiereCategorie) {
+        var compatibles = [];
+        for (var k = 0; k < PRODUITS_DEMO.length; k++) {
+          var dejaDansPanier = false;
+          for (var m = 0; m < panier.length; m++) {
+            if (panier[m].id === PRODUITS_DEMO[k].id) { dejaDansPanier = true; break; }
+          }
+          if (!dejaDansPanier && PRODUITS_DEMO[k].category === premiereCategorie) {
+            compatibles.push(PRODUITS_DEMO[k]);
+          }
+        }
+        if (compatibles.length > 0) {
+          bundleContainer.style.display = 'block';
+          bundleSuggestions.innerHTML = compatibles.slice(0, 2).map(function(p) {
+            var prixBundle = (p.price * 0.85);
+            return '<div class="bundle-item">' +
+              '<img src="' + p.images[0] + '" alt="' + p.name + '">' +
+              '<div class="bundle-item-info">' +
+                '<div class="bundle-item-nom">' + p.name + '</div>' +
+                '<div class="bundle-item-prix">' +
+                  formaterPrix(prixBundle) + ' <span>−15%</span>' +
+                '</div>' +
+              '</div>' +
+              '<input type="checkbox" class="bundle-checkbox js-bundle-cb" data-id="' + p.id + '" data-price="' + prixBundle + '">' +
+            '</div>';
+          }).join('');
+
+          document.getElementById('bundle-ajouter').addEventListener('click', function() {
+            var totalBundle = 0;
+            document.querySelectorAll('.js-bundle-cb:checked').forEach(function(cb) {
+              totalBundle += parseFloat(cb.dataset.price);
+              for (var n = 0; n < PRODUITS_DEMO.length; n++) {
+                if (PRODUITS_DEMO[n].id === cb.dataset.id) {
+                  ajouterAuPanier(PRODUITS_DEMO[n], '', '', 1);
+                  break;
+                }
+              }
+            });
+            if (totalBundle > 0) {
+              afficherPanier();
+            }
+          });
+        } else {
+          bundleContainer.style.display = 'none';
+        }
+      } else {
+        bundleContainer.style.display = 'none';
+      }
+    }
+
+    /* ─── Mise à jour récapitulatif ───────────────────────────── */
+    function majRecap() {
+      var sousTotal = calculerSousTotal();
+      var promo = lirePromo();
+      var reduction = calculerReduction(sousTotal);
+      var apresReduction = sousTotal - reduction;
+      var livraison = calculerLivraison(livraisonMode.value, sousTotal);
+      var tva = calculerTVA(apresReduction + livraison);
+      var total = apresReduction + livraison + tva;
+
+      recapSousTotal.textContent = formaterPrix(sousTotal);
+      recapTVA.textContent = formaterPrix(tva);
+
+      if (reduction > 0) {
+        recapReductionLigne.style.display = 'flex';
+        recapReduction.textContent = '-' + formaterPrix(reduction);
+      } else {
+        recapReductionLigne.style.display = 'none';
+      }
+
+      recapLivraison.textContent = livraison === 0 ? 'Gratuite' : formaterPrix(livraison);
+      recapTotal.textContent = formaterPrix(total);
+    }
+
+    function calculerLivraison(mode, sousTotal) {
+      if (mode === 'express') return 12.90;
+      if (mode === 'click-collect') return 0;
+      return sousTotal >= 200 ? 0 : 5.90;
+    }
+
+    /* ─── Promo ───────────────────────────────────────────────── */
+    promoBtn.addEventListener('click', function() {
+      var code = promoInput.value.trim();
+      if (!code) return;
+      var resultat = appliquerPromo(code);
+      promoMsg.textContent = resultat.message;
+      promoMsg.className = 'cart-promo-msg ' + (resultat.succes ? 'succes' : 'erreur');
+      promoInput.className = resultat.succes ? 'js-promo-input succes' : 'js-promo-input erreur';
+      majRecap();
+    });
+
+    /* ─── Livraison ───────────────────────────────────────────── */
+    livraisonMode.addEventListener('change', majRecap);
+
+    /* ─── Bouton commander ────────────────────────────────────── */
+    btnCommander.addEventListener('click', function() {
+      var panier = lirePanier();
+      if (panier.length === 0) {
+        alert('Votre panier est vide.');
+        return;
+      }
+      alert('Redirection vers le paiement...');
+      window.location.href = 'checkout.html';
+    });
+
+    /* ─── Upsell ──────────────────────────────────────────────── */
+    var upsellGrille = document.getElementById('upsell-grille');
+    var nomsCat = { backpacks: 'Backpacks', hommes: 'Hommes', femmes: 'Femmes' };
+    upsellGrille.innerHTML = '';
+    var aleatoires = PRODUITS_DEMO.slice().sort(function() { return 0.5 - Math.random(); }).slice(0, 4);
+    aleatoires.forEach(function(p) {
+      var badgeHtml = '';
+      if (p.isNew) badgeHtml = '<span class="carte-produit-badge">Nouveau</span>';
+      else if (p.isBestseller) badgeHtml = '<span class="carte-produit-badge bestseller">Best-seller</span>';
+      var article = document.createElement('article');
+      article.className = 'carte-produit';
+      article.innerHTML =
+        '<a href="product.html?id=' + p.id + '">' +
+          '<div class="carte-produit-image">' +
+            '<img src="' + p.images[0] + '" alt="' + p.name + '" loading="lazy">' +
+            badgeHtml +
+          '</div>' +
+          '<h3 class="carte-produit-nom">' + p.name + '</h3>' +
+          '<p class="carte-produit-categorie">' + (nomsCat[p.category] || p.category) + '</p>' +
+          '<span class="carte-produit-prix">' + formaterPrix(p.price) + '</span>' +
+        '</a>';
+      upsellGrille.appendChild(article);
+    });
+
+    /* ─── Initialisation ──────────────────────────────────────── */
+    afficherPanier();
+
+    /* ─── Écouter les changements panier ──────────────────────── */
+    document.addEventListener('panier-change', function() {
+      afficherPanier();
+    });
+
+  })();
+  </script>
+
+</body>
+</html>

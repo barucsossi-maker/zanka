@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commander — ZANKA | Paiement Sécurisé</title>
+  <meta name="description" content="Finalisez votre commande ZANKA. Paiement 100% sécurisé.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/checkout.html">
+  <meta property="og:title" content="Commander — ZANKA">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .checkout-page { padding:calc(var(--header-hauteur)+var(--space-xl)) 0 var(--space-3xl); }
+    .checkout-layout { display:grid; grid-template-columns:1fr 380px; gap:var(--space-2xl); align-items:start; }
+    .checkout-section { margin-bottom:var(--space-xl); }
+    .checkout-section h2 { font-family:var(--font-titres); font-size:var(--texte-lg); margin-bottom:var(--space-md); padding-bottom:var(--space-sm); border-bottom:var(--bordure-fine); }
+
+    /* Formulaire */
+    .checkout-form { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-md); }
+    .checkout-form.full { grid-column:1/-1; }
+    .checkout-form label { font-size:var(--texte-xs); font-weight:var(--semibold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:var(--space-2xs); }
+    .checkout-form input, .checkout-form select { width:100%; padding:var(--space-xs); border:1px solid var(--ecru); font-size:var(--texte-sm); font-family:var(--font-corps); }
+    .checkout-form .grp-plein { grid-column:1/-1; }
+
+    /* Paiement */
+    .paiement-modes { display:flex; gap:var(--space-sm); margin-bottom:var(--space-md); }
+    .paiement-mode { flex:1; padding:var(--space-sm); border:1px solid var(--ecru); text-align:center; cursor:pointer; font-size:var(--texte-sm); transition:all 0.2s; background:var(--blanc); }
+    .paiement-mode.actif { border-color:var(--noir-doux); }
+    .paiement-cartes { display:flex; gap:var(--space-xs); margin-bottom:var(--space-md); }
+    .paiement-cartes span { padding:var(--space-2xs) var(--space-xs); border:1px solid var(--ecru); font-size:var(--texte-xs); color:var(--brun-chaud); }
+
+    /* Récap */
+    .checkout-recap { position:sticky; top:calc(var(--header-hauteur)+var(--space-lg)); padding:var(--space-lg); border:var(--bordure-fine); }
+    .checkout-recap h3 { font-family:var(--font-titres); font-size:var(--texte-lg); margin-bottom:var(--space-md); padding-bottom:var(--space-md); border-bottom:var(--bordure-fine); }
+    .checkout-recap-item { display:flex; gap:var(--space-sm); padding:var(--space-sm) 0; border-bottom:var(--bordure-fine); }
+    .checkout-recap-item img { width:48px; height:48px; object-fit:cover; }
+    .checkout-recap-item-info { flex:1; font-size:var(--texte-sm); }
+    .checkout-recap-item-prix { font-size:var(--texte-sm); font-weight:var(--medium); white-space:nowrap; }
+    .checkout-total { display:flex; justify-content:space-between; font-size:var(--texte-lg); font-weight:var(--semibold); padding-top:var(--space-md); margin-top:var(--space-sm); border-top:2px solid var(--noir-doux); }
+
+    .checkout-cta { width:100%; padding:var(--space-md); font-size:var(--texte-sm); letter-spacing:0.05em; margin-top:var(--space-lg); }
+
+    @media (max-width:1023px) { .checkout-layout { grid-template-columns:1fr; } .checkout-recap { position:static; } }
+    @media (max-width:767px) { .checkout-form { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="shop.html" class="header-lien">Backpacks</a>
+        <a href="shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="account/login.html" class="header-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        <a href="cart.html" class="header-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="header-panier-badge js-panier-compteur">0</span></a>
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <a href="shop.html">Backpacks</a>
+    <a href="shop.html?categorie=hommes">Hommes</a>
+    <a href="shop.html?categorie=femmes">Femmes</a>
+    <a href="pages/about.html">Notre Histoire</a>
+    <a href="pages/contact.html">Contact</a>
+  </div>
+
+  <div class="conteneur checkout-page">
+    <h1 style="font-family:var(--font-titres);font-size:var(--texte-2xl);margin-bottom:var(--space-lg);">Finaliser la commande</h1>
+
+    <div class="checkout-layout">
+      <div>
+
+        <!-- Livraison -->
+        <div class="checkout-section">
+          <h2>Adresse de livraison</h2>
+          <div class="checkout-form">
+            <div><label for="co-nom">Prénom</label><input id="co-prenom" placeholder="Jeanne"></div>
+            <div><label for="co-nom">Nom</label><input id="co-nom" placeholder="Delaunay"></div>
+            <div class="grp-plein"><label for="co-adresse">Adresse</label><input id="co-adresse" placeholder="12 Rue de la Paix"></div>
+            <div><label for="co-cp">Code postal</label><input id="co-cp" placeholder="75002"></div>
+            <div><label for="co-ville">Ville</label><input id="co-ville" placeholder="Paris"></div>
+            <div class="grp-plein"><label for="co-tel">Téléphone</label><input id="co-tel" type="tel" placeholder="+33 6 12 34 56 78"></div>
+          </div>
+        </div>
+
+        <!-- Paiement -->
+        <div class="checkout-section">
+          <h2>Paiement</h2>
+          <div class="paiement-modes">
+            <div class="paiement-mode actif" data-mode="cb">Carte bancaire</div>
+            <div class="paiement-mode" data-mode="paypal">PayPal</div>
+            <div class="paiement-mode" data-mode="applepay">Apple Pay</div>
+          </div>
+          <div class="paiement-cartes">
+            <span>Visa</span>
+            <span>Mastercard</span>
+            <span>American Express</span>
+          </div>
+          <div class="checkout-form" id="cb-form">
+            <div class="grp-plein"><label for="co-cb-num">Numéro de carte</label><input id="co-cb-num" placeholder="4242 4242 4242 4242"></div>
+            <div><label for="co-cb-exp">Expiration</label><input id="co-cb-exp" placeholder="MM/AA"></div>
+            <div><label for="co-cb-cvv">CVV</label><input id="co-cb-cvv" placeholder="123"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primaire checkout-cta" id="btn-payer">Payer <span id="checkout-total-btn">0,00 €</span></button>
+      </div>
+
+      <!-- Récapitulatif -->
+      <aside class="checkout-recap" id="checkout-recap">
+        <h3>Récapitulatif</h3>
+        <div id="checkout-items"></div>
+        <div style="display:flex;justify-content:space-between;font-size:var(--texte-sm);padding-top:var(--space-sm);">
+          <span>Sous-total</span><span id="co-sous-total">0,00 €</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:var(--texte-sm);">
+          <span>Livraison</span><span id="co-livraison">0,00 €</span>
+        </div>
+        <div class="checkout-total">
+          <span>Total</span><span id="co-total">0,00 €</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="pages/contact.html">Contact</a></li>
+            <li><a href="pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/products.js" defer></script>
+  <script src="js/cart.js" defer></script>
+
+  <script defer>
+  (function(){
+    var h=document.querySelector('.header');
+    function t(){h.classList.toggle('header-scrolle',window.scrollY>60)}
+    if(h){t();window.addEventListener('scroll',t,{passive:true})}
+    var b=document.querySelector('.js-burger'),m=document.querySelector('.js-menu-mobile'),f=document.querySelector('.js-menu-fermer');
+    function fm(){if(b)b.classList.remove('actif');if(m)m.classList.remove('ouvert');if(b)b.setAttribute('aria-expanded','false');document.body.style.overflow=''}
+    function om(){b.classList.add('actif');m.classList.add('ouvert');b.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}
+    if(b&&m){
+      b.addEventListener('click',function(){m.classList.contains('ouvert')?fm():om()});
+      if(f)f.addEventListener('click',fm);
+      m.querySelectorAll('a').forEach(function(l){l.addEventListener('click',fm)});
+      m.addEventListener('click',function(e){if(e.target===m)fm()});
+    }
+
+    // Modes de paiement
+    document.querySelectorAll('.paiement-mode').forEach(function(mode){
+      mode.addEventListener('click',function(){
+        document.querySelectorAll('.paiement-mode').forEach(function(m){m.classList.remove('actif')});
+        this.classList.add('actif');
+        document.getElementById('cb-form').style.display=this.dataset.mode==='cb'?'grid':'none';
+      });
+    });
+
+    // Remplir récap depuis le panier
+    function majCheckout(){
+      var panier=lirePanier();
+      var items=document.getElementById('checkout-items');
+      if(panier.length===0){
+        items.innerHTML='<p style="font-size:var(--texte-sm);color:var(--brun-chaud);">Votre panier est vide.</p>';
+        return;
+      }
+      items.innerHTML=panier.map(function(item){
+        return '<div class="checkout-recap-item">'+
+          '<img src="'+item.image+'" alt="'+item.name+'">'+
+          '<div class="checkout-recap-item-info">'+item.name+'<br><span style="color:var(--brun-chaud);">x'+item.quantite+'</span></div>'+
+          '<span class="checkout-recap-item-prix">'+formaterPrix(item.price*item.quantite)+'</span>'+
+        '</div>';
+      }).join('');
+
+      var sousTotal=calculerSousTotal();
+      var livraison=sousTotal>=200?0:5.90;
+      var total=sousTotal+livraison;
+
+      document.getElementById('co-sous-total').textContent=formaterPrix(sousTotal);
+      document.getElementById('co-livraison').textContent=livraison===0?'Gratuite':formaterPrix(livraison);
+      document.getElementById('co-total').textContent=formaterPrix(total);
+      document.getElementById('checkout-total-btn').textContent=formaterPrix(total);
+    }
+
+    majCheckout();
+
+    // Payer
+    document.getElementById('btn-payer').addEventListener('click',function(){
+      var panier=lirePanier();
+      if(panier.length===0){alert('Votre panier est vide.');return;}
+      alert('Merci pour votre commande ZANKA !\nVous allez recevoir un e-mail de confirmation.\nNuméro de commande : ZANKA-2026-' + String(Date.now()).slice(-4));
+      viderPanier();
+      window.location.href='account/orders.html';
+    });
+
+    document.addEventListener('panier-change',majCheckout);
+  })();
+  </script>
+</body>
+</html>

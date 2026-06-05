@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Commandes — ZANKA</title>
+  <meta name="description" content="Historique de mes commandes ZANKA.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/account/orders.html">
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    .compte-page { padding: calc(var(--header-hauteur) + var(--space-xl)) 0 var(--space-2xl); }
+    .compte-layout { display: grid; grid-template-columns: 220px 1fr; gap: var(--space-xl); }
+    .compte-nav { border-right: var(--bordure-fine); padding-right: var(--space-lg); }
+    .compte-nav-lien {
+      display: block; padding: var(--space-sm) 0; font-size: var(--texte-sm);
+      color: var(--brun-chaud); border-bottom: var(--bordure-fine); transition: color 0.2s;
+    }
+    .compte-nav-lien:hover, .compte-nav-lien.actif { color: var(--noir-doux); font-weight: var(--medium); }
+    .compte-nav-lien.deconnexion { color: #c62828; border-bottom: none; margin-top: var(--space-lg); }
+
+    .compte-filtres {
+      display: flex; gap: var(--space-sm); margin-bottom: var(--space-lg); flex-wrap: wrap;
+    }
+    .compte-filtre {
+      padding: var(--space-2xs) var(--space-sm); border: 1px solid var(--ecru);
+      font-size: var(--texte-xs); cursor: pointer; transition: all 0.2s; background: var(--blanc);
+    }
+    .compte-filtre.actif { border-color: var(--noir-doux); background: var(--noir-doux); color: var(--blanc); }
+
+    .orders-table { width: 100%; border-collapse: collapse; font-size: var(--texte-sm); }
+    .orders-table th {
+      text-align: left; padding: var(--space-sm); border-bottom: 2px solid var(--noir-doux);
+      font-size: var(--texte-xs); text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .orders-table td {
+      padding: var(--space-sm); border-bottom: var(--bordure-fine); vertical-align: middle;
+    }
+    .orders-table img {
+      width: 48px; height: 48px; object-fit: cover;
+    }
+    .orders-actions {
+      display: flex; gap: var(--space-2xs); flex-wrap: wrap;
+    }
+    .orders-actions a, .orders-actions button {
+      font-size: var(--texte-xs); padding: var(--space-2xs) var(--space-xs);
+      border: 1px solid var(--ecru); background: var(--blanc); cursor: pointer;
+      color: var(--noir-doux); text-decoration: none; white-space: nowrap;
+    }
+    .orders-actions a:hover, .orders-actions button:hover { border-color: var(--noir-doux); }
+
+    @media (max-width: 1023px) {
+      .compte-layout { grid-template-columns: 1fr; }
+      .compte-nav {
+        border-right: none; padding-right: 0; display: flex; gap: var(--space-md);
+        overflow-x: auto; padding-bottom: var(--space-md); border-bottom: var(--bordure-fine);
+        margin-bottom: var(--space-lg);
+      }
+      .compte-nav-lien { border-bottom: none; white-space: nowrap; padding: var(--space-xs) var(--space-sm); border: var(--bordure-fine); }
+      .compte-nav-lien.deconnexion { margin-top: 0; }
+    }
+    @media (max-width: 767px) {
+      .orders-table, .orders-table thead, .orders-table tbody, .orders-table tr, .orders-table td, .orders-table th { display: block; }
+      .orders-table thead { display: none; }
+      .orders-table td {
+        padding: var(--space-sm); border-bottom: 1px solid var(--ecru);
+        display: flex; justify-content: space-between; align-items: center;
+      }
+      .orders-table td::before {
+        content: attr(data-label); font-weight: var(--semibold); font-size: var(--texte-xs);
+        text-transform: uppercase; letter-spacing: 0.05em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="../index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="../shop.html" class="header-lien">Backpacks</a>
+        <a href="../shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="../shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="../pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="../pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="../cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="conteneur compte-page">
+    <div class="compte-layout">
+      <nav class="compte-nav">
+        <a href="dashboard.html" class="compte-nav-lien">Tableau de bord</a>
+        <a href="orders.html" class="compte-nav-lien actif">Mes commandes</a>
+        <a href="adresses.html" class="compte-nav-lien">Mes adresses</a>
+        <a href="profil.html" class="compte-nav-lien">Infos personnelles</a>
+        <a href="../index.html" class="compte-nav-lien deconnexion" onclick="localStorage.removeItem('zanka_user')">Déconnexion</a>
+      </nav>
+
+      <div>
+        <h1 style="font-family:var(--font-titres);font-size:var(--texte-xl);margin-bottom:var(--space-lg);">Mes commandes</h1>
+
+        <div class="compte-filtres">
+          <button class="compte-filtre actif" data-filtre="">Toutes</button>
+          <button class="compte-filtre" data-filtre="pending">En traitement</button>
+          <button class="compte-filtre" data-filtre="confirmed">Confirmées</button>
+          <button class="compte-filtre" data-filtre="shipped">Expédiées</button>
+          <button class="compte-filtre" data-filtre="delivered">Livrées</button>
+        </div>
+
+        <div id="orders-container">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Commande</th>
+                <th>Date</th>
+                <th>Articles</th>
+                <th>Total</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="../shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="../shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="../shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="../shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li><a href="../pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/firebase-config.js" defer></script>
+  <script src="../js/utils.js" defer></script>
+  <script src="../js/orders.js" defer></script>
+
+  <script defer>
+  (function() {
+    var header = document.querySelector('.header');
+    if (header) {
+      function toggleHeader() { header.classList.toggle('header-scrolle', window.scrollY > 60); }
+      toggleHeader();
+      window.addEventListener('scroll', toggleHeader, { passive: true });
+    }
+
+    var filtreActuel = '';
+
+    function charger() {
+      chargerCommandes({ statut: filtreActuel || undefined }, function(cmds) {
+        var tbody = document.getElementById('orders-body');
+        tbody.innerHTML = cmds.map(function(c) {
+          var miniatures = c.items.map(function(item) {
+            return '<img src="' + item.image + '" alt="' + item.name + '" style="display:inline-block;margin-right:4px;">';
+          }).join('');
+
+          return '<tr>' +
+            '<td data-label="Commande"><strong>' + c.orderId + '</strong></td>' +
+            '<td data-label="Date">' + formaterDateCourt(c.createdAt) + '</td>' +
+            '<td data-label="Articles">' + miniatures + '</td>' +
+            '<td data-label="Total">' + formaterPrix(c.total) + '</td>' +
+            '<td data-label="Statut">' + renderStatut(c.status) + '</td>' +
+            '<td data-label="Actions">' +
+              '<div class="orders-actions">' +
+                '<a href="order-tracking.html?id=' + c.orderId + '">Suivre</a>' +
+                '<a href="../cart.html?rachat=' + c.orderId + '">Racheter</a>' +
+                (['pending','confirmed'].indexOf(c.status) > -1 ? '<button class="js-retour" data-id="' + c.orderId + '">Retour</button>' : '') +
+              '</div>' +
+            '</td>' +
+          '</tr>';
+        }).join('');
+
+        if (cmds.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:var(--space-xl);color:var(--brun-chaud);">Aucune commande trouvée.</td></tr>';
+        }
+      });
+    }
+
+    document.querySelectorAll('.compte-filtre').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.compte-filtre').forEach(function(b) { b.classList.remove('actif'); });
+        this.classList.add('actif');
+        filtreActuel = this.dataset.filtre;
+        charger();
+      });
+    });
+
+    charger();
+  })();
+  </script>
+
+</body>
+</html>

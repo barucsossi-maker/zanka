@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créer un Compte — ZANKA</title>
+  <meta name="description" content="Créez votre compte ZANKA et profitez d'une expérience sur mesure.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .auth-page {padding:calc(var(--header-hauteur)+var(--space-xl)) 0 var(--space-3xl);min-height:80vh;display:flex;align-items:center;justify-content:center;}
+    .auth-card {width:100%;max-width:420px;padding:var(--space-2xl);border:var(--bordure-fine);}
+    .auth-card h1 {font-family:var(--font-titres);font-size:var(--texte-2xl);text-align:center;margin-bottom:var(--space-2xs);}
+    .auth-card p.sous-titre {text-align:center;color:var(--brun-chaud);font-size:var(--texte-sm);margin-bottom:var(--space-xl);}
+    .auth-form {display:flex;flex-direction:column;gap:var(--space-md);}
+    .auth-form label {font-size:var(--texte-xs);font-weight:var(--semibold);text-transform:uppercase;letter-spacing:0.08em;}
+    .auth-form input {width:100%;padding:var(--space-xs);border:1px solid var(--ecru);font-size:var(--texte-sm);font-family:var(--font-corps);}
+    .auth-form .btn {width:100%;padding:var(--space-md);}
+    .auth-lien {text-align:center;font-size:var(--texte-sm);color:var(--brun-chaud);margin-top:var(--space-md);}
+    .auth-lien a {color:var(--noir-doux);font-weight:var(--medium);}
+    .auth-divider {display:flex;align-items:center;gap:var(--space-sm);margin:var(--space-md) 0;color:var(--brun-chaud);font-size:var(--texte-xs);}
+    .auth-divider::before,.auth-divider::after {content:'';flex:1;height:1px;background:var(--ecru);}
+    .auth-social {display:flex;gap:var(--space-sm);}
+    .auth-social button {flex:1;padding:var(--space-sm);border:1px solid var(--ecru);background:var(--blanc);cursor:pointer;font-size:var(--texte-sm);transition:all 0.2s;}
+    .auth-social button:hover {border-color:var(--noir-doux);}
+  </style>
+</head>
+<body>
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="../index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="../shop.html" class="header-lien">Backpacks</a>
+        <a href="../shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="../shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="../pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="../pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="../cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <a href="../shop.html">Backpacks</a>
+    <a href="../shop.html?categorie=hommes">Hommes</a>
+    <a href="../shop.html?categorie=femmes">Femmes</a>
+    <a href="../pages/about.html">Notre Histoire</a>
+    <a href="../pages/contact.html">Contact</a>
+  </div>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <h1>Créer un Compte</h1>
+      <p class="sous-titre">Rejoignez l'univers ZANKA</p>
+
+      <form class="auth-form" id="form-register">
+        <div>
+          <label for="reg-nom">Nom complet</label>
+          <input type="text" id="reg-nom" placeholder="Jeanne Delaunay" required>
+        </div>
+        <div>
+          <label for="reg-email">E-mail</label>
+          <input type="email" id="reg-email" placeholder="jeanne@exemple.fr" required>
+        </div>
+        <div>
+          <label for="reg-password">Mot de passe</label>
+          <input type="password" id="reg-password" placeholder="Minimum 8 caractères" required minlength="8">
+        </div>
+        <div>
+          <label for="reg-confirm">Confirmer le mot de passe</label>
+          <input type="password" id="reg-confirm" placeholder="Identique au mot de passe" required>
+        </div>
+        <button type="submit" class="btn btn-primaire">Créer mon compte</button>
+      </form>
+
+      <div class="auth-divider">ou</div>
+      <div class="auth-social">
+        <button class="js-social" data-provider="google">Google</button>
+        <button class="js-social" data-provider="apple">Apple</button>
+        <button class="js-social" data-provider="facebook">Facebook</button>
+      </div>
+
+      <p class="auth-lien">Déjà un compte ? <a href="login.html">Se connecter</a></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size:var(--texte-sm);color:rgba(255,255,255,0.4);max-width:280px;line-height:1.6;">Maison de sacs de luxe artisanaux. L'excellence française au service de votre élégance quotidienne.</p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="../shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="../shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="../shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="../shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li><a href="../pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color:inherit;">Instagram</a> &middot;
+          <a href="#" style="color:inherit;">Facebook</a> &middot;
+          <a href="#" style="color:inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/firebase-config.js" defer></script>
+  <script defer>
+  (function(){
+    var h=document.querySelector('.header');
+    function t(){h.classList.toggle('header-scrolle',window.scrollY>60)}
+    if(h){t();window.addEventListener('scroll',t,{passive:true})}
+    var b=document.querySelector('.js-burger'),m=document.querySelector('.js-menu-mobile'),f=document.querySelector('.js-menu-fermer');
+    function fm(){if(b)b.classList.remove('actif');if(m)m.classList.remove('ouvert');if(b)b.setAttribute('aria-expanded','false');document.body.style.overflow=''}
+    function om(){b.classList.add('actif');m.classList.add('ouvert');b.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}
+    if(b&&m){b.addEventListener('click',function(){m.classList.contains('ouvert')?fm():om()});if(f)f.addEventListener('click',fm);m.querySelectorAll('a').forEach(function(l){l.addEventListener('click',fm)});m.addEventListener('click',function(e){if(e.target===m)fm()});}
+
+    document.getElementById('form-register').addEventListener('submit',function(e){
+      e.preventDefault();
+      var mdp=document.getElementById('reg-password').value;
+      var conf=document.getElementById('reg-confirm').value;
+      if(mdp!==conf){alert('Les mots de passe ne correspondent pas.');return;}
+      var email=document.getElementById('reg-email').value;
+      var nom=document.getElementById('reg-nom').value;
+      localStorage.setItem('zanka_user',JSON.stringify({email:email,nom:nom}));
+      alert('Compte créé avec succès ! Bienvenue chez ZANKA, '+nom+'.');
+      window.location.href='dashboard.html';
+    });
+
+    document.querySelectorAll('.js-social').forEach(function(btn){
+      btn.addEventListener('click',function(){alert('Inscription via '+this.dataset.provider+' sera disponible avec Firebase Auth.');});
+    });
+  })();
+  </script>
+</body>
+</html>

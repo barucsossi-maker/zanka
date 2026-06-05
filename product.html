@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produit — ZANKA | Sacs de Luxe Artisanaux</title>
+  <meta name="description" content="Découvrez le produit ZANKA : cuir pleine fleur, fait main en France.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/product.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="product">
+  <meta property="og:title" content="ZANKA — Sac de Luxe">
+  <meta property="og:description" content="Sac en cuir pleine fleur, fait main en France.">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- JSON-LD Product (injecté par JS) -->
+  <script id="jsonld-produit" type="application/ld+json"></script>
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+
+  <style>
+    .reveal { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * HEADER
+  * ═══════════════════════════════════════════════════════════ -->
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="shop.html" class="header-lien">Backpacks</a>
+        <a href="shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-icone" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+        <a href="account/login.html" class="header-icone" aria-label="Mon compte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <a href="cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu mobile -->
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer" aria-label="Fermer le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <a href="shop.html">Backpacks</a>
+    <a href="shop.html?categorie=hommes">Hommes</a>
+    <a href="shop.html?categorie=femmes">Femmes</a>
+    <a href="pages/about.html">Notre Histoire</a>
+    <a href="pages/contact.html">Contact</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * PAGE PRODUIT
+  * ═══════════════════════════════════════════════════════════ -->
+  <div class="conteneur produit" id="page-produit">
+
+    <!-- Fil d'ariane (mis à jour par JS) -->
+    <p class="produit-fil-ariane" id="fil-ariane">
+      <a href="index.html">Accueil</a> / <a href="shop.html">Collection</a> / <span id="cat-nom">Chargement...</span>
+    </p>
+
+    <div class="produit-layout">
+
+      <!-- ═══ Galerie ═══ -->
+      <div class="produit-galerie" id="galerie">
+
+        <div class="produit-image-principale" id="img-principale">
+          <img id="img-principale-el" src="" alt="Photo produit">
+          <div class="produit-zoom-loupe" id="zoom-loupe"></div>
+        </div>
+
+        <div class="produit-miniatures" id="miniatures"></div>
+
+        <span class="produit-voir-grand" id="btn-grand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+          Voir en grand
+        </span>
+
+        <span class="produit-stock-badge" id="stock-badge" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><circle cx="12" cy="12" r="10"/></svg>
+          Plus que <span id="stock-compte">0</span> en stock
+        </span>
+      </div>
+
+      <!-- ═══ Infos ═══ -->
+      <div class="produit-infos-section">
+
+        <p class="produit-sous-categorie" id="sous-categorie">Chargement...</p>
+        <h1 class="produit-nom" id="produit-nom">Chargement...</h1>
+
+        <div class="produit-prix-wrapper">
+          <span class="produit-prix" id="produit-prix"></span>
+          <span class="produit-prix-ancien" id="produit-prix-ancien"></span>
+          <span class="produit-economie" id="produit-economie"></span>
+        </div>
+
+        <!-- Avis résumé -->
+        <div class="produit-avis-resume" id="avis-resume">
+          <div class="produit-etoiles" id="resume-etoiles"></div>
+          <span id="resume-compte">(0 avis)</span>
+        </div>
+
+        <!-- Couleur -->
+        <div class="produit-selecteur">
+          <span class="produit-selecteur-label">Couleur : <span id="couleur-choisie">—</span></span>
+          <div class="produit-couleurs" id="selecteur-couleurs"></div>
+        </div>
+
+        <!-- Taille -->
+        <div class="produit-selecteur" id="selecteur-taille-wrapper" style="display:none;">
+          <span class="produit-selecteur-label">Taille</span>
+          <div class="produit-tailles" id="selecteur-tailles"></div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="produit-ctas">
+          <button class="btn btn-primaire btn-large" id="btn-ajouter-panier">
+            Ajouter au panier — <span id="btn-prix"></span>
+          </button>
+          <button class="btn btn-secondaire btn-large" id="btn-acheter">
+            Acheter maintenant
+          </button>
+        </div>
+
+        <span class="produit-wishlist-btn" id="btn-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          Ajouter à ma wishlist
+        </span>
+
+        <!-- Infos livraison -->
+        <div class="produit-infos">
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14">
+              <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            </svg>
+            Livraison estimée : 2 à 5 jours ouvrés
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14">
+              <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            </svg>
+            Paiement 100% sécurisé (CB, PayPal, Apple Pay)
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14">
+              <path d="M21 12a9 9 0 1 1-9-9"/><polyline points="22 3 12 13 9 10"/>
+            </svg>
+            Retours gratuits sous 30 jours
+          </span>
+        </div>
+
+        <!-- Social proof -->
+        <div class="produit-social" id="social-proof">
+          <span>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><circle cx="12" cy="12" r="10"/></svg>
+            <span id="social-vue">23 personnes regardent ce produit</span>
+          </span>
+          <span id="social-stock" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><circle cx="12" cy="12" r="10"/></svg>
+            Dernières pièces disponibles
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span id="social-vente">Marie de Paris a acheté ce produit récemment</span>
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ Accordéons ═══ -->
+    <div class="produit-accordeons" id="accordeons">
+
+      <div class="produit-accordeon">
+        <div class="produit-accordeon-header js-accordeon-header">
+          Description
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="produit-accordeon-contenu">
+          <p id="desc-texte">Chargement...</p>
+        </div>
+      </div>
+
+      <div class="produit-accordeon">
+        <div class="produit-accordeon-header js-accordeon-header">
+          Composition & Matières
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="produit-accordeon-contenu">
+          <ul>
+            <li>Cuir pleine fleur tannage végétal</li>
+            <li>Doublure en suédine beige</li>
+            <li>Fermeture éclair YKK laiton doré</li>
+            <li>Fermoir magnétique gravé ZANKA</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="produit-accordeon">
+        <div class="produit-accordeon-header js-accordeon-header">
+          Dimensions & Poids
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="produit-accordeon-contenu" id="desc-dimensions">
+          <p>Consultez la fiche technique du modèle.</p>
+        </div>
+      </div>
+
+      <div class="produit-accordeon">
+        <div class="produit-accordeon-header js-accordeon-header">
+          Entretien du Cuir
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="produit-accordeon-contenu">
+          <ul>
+            <li>Éviter l'exposition prolongée à l'eau et à l'humidité</li>
+            <li>Nettoyer avec un chiffon doux légèrement humide</li>
+            <li>Utiliser un nourrisseur adapté au cuir lisse</li>
+            <li>Conserver dans sa housse ZANKA à l'abri de la lumière</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="produit-accordeon">
+        <div class="produit-accordeon-header js-accordeon-header">
+          Livraison & Retours
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="produit-accordeon-contenu">
+          <ul>
+            <li>Livraison offerte dès 200€ d'achat</li>
+            <li>Expédition sous 24h (hors week-end)</li>
+            <li>Délai : 2 à 5 jours ouvrés en Europe</li>
+            <li>Retours gratuits sous 30 jours (produit neuf, étiquette d'origine)</li>
+            <li>Remboursement sous 10 jours ouvrés après réception</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Bundles ═══ -->
+    <div class="produit-bundles" id="section-bundles" style="display:none;">
+      <h3 class="produit-bundles-titre" id="bundles-titre">Complétez votre look</h3>
+      <div id="bundles-liste"></div>
+      <div class="bundle-total" id="bundle-total">
+        <span>Total bundle</span>
+        <span class="bundle-total-prix" id="bundle-total-prix"></span>
+      </div>
+      <button class="btn btn-primaire" style="width:100%;margin-top:var(--space-md);" id="btn-bundle">
+        Ajouter le bundle au panier
+      </button>
+    </div>
+
+    <!-- ═══ Avis clients ═══ -->
+    <section class="produit-avis" id="section-avis">
+      <div class="produit-avis-header">
+        <h3 class="similaires-titre" style="margin-bottom:0;">Avis Clients</h3>
+        <button class="btn btn-secondaire" id="btn-ecrire-avis">Écrire un avis</button>
+      </div>
+
+      <div id="avis-contenu">
+        <p style="color:var(--brun-chaud);font-size:var(--texte-sm);">
+          Aucun avis pour le moment. Soyez le premier à donner votre avis.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ Similaires ═══ -->
+    <section>
+      <h3 class="similaires-titre">Vous aimerez aussi</h3>
+      <div class="similaires-grille" id="similaires-grille">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══ Sticky bar ═══ -->
+  <div class="produit-sticky" id="sticky-bar">
+    <img id="sticky-img" src="" alt="">
+    <div class="produit-sticky-info">
+      <div class="produit-sticky-nom" id="sticky-nom"></div>
+      <div class="produit-sticky-prix" id="sticky-prix"></div>
+    </div>
+    <button class="btn btn-primaire" id="sticky-cta">Ajouter au panier</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * FOOTER
+  * ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="pages/contact.html">Contact</a></li>
+            <li><a href="pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * SCRIPTS
+  * ═══════════════════════════════════════════════════════════ -->
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/products.js" defer></script>
+
+  <script defer>
+  (function() {
+    'use strict';
+
+    /* ─── Header scroll + Burger (identique) ────────────────── */
+    var header = document.querySelector('.header');
+    if (header) {
+      function toggleHeader() { header.classList.toggle('header-scrolle', window.scrollY > 60); }
+      toggleHeader();
+      window.addEventListener('scroll', toggleHeader, { passive: true });
+    }
+    var burger = document.querySelector('.js-burger');
+    var menuMobile = document.querySelector('.js-menu-mobile');
+    var fermer = document.querySelector('.js-menu-fermer');
+    function fermerMenu() {
+      if (burger) burger.classList.remove('actif');
+      if (menuMobile) menuMobile.classList.remove('ouvert');
+      if (burger) burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    function ouvrirMenu() {
+      burger.classList.add('actif');
+      menuMobile.classList.add('ouvert');
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    if (burger && menuMobile) {
+      burger.addEventListener('click', function() { menuMobile.classList.contains('ouvert') ? fermerMenu() : ouvrirMenu(); });
+      if (fermer) fermer.addEventListener('click', fermerMenu);
+      menuMobile.querySelectorAll('a').forEach(function(l) { l.addEventListener('click', fermerMenu); });
+      menuMobile.addEventListener('click', function(e) { if (e.target === menuMobile) fermerMenu(); });
+    }
+
+    /* ─── Récupération ID depuis URL ─────────────────────────── */
+    var params = new URLSearchParams(window.location.search);
+    var productId = params.get('id');
+
+    if (!productId) {
+      document.getElementById('produit-nom').textContent = 'Produit non trouvé';
+      return;
+    }
+
+    /* ─── Recherche produit dans démo / Firestore ───────────── */
+    var produit = null;
+    for (var i = 0; i < PRODUITS_DEMO.length; i++) {
+      if (PRODUITS_DEMO[i].id === productId) {
+        produit = PRODUITS_DEMO[i];
+        break;
+      }
+    }
+
+    if (!produit) {
+      document.getElementById('produit-nom').textContent = 'Produit non trouvé';
+      return;
+    }
+
+    /* ─── Remplir la page ────────────────────────────────────── */
+    var nomsCat = { backpacks: 'Backpacks', hommes: 'Hommes', femmes: 'Femmes' };
+
+    // Fil d'ariane
+    document.getElementById('cat-nom').textContent = nomsCat[produit.category] || produit.category;
+    document.getElementById('sous-categorie').textContent = nomsCat[produit.category] || produit.category;
+    document.getElementById('produit-nom').textContent = produit.name;
+
+    // Prix
+    document.getElementById('produit-prix').textContent = formaterPrix(produit.price);
+    document.getElementById('btn-prix').textContent = formaterPrix(produit.price);
+    if (produit.comparePrice) {
+      document.getElementById('produit-prix-ancien').textContent = formaterPrix(produit.comparePrice);
+      var economie = produit.comparePrice - produit.price;
+      document.getElementById('produit-economie').textContent = '(Économisez ' + formaterPrix(economie) + ')';
+    }
+
+    // Badge stock
+    if (produit.stock < 5) {
+      document.getElementById('stock-badge').style.display = 'inline-flex';
+      document.getElementById('stock-compte').textContent = produit.stock;
+    }
+
+    // Galerie image
+    var imgEl = document.getElementById('img-principale-el');
+    imgEl.src = produit.images[0];
+    imgEl.alt = produit.name;
+
+    // Miniatures
+    var miniContainer = document.getElementById('miniatures');
+    miniContainer.innerHTML = '';
+    produit.images.forEach(function(src, idx) {
+      var img = document.createElement('img');
+      img.className = 'produit-miniature' + (idx === 0 ? ' active' : '');
+      img.src = src;
+      img.alt = 'Vue ' + (idx + 1);
+      img.addEventListener('click', function() {
+        document.getElementById('img-principale-el').src = src;
+        document.querySelectorAll('.produit-miniature').forEach(function(m) { m.classList.remove('active'); });
+        img.classList.add('active');
+      });
+      miniContainer.appendChild(img);
+    });
+
+    // Couleurs
+    var couleursContainer = document.getElementById('selecteur-couleurs');
+    couleursContainer.innerHTML = '';
+    var paletteCouleurs = {
+      'Sable': '#D4C5B5', 'Noir': '#1C1C1C', 'Chocolat': '#5C3D2E',
+      'Écru': '#F5EFE6', 'Brun': '#8B6F52'
+    };
+    produit.colors.forEach(function(c) {
+      var btn = document.createElement('button');
+      btn.className = 'produit-couleur' + (c === produit.colors[0] ? ' active' : '');
+      btn.style.background = paletteCouleurs[c] || '#ccc';
+      btn.title = c;
+      btn.dataset.couleur = c;
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.produit-couleur').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        document.getElementById('couleur-choisie').textContent = c;
+      });
+      couleursContainer.appendChild(btn);
+    });
+    document.getElementById('couleur-choisie').textContent = produit.colors[0];
+
+    // Description
+    document.getElementById('desc-texte').textContent = produit.description;
+
+    // Dimensions
+    document.getElementById('desc-dimensions').innerHTML = '<p>Consultez la fiche technique du modèle ' + produit.name + '.</p>';
+
+    // Title tag + SEO
+    document.title = produit.name + ' — ZANKA | Sacs de Luxe Artisanaux';
+    document.querySelector('meta[property="og:title"]').content = produit.name + ' — ZANKA';
+
+    // JSON-LD Product
+    var jsonld = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      'name': produit.name,
+      'description': produit.description,
+      'brand': { '@type': 'Brand', 'name': 'ZANKA' },
+      'offers': {
+        '@type': 'Offer',
+        'price': produit.price,
+        'priceCurrency': 'EUR',
+        'availability': produit.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+        'url': window.location.href
+      },
+      'image': produit.images[0]
+    };
+    if (produit.comparePrice) {
+      jsonld.offers.priceSpecification = {
+        '@type': 'PriceSpecification',
+        'price': produit.comparePrice,
+        'priceCurrency': 'EUR',
+        'priceType': 'https://schema.org/ListPrice'
+      };
+    }
+    document.getElementById('jsonld-produit').textContent = JSON.stringify(jsonld);
+
+    // Sticky bar
+    document.getElementById('sticky-img').src = produit.images[0];
+    document.getElementById('sticky-nom').textContent = produit.name;
+    document.getElementById('sticky-prix').textContent = formaterPrix(produit.price);
+    stickyCta = document.getElementById('sticky-cta');
+
+    // Sticky bar apparition au scroll
+    var sticky = document.getElementById('sticky-bar');
+    var produitLayout = document.querySelector('.produit-layout');
+    if (produitLayout) {
+      window.addEventListener('scroll', function() {
+        var rect = produitLayout.getBoundingClientRect();
+        if (rect.bottom < window.innerHeight) {
+          sticky.classList.add('visible');
+        } else {
+          sticky.classList.remove('visible');
+        }
+      }, { passive: true });
+    }
+
+    // Social proof — stock limité
+    if (produit.stock < 10) {
+      document.getElementById('social-stock').style.display = 'inline';
+    }
+
+    /* ─── Accordéons ─────────────────────────────────────────── */
+    document.querySelectorAll('.js-accordeon-header').forEach(function(h) {
+      h.addEventListener('click', function() {
+        var parent = this.parentElement;
+        parent.classList.toggle('ouvert');
+      });
+    });
+
+    /* ─── Zoom loupe ─────────────────────────────────────────── */
+    var imgPrincipale = document.getElementById('img-principale');
+    var loupe = document.getElementById('zoom-loupe');
+    var imgEl2 = document.getElementById('img-principale-el');
+
+    if (imgPrincipale && loupe) {
+      imgPrincipale.addEventListener('mousemove', function(e) {
+        var rect = this.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        loupe.style.left = (e.clientX - rect.left - 75) + 'px';
+        loupe.style.top = (e.clientY - rect.top - 75) + 'px';
+        loupe.style.backgroundImage = 'url(' + imgEl2.src + ')';
+        loupe.style.backgroundSize = rect.width * 1.8 + 'px ' + rect.height * 1.8 + 'px';
+        loupe.style.backgroundPosition = x + '% ' + y + '%';
+        loupe.classList.add('visible');
+        this.classList.add('zoom');
+      });
+      imgPrincipale.addEventListener('mouseleave', function() {
+        loupe.classList.remove('visible');
+        this.classList.remove('zoom');
+      });
+    }
+
+    /* ─── Similaires (même catégorie, exclure ce produit) ────── */
+    var similaires = [];
+    for (var j = 0; j < PRODUITS_DEMO.length; j++) {
+      if (PRODUITS_DEMO[j].id !== productId && PRODUITS_DEMO[j].category === produit.category) {
+        similaires.push(PRODUITS_DEMO[j]);
+      }
+    }
+
+    var simGrille = document.getElementById('similaires-grille');
+    simGrille.innerHTML = '';
+    similaires.slice(0, 4).forEach(function(p) {
+      var article = document.createElement('article');
+      article.className = 'carte-produit';
+      var badgeHtml = '';
+      if (p.isNew) badgeHtml = '<span class="carte-produit-badge">Nouveau</span>';
+      else if (p.isBestseller) badgeHtml = '<span class="carte-produit-badge bestseller">Best-seller</span>';
+      article.innerHTML =
+        '<a href="product.html?id=' + p.id + '">' +
+          '<div class="carte-produit-image">' +
+            '<img src="' + p.images[0] + '" alt="' + p.name + '" loading="lazy">' +
+            badgeHtml +
+          '</div>' +
+          '<h3 class="carte-produit-nom">' + p.name + '</h3>' +
+          '<p class="carte-produit-categorie">' + (nomsCat[p.category] || p.category) + '</p>' +
+          '<span class="carte-produit-prix">' + formaterPrix(p.price) + '</span>' +
+        '</a>';
+      simGrille.appendChild(article);
+    });
+
+  })();
+  </script>
+
+</body>
+</html>

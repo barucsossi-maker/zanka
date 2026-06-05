@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commandes — ZANKA Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-header">
+      <h1>ZANKA</h1><span>Administration</span>
+    </div>
+    <nav class="admin-sidebar-nav">
+      <a href="index.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Tableau de bord</a>
+      <a href="orders.html" class="admin-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Commandes</a>
+      <a href="products.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Produits</a>
+      <a href="users.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Utilisateurs</a>
+      <a href="coupons.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20 12H4"/><path d="M12 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg> Codes Promo</a>
+      <a href="newsletter.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Newsletter</a>
+      <a href="settings.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Paramètres</a>
+    </nav>
+    <div class="admin-sidebar-footer"><a href="../index.html" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Voir le site</a></div>
+  </aside>
+  <div class="admin-main">
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <button class="admin-hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <h2>Commandes</h2>
+      </div>
+      <div class="admin-header-right">
+        <span class="admin-user" id="admin-user-name"></span>
+        <a href="#" id="admin-logout-btn" class="btn-admin btn-admin-secondary btn-admin-sm" style="text-decoration:none;">Déconnexion</a>
+      </div>
+    </header>
+    <div class="admin-content">
+      <div class="admin-toolbar">
+        <div class="admin-toolbar-left">
+          <div class="admin-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="search-input" placeholder="Rechercher n° commande, client...">
+          </div>
+          <select id="status-filter" class="admin-select">
+            <option value="">Tous les statuts</option>
+            <option value="pending">En attente</option>
+            <option value="confirmed">Confirmée</option>
+            <option value="preparing">Préparation</option>
+            <option value="shipped">Expédiée</option>
+            <option value="delivered">Livrée</option>
+            <option value="cancelled">Annulée</option>
+          </select>
+        </div>
+        <div class="admin-toolbar-right">
+          <button class="btn-admin btn-admin-secondary btn-admin-sm" onclick="exportCSV()">Exporter CSV</button>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-body" style="padding:0;">
+          <table class="admin-table" id="orders-table">
+            <thead>
+              <tr>
+                <th>Commande</th><th>Client</th><th>Date</th><th>Articles</th><th>Total</th><th>Statut</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body"></tbody>
+          </table>
+          <div class="admin-empty" id="orders-empty" style="display:none;">
+            <p>Aucune commande trouvée.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/admin.js"></script>
+  <script>
+    adminAuthCheck();
+    initAdminLayout();
+    var COMMANDES = [
+      { orderId: "ZANKA-2026-0001", userId: "demo@zanka.fr", clientName: "Jean Dupont", items: [{ name: "Sac à Dos Zephyr", price: 850, quantite: 1, image: "https://images.unsplash.com/photo-1601924994987-69e26d50e8bf?w=80&q=60" }, { name: "Sacoche Berlinois", price: 450, quantite: 2, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=80&q=60" }], subtotal: 1750, discount: 0, shipping: 0, tax: 350, total: 2100, status: "delivered", carrier: "Colissimo", trackingNumber: "FA123456789FR", shippingAddress: { line1: "12 Rue de la Paix", city: "Paris", postalCode: "75002", country: "France", phone: "+33 6 12 34 56 78" }, paymentMethod: "CB", paymentStatus: "paid", createdAt: "2026-05-10T09:00:00Z", timeline: [{ status: "pending", ts: "2026-05-10T09:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-05-10T09:15:00Z", desc: "Paiement confirmé" }, { status: "preparing", ts: "2026-05-10T14:00:00Z", desc: "En préparation dans notre atelier" }, { status: "shipped", ts: "2026-05-11T14:00:00Z", desc: "Colis expédié" }, { status: "delivered", ts: "2026-05-14T10:30:00Z", desc: "Livré à votre adresse" }] },
+      { orderId: "ZANKA-2026-0002", userId: "sarah@exemple.fr", clientName: "Sarah Martin", items: [{ name: "Sac Cabas Aria", price: 1450, quantite: 1, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=80&q=60" }], subtotal: 1450, discount: 145, shipping: 5.90, tax: 262.18, total: 1573.08, status: "shipped", carrier: "Chronopost", trackingNumber: "FA987654321FR", shippingAddress: { line1: "8 Rue du Faubourg", city: "Lyon", postalCode: "69002", country: "France", phone: "+33 6 98 76 54 32" }, paymentMethod: "PayPal", paymentStatus: "paid", createdAt: "2026-05-28T11:00:00Z", timeline: [{ status: "pending", ts: "2026-05-28T11:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-05-28T11:10:00Z", desc: "Paiement confirmé" }, { status: "preparing", ts: "2026-05-28T16:00:00Z", desc: "En préparation" }, { status: "shipped", ts: "2026-05-29T08:00:00Z", desc: "Colis expédié en Chronopost" }] },
+      { orderId: "ZANKA-2026-0003", userId: "marie@exemple.fr", clientName: "Marie Lambert", items: [{ name: "Sac à Main Lune", price: 1280, quantite: 1, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=80&q=60" }], subtotal: 1280, discount: 0, shipping: 5.90, tax: 257.18, total: 1543.08, status: "pending", carrier: "", trackingNumber: "", shippingAddress: { line1: "3 Avenue des Ternes", city: "Paris", postalCode: "75017", country: "France", phone: "+33 6 45 67 89 01" }, paymentMethod: "CB", paymentStatus: "pending", createdAt: "2026-06-03T15:00:00Z", timeline: [{ status: "pending", ts: "2026-06-03T15:00:00Z", desc: "Commande reçue" }] },
+      { orderId: "ZANKA-2026-0004", userId: "paul@exemple.fr", clientName: "Paul Dubois", items: [{ name: "Sac à Dos Voyageur", price: 1200, quantite: 1, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=80&q=60" }], subtotal: 1200, discount: 0, shipping: 0, tax: 240, total: 1440, status: "confirmed", carrier: "", trackingNumber: "", shippingAddress: { line1: "15 Rue de la République", city: "Marseille", postalCode: "13001", country: "France", phone: "+33 6 23 45 67 89" }, paymentMethod: "CB", paymentStatus: "paid", createdAt: "2026-06-04T09:30:00Z", timeline: [{ status: "pending", ts: "2026-06-04T09:30:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-06-04T09:45:00Z", desc: "Paiement confirmé" }] },
+      { orderId: "ZANKA-2026-0005", userId: "sophie@exemple.fr", clientName: "Sophie Petit", items: [{ name: "Sac Bandoulière Nova", price: 890, quantite: 2, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=80&q=60" }], subtotal: 1780, discount: 0, shipping: 0, tax: 356, total: 2136, status: "preparing", carrier: "", trackingNumber: "", shippingAddress: { line1: "28 Boulevard Haussmann", city: "Paris", postalCode: "75009", country: "France", phone: "+33 6 56 78 90 12" }, paymentMethod: "Apple Pay", paymentStatus: "paid", createdAt: "2026-06-04T14:00:00Z", timeline: [{ status: "pending", ts: "2026-06-04T14:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-06-04T14:10:00Z", desc: "Paiement confirmé" }, { status: "preparing", ts: "2026-06-04T15:30:00Z", desc: "En préparation dans notre atelier" }] },
+      { orderId: "ZANKA-2026-0006", userId: "lucas@exemple.fr", clientName: "Lucas Moreau", items: [{ name: "Porte-Documents Executive", price: 890, quantite: 1, image: "https://images.unsplash.com/photo-1594226801341-41427b4e5c22?w=80&q=60" }], subtotal: 890, discount: 89, shipping: 5.90, tax: 161.38, total: 968.28, status: "cancelled", carrier: "", trackingNumber: "", shippingAddress: { line1: "5 Rue de la Paix", city: "Bordeaux", postalCode: "33000", country: "France", phone: "+33 6 34 56 78 90" }, paymentMethod: "CB", paymentStatus: "refunded", createdAt: "2026-05-25T10:00:00Z", timeline: [{ status: "pending", ts: "2026-05-25T10:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-05-25T10:15:00Z", desc: "Paiement confirmé" }, { status: "cancelled", ts: "2026-05-26T09:00:00Z", desc: "Annulé par le client" }] }
+    ];
+    function renderOrders(list) {
+      var tbody = document.getElementById('orders-body');
+      var empty = document.getElementById('orders-empty');
+      tbody.innerHTML = '';
+      if (list.length === 0) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      list.forEach(function(c) {
+        var nbArticles = c.items.reduce(function(s, i) { return s + i.quantite; }, 0);
+        var itemsSummary = c.items.map(function(i) { return i.name + ' x' + i.quantite; }).join(', ');
+        tbody.innerHTML += '<tr>' +
+          '<td><strong>' + c.orderId + '</strong></td>' +
+          '<td>' + c.clientName + '<br><span style="font-size:0.75rem;color:var(--admin-text-secondary);">' + c.userId + '</span></td>' +
+          '<td>' + formatDateShort(c.createdAt) + '</td>' +
+          '<td>' + nbArticles + ' article' + (nbArticles > 1 ? 's' : '') + '<br><span style="font-size:0.75rem;color:var(--admin-text-secondary);">' + itemsSummary.substring(0, 50) + (itemsSummary.length > 50 ? '...' : '') + '</span></td>' +
+          '<td><strong>' + formatPrix(c.total) + '</strong></td>' +
+          '<td>' + statusBadge(c.status) + '</td>' +
+          '<td><a href="order-detail.html?id=' + c.orderId + '" class="btn-admin btn-admin-secondary btn-admin-xs">Détail</a></td>' +
+        '</tr>';
+      });
+    }
+    renderOrders(COMMANDES);
+    document.getElementById('search-input').addEventListener('input', function() {
+      var q = this.value.toLowerCase();
+      var statusF = document.getElementById('status-filter').value;
+      var filtered = COMMANDES.filter(function(c) {
+        var matchSearch = !q || c.orderId.toLowerCase().indexOf(q) > -1 || c.clientName.toLowerCase().indexOf(q) > -1 || c.userId.toLowerCase().indexOf(q) > -1;
+        var matchStatus = !statusF || c.status === statusF;
+        return matchSearch && matchStatus;
+      });
+      renderOrders(filtered);
+    });
+    document.getElementById('status-filter').addEventListener('change', function() {
+      document.getElementById('search-input').dispatchEvent(new Event('input'));
+    });
+    function exportCSV() {
+      var header = 'Commande,Client,Email,Date,Articles,Total,Statut\n';
+      var rows = COMMANDES.map(function(c) {
+        var nbArticles = c.items.reduce(function(s, i) { return s + i.quantite; }, 0);
+        return '"' + c.orderId + '","' + c.clientName + '","' + c.userId + '","' + c.createdAt + '","' + nbArticles + '","' + c.total + '","' + statusLabel(c.status) + '"';
+      }).join('\n');
+      var blob = new Blob(['\ufeff' + header + rows], { type: 'text/csv;charset=utf-8;' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'zanka-commandes.csv';
+      link.click();
+      showToast('Export CSV téléchargé', 'success');
+    }
+  </script>
+</body>
+</html>

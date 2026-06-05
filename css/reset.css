@@ -1,0 +1,121 @@
+/* =============================================================
+ * RESET.CSS — Normalisation multi-navigateurs
+ * =============================================================
+ * Pourquoi un reset ? Chaque navigateur applique ses propres
+ * marges, polices et tailles. Ce fichier uniformise TOUT
+ * pour qu'on parte d'une base saine et prévisible.
+ * ============================================================= */
+
+/* ─── Box-sizing universel ────────────────────────────────────
+ * border-box inclut padding et border dans la largeur totale.
+ * Sans ça, ajouter un padding à un élément le fait déborder.
+ * ============================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── HTML : base fluide ───────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 16px;
+}
+
+/* ─── Body : pas de débordement horizontal ─────────────────── */
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ─── Images responsives ───────────────────────────────────── */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── Liens sans décoration par défaut ─────────────────────── */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─── Listes sans puces ─────────────────────────────────────── */
+ul,
+ol {
+  list-style: none;
+}
+
+/* ─── Boutons : reset complet ────────────────────────────────
+ * Les navigateurs appliquent des styles par défaut aux boutons.
+ * On repart de zéro pour un contrôle total.
+ * ============================================================= */
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* ─── Inputs : héritage de la typographie ──────────────────── */
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* ─── Tableaux : suppression des espaces par défaut ─────────── */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ─── Accessibilité : outline focus ────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--or-mat);
+  outline-offset: 2px;
+}
+
+/* ─── Suppression des "bullshit" iOS ───────────────────────── */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* ─── Préserver les images dans les articles ───────────────── */
+figure {
+  margin: 0;
+}
+
+/* ─── Accessibilité : réduction de mouvement si préférée ──── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

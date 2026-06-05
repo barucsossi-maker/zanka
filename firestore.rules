@@ -1,0 +1,75 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Refuser tout par defaut
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Produits : lecture publique, ecriture admin
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if request.auth.token.admin == true;
+    }
+
+    // Categories : lecture publique, ecriture admin
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if request.auth.token.admin == true;
+    }
+
+    // Collections : lecture publique, ecriture admin
+    match /collections/{collectionId} {
+      allow read: if true;
+      allow write: if request.auth.token.admin == true;
+    }
+
+    // Utilisateurs : le proprietaire seul accede a son document
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId;
+      allow read, write: if request.auth.token.admin == true;
+    }
+
+    // Paniers : proprietaire uniquement
+    match /carts/{userId} {
+      allow read, write: if request.auth.uid == userId;
+      allow read, write: if request.auth.token.admin == true;
+    }
+
+    // Commandes : le client voit les siennes, l'admin voit tout
+    match /orders/{orderId} {
+      allow read: if request.auth.uid == resource.data.userId;
+      allow read: if request.auth.token.admin == true;
+      allow write: if request.auth.token.admin == true;
+      allow create: if request.auth.uid == request.resource.data.userId;
+    }
+
+    // Adresses : proprietaire uniquement
+    match /addresses/{addressId} {
+      allow read, write, delete: if request.auth.uid == resource.data.userId;
+    }
+
+    // Newsletter : inscription publique, lecture admin
+    match /newsletter/{email} {
+      allow create: if true;
+      allow read: if request.auth.token.admin == true;
+    }
+
+    // Avis : les connectes peuvent ecrire, un seul par produit
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if request.auth.uid != null
+        && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth.uid == resource.data.userId
+        || request.auth.token.admin == true;
+    }
+
+    // Coupons : lecture publique (code valide?), ecriture admin
+    match /coupons/{couponId} {
+      allow read: if true;
+      allow write: if request.auth.token.admin == true;
+    }
+
+  }
+}

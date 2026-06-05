@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZANKA — Maison de Sacs de Luxe | Artisanat d'Exception</title>
+  <meta name="description" content="ZANKA crée des sacs de luxe intemporels, alliant artisanat d'exception et design épuré. Découvrez notre collection de backpacks, sacs homme et femme.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ZANKA — Maison de Sacs de Luxe">
+  <meta property="og:description" content="Sacs de luxe intemporels, artisanat d'exception.">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ZANKA",
+    "url": "https://zanka-luxury-bags.web.app/",
+    "description": "Maison de sacs de luxe artisanaux"
+  }
+  </script>
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+
+  <!-- GSAP (non bloquant) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+  <style>
+    .reveal { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * HEADER
+  * ═══════════════════════════════════════════════════════════ -->
+  <header class="header header-clair" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="index.html" class="header-logo">ZANKA</a>
+
+      <nav class="header-nav">
+        <a href="shop.html" class="header-lien">Backpacks</a>
+        <a href="shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="header-icone" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+
+        <a href="account/login.html" class="header-icone" aria-label="Mon compte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+
+        <a href="cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu mobile -->
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer" aria-label="Fermer le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <a href="shop.html">Backpacks</a>
+    <a href="shop.html?categorie=hommes">Hommes</a>
+    <a href="shop.html?categorie=femmes">Femmes</a>
+    <a href="pages/about.html">Notre Histoire</a>
+    <a href="pages/contact.html">Contact</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * HERO — Texte visible SANS JavaScript
+  * ═══════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-image">
+      <img
+        src="https://images.unsplash.com/photo-1547949003-9792a18a2601?w=1920&q=80"
+        srcset="https://images.unsplash.com/photo-1547949003-9792a18a2601?w=640&q=75 640w,
+                https://images.unsplash.com/photo-1547949003-9792a18a2601?w=1024&q=80 1024w,
+                https://images.unsplash.com/photo-1547949003-9792a18a2601?w=1920&q=80 1920w"
+        sizes="100vw"
+        alt="Sac ZANKA en cuir artisanal"
+        fetchpriority="high"
+        loading="eager"
+      >
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-contenu">
+      <p class="hero-sous-titre">Édition Limitée 2026</p>
+      <h1 class="hero-titre">L'Art du Cuir,<br>l'Essence du Luxe</h1>
+      <p class="hero-accroche">
+        Des sacs intemporels façonnés par des artisans d'exception.
+      </p>
+      <div class="hero-actions">
+        <a href="shop.html" class="btn btn-blanc btn-large">Explorer la Collection</a>
+        <a href="shop.html?tri=bestsellers" class="btn btn-secondaire btn-large" style="border-color: rgba(255,255,255,0.3); color: var(--blanc);">Nos Bestsellers</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator" aria-hidden="true">
+      Scroll
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * BANDE DÉFILANTE
+  * ═══════════════════════════════════════════════════════════ -->
+  <div class="bande-defilante" aria-hidden="true">
+    <div class="bande-defilante-contenu">
+      <span>Livraison offerte dès 200€</span>
+      <span>✦</span>
+      <span>Cuir pleine fleur</span>
+      <span>✦</span>
+      <span>Fait main en France</span>
+      <span>✦</span>
+      <span>Retours sous 30 jours</span>
+      <span>✦</span>
+      <span>Livraison offerte dès 200€</span>
+      <span>✦</span>
+      <span>Cuir pleine fleur</span>
+      <span>✦</span>
+      <span>Fait main en France</span>
+      <span>✦</span>
+      <span>Retours sous 30 jours</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * CATÉGORIES — Layout asymétrique
+  * ═══════════════════════════════════════════════════════════ -->
+  <section class="categories">
+    <div class="conteneur">
+      <h2 class="section-titre reveal">Nos Collections</h2>
+      <p class="section-sous-titre reveal">Trois univers, un même engagement : l'excellence artisanale.</p>
+
+      <div class="categories-asym reveal">
+        <a href="shop.html?categorie=backpacks" class="categorie-grande">
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80" alt="Backpacks ZANKA" loading="lazy">
+          <div class="categorie-overlay">
+            <span class="categorie-nom">Backpacks</span>
+            <span class="categorie-compte">4 modèles</span>
+          </div>
+        </a>
+
+        <div class="categories-asym-droite">
+          <a href="shop.html?categorie=hommes" class="categorie-petite">
+            <img src="https://images.unsplash.com/photo-1594226801341-41427b4e5c22?w=600&q=80" alt="Sacs homme ZANKA" loading="lazy">
+            <div class="categorie-overlay">
+              <span class="categorie-nom">Sacs Homme</span>
+              <span class="categorie-compte">4 modèles</span>
+            </div>
+          </a>
+          <a href="shop.html?categorie=femmes" class="categorie-petite">
+            <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80" alt="Sacs femme ZANKA" loading="lazy">
+            <div class="categorie-overlay">
+              <span class="categorie-nom">Sacs Femme</span>
+              <span class="categorie-compte">4 modèles</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * BESTSELLERS — 4 produits
+  * ═══════════════════════════════════════════════════════════ -->
+  <section class="bestsellers">
+    <div class="conteneur">
+      <h2 class="section-titre reveal">Les Plus Convoités</h2>
+      <p class="section-sous-titre reveal">Nos pièces les plus aimées de la saison.</p>
+
+      <div class="bestsellers-grille">
+
+        <article class="carte-produit reveal">
+          <a href="product.html?id=zephyr">
+            <div class="carte-produit-image">
+              <img src="https://images.unsplash.com/photo-1601924994987-69e26d50e8bf?w=400&q=80" alt="Sac à dos Zephyr" loading="lazy">
+              <span class="carte-produit-badge">Nouveau</span>
+            </div>
+            <h3 class="carte-produit-nom">Sac à Dos Zephyr</h3>
+            <p class="carte-produit-categorie">Backpacks</p>
+            <p class="carte-produit-prix">850 €</p>
+          </a>
+        </article>
+
+        <article class="carte-produit reveal">
+          <a href="product.html?id=aria">
+            <div class="carte-produit-image">
+              <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80" alt="Sac Cabas Aria" loading="lazy">
+              <span class="carte-produit-badge bestseller">Best-seller</span>
+            </div>
+            <h3 class="carte-produit-nom">Sac Cabas Aria</h3>
+            <p class="carte-produit-categorie">Sacs Femme</p>
+            <p class="carte-produit-prix">1 450 €</p>
+          </a>
+        </article>
+
+        <article class="carte-produit reveal">
+          <a href="product.html?id=berlinois">
+            <div class="carte-produit-image">
+              <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80" alt="Sacoche Berlinois" loading="lazy">
+              <span class="carte-produit-badge">Nouveau</span>
+            </div>
+            <h3 class="carte-produit-nom">Sacoche Berlinois</h3>
+            <p class="carte-produit-categorie">Sacs Homme</p>
+            <p class="carte-produit-prix">450 €</p>
+          </a>
+        </article>
+
+        <article class="carte-produit reveal">
+          <a href="product.html?id=lune">
+            <div class="carte-produit-image">
+              <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&q=80" alt="Sac à main Lune" loading="lazy">
+              <span class="carte-produit-badge bestseller">Best-seller</span>
+            </div>
+            <h3 class="carte-produit-nom">Sac à Main Lune</h3>
+            <p class="carte-produit-categorie">Sacs Femme</p>
+            <p class="carte-produit-prix">1 280 €</p>
+          </a>
+        </article>
+
+      </div>
+
+      <div class="vedette-cta" style="text-align:center; margin-top: var(--space-2xl);">
+        <a href="shop.html" class="btn btn-primaire">Voir Tous les Modèles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * NOTRE HISTOIRE — Storytelling
+  * ═══════════════════════════════════════════════════════════ -->
+  <section class="histoire">
+    <div class="conteneur histoire-grille">
+      <div class="histoire-image">
+        <img src="https://images.unsplash.com/photo-1560343776-97e42e6e5d47?w=800&q=80" alt="Atelier ZANKA" loading="lazy">
+      </div>
+      <div class="histoire-contenu">
+        <span class="histoire-badge">Depuis 2026</span>
+        <h2 class="histoire-titre">L'Excellence<br>Artisanale Française</h2>
+        <p class="histoire-texte">
+          ZANKA est né d'une conviction : le vrai luxe se cache dans les détails.
+          Chaque sac est pensé, dessiné et façonné à la main dans nos ateliers,
+          avec des cuirs sélectionnés aux quatre coins de l'Europe.
+        </p>
+        <a href="pages/about.html" class="btn btn-secondaire">Découvrir Notre Histoire</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * CONFIANCE — 4 valeurs
+  * ═══════════════════════════════════════════════════════════ -->
+  <section class="confiance">
+    <div class="conteneur confiance-grille">
+      <div class="confiance-item reveal">
+        <span class="confiance-icone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </span>
+        <h3 class="confiance-titre">Cuir Premium</h3>
+        <p class="confiance-texte">Pleine fleur italien</p>
+      </div>
+      <div class="confiance-item reveal">
+        <span class="confiance-icone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+            <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+          </svg>
+        </span>
+        <h3 class="confiance-titre">Livraison Express</h3>
+        <p class="confiance-texte">Sous 48h en Europe</p>
+      </div>
+      <div class="confiance-item reveal">
+        <span class="confiance-icone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+            <path d="M21 12a9 9 0 1 1-9-9"/><polyline points="22 3 12 13 9 10"/>
+          </svg>
+        </span>
+        <h3 class="confiance-titre">Retours Faciles</h3>
+        <p class="confiance-texte">30 jours satisfait</p>
+      </div>
+      <div class="confiance-item reveal">
+        <span class="confiance-icone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        <h3 class="confiance-titre">SAV Dédié</h3>
+        <p class="confiance-texte">Réponse sous 24h</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * NEWSLETTER
+  * ═══════════════════════════════════════════════════════════ -->
+  <section class="newsletter">
+    <div class="conteneur">
+      <h2 class="newsletter-titre">Entrez dans l'Univers ZANKA</h2>
+      <p class="newsletter-texte">
+        Recevez en exclusivité nos nouvelles collections, éditions limitées
+        et l'envers du décor de l'atelier.
+      </p>
+      <form class="newsletter-form js-newsletter-form">
+        <input type="email" placeholder="Votre adresse e-mail" required autocomplete="email">
+        <button type="submit" class="btn btn-primaire">S'inscrire</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * FOOTER
+  * ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="pages/contact.html">Contact</a></li>
+            <li><a href="pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * SCRIPTS
+  * ═══════════════════════════════════════════════════════════ -->
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/animations.js" defer></script>
+
+  <!-- Newsletter handler -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.js-newsletter-form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var input = form.querySelector('input[type="email"]');
+          if (input && input.value) {
+            alert('Merci ' + input.value + ' ! Vous êtes inscrit(e) à la newsletter ZANKA.');
+            form.reset();
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * SCRIPT PRINCIPAL — Header scroll + Burger (inline, fiable)
+  * ═══════════════════════════════════════════════════════════ -->
+  <script>
+    (function() {
+      var header = document.querySelector('.header');
+      if (header) {
+        function toggleHeader() {
+          if (window.scrollY > 60) {
+            header.classList.add('header-scrolle');
+          } else {
+            header.classList.remove('header-scrolle');
+          }
+        }
+        toggleHeader();
+        window.addEventListener('scroll', toggleHeader, { passive: true });
+      }
+
+      var burger = document.querySelector('.js-burger');
+      var menuMobile = document.querySelector('.js-menu-mobile');
+      var fermer = document.querySelector('.js-menu-fermer');
+
+      function fermerMenu() {
+        if (burger) burger.classList.remove('actif');
+        if (menuMobile) menuMobile.classList.remove('ouvert');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      function ouvrirMenu() {
+        burger.classList.add('actif');
+        menuMobile.classList.add('ouvert');
+        burger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      if (burger && menuMobile) {
+        burger.addEventListener('click', function() {
+          if (menuMobile.classList.contains('ouvert')) {
+            fermerMenu();
+          } else {
+            ouvrirMenu();
+          }
+        });
+
+        // Fermeture via le bouton X
+        if (fermer) {
+          fermer.addEventListener('click', fermerMenu);
+        }
+
+        // Fermeture en cliquant sur les liens
+        menuMobile.querySelectorAll('a').forEach(function(lien) {
+          lien.addEventListener('click', fermerMenu);
+        });
+
+        // Fermeture en cliquant sur le fond (pas sur un lien)
+        menuMobile.addEventListener('click', function(e) {
+          if (e.target === menuMobile) {
+            fermerMenu();
+          }
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

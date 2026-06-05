@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détail Commande — ZANKA Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-header"><h1>ZANKA</h1><span>Administration</span></div>
+    <nav class="admin-sidebar-nav">
+      <a href="index.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Tableau de bord</a>
+      <a href="orders.html" class="admin-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Commandes</a>
+      <a href="products.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Produits</a>
+      <a href="users.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Utilisateurs</a>
+      <a href="coupons.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20 12H4"/><path d="M12 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg> Codes Promo</a>
+      <a href="newsletter.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Newsletter</a>
+      <a href="settings.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Paramètres</a>
+    </nav>
+    <div class="admin-sidebar-footer"><a href="../index.html" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Voir le site</a></div>
+  </aside>
+  <div class="admin-main">
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <button class="admin-hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <h2 id="page-title">Détail Commande</h2>
+      </div>
+      <div class="admin-header-right">
+        <span class="admin-user" id="admin-user-name"></span>
+        <a href="#" id="admin-logout-btn" class="btn-admin btn-admin-secondary btn-admin-sm" style="text-decoration:none;">Déconnexion</a>
+      </div>
+    </header>
+    <div class="admin-content">
+      <div class="order-detail-header" id="order-header">
+        <div>
+          <a href="orders.html" style="font-size:0.8rem;color:var(--admin-primary);text-decoration:none;">&larr; Retour aux commandes</a>
+          <h1 id="order-id-display">—</h1>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span id="order-status-display"></span>
+          <select id="status-select" class="admin-select">
+            <option value="pending">En attente</option>
+            <option value="confirmed">Confirmée</option>
+            <option value="preparing">Préparation</option>
+            <option value="shipped">Expédiée</option>
+            <option value="delivered">Livrée</option>
+            <option value="cancelled">Annulée</option>
+          </select>
+          <button class="btn-admin btn-admin-primary btn-admin-sm" id="btn-update-status">Mettre à jour</button>
+        </div>
+      </div>
+      <div class="order-info-grid" id="order-info-grid">
+        <div class="order-info-box">
+          <h4>Client</h4>
+          <p id="client-name"></p>
+          <p id="client-email"></p>
+          <p id="client-phone"></p>
+        </div>
+        <div class="order-info-box">
+          <h4>Adresse de livraison</h4>
+          <p id="address-line1"></p>
+          <p id="address-city"></p>
+          <p id="address-country"></p>
+        </div>
+        <div class="order-info-box">
+          <h4>Paiement</h4>
+          <p id="payment-method"></p>
+          <p id="payment-status"></p>
+          <p id="order-date"></p>
+        </div>
+      </div>
+      <div class="admin-card order-items-table">
+        <div class="admin-card-header"><h3>Articles</h3></div>
+        <div class="admin-card-body" style="padding:0;">
+          <table class="admin-table" id="items-table">
+            <thead><tr><th>Produit</th><th>Prix unitaire</th><th>Quantité</th><th>Total</th></tr></thead>
+            <tbody id="items-body"></tbody>
+            <tfoot id="items-foot" style="font-weight:600;"></tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="admin-grid-2">
+        <div class="admin-card">
+          <div class="admin-card-header"><h3>Suivi de commande</h3></div>
+          <div class="admin-card-body" id="timeline-container"></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><h3>Transporteur</h3></div>
+          <div class="admin-card-body" id="carrier-container">
+            <p>Aucun transporteur assigné.</p>
+            <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+              <input type="text" id="carrier-input" placeholder="Transporteur (Colissimo...)" style="flex:1;padding:8px 12px;border:1px solid var(--admin-border);border-radius:4px;font-family:inherit;">
+              <input type="text" id="tracking-input" placeholder="N° de suivi" style="flex:1;padding:8px 12px;border:1px solid var(--admin-border);border-radius:4px;font-family:inherit;">
+              <button class="btn-admin btn-admin-primary btn-admin-sm" id="btn-save-tracking">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:12px;">
+        <button class="btn-admin btn-admin-secondary" id="btn-print">Imprimer la facture</button>
+        <button class="btn-admin btn-admin-secondary" id="btn-notify-client">Notifier le client</button>
+      </div>
+    </div>
+  </div>
+  <script src="../js/admin.js"></script>
+  <script>
+    adminAuthCheck();
+    initAdminLayout();
+    var COMMANDES = [
+      { orderId: "ZANKA-2026-0001", userId: "demo@zanka.fr", clientName: "Jean Dupont", email: "demo@zanka.fr", phone: "+33 6 12 34 56 78", items: [{ name: "Sac à Dos Zephyr", price: 850, quantite: 1, image: "https://images.unsplash.com/photo-1601924994987-69e26d50e8bf?w=80&q=60" }, { name: "Sacoche Berlinois", price: 450, quantite: 2, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=80&q=60" }], subtotal: 1750, discount: 0, shipping: 0, tax: 350, total: 2100, status: "delivered", carrier: "Colissimo", trackingNumber: "FA123456789FR", shippingAddress: { line1: "12 Rue de la Paix", city: "Paris 75002", country: "France", phone: "+33 6 12 34 56 78" }, paymentMethod: "CB", paymentStatus: "Payé", createdAt: "2026-05-10", timeline: [{ status: "pending", ts: "2026-05-10T09:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-05-10T09:15:00Z", desc: "Paiement confirmé" }, { status: "preparing", ts: "2026-05-10T14:00:00Z", desc: "En préparation dans notre atelier" }, { status: "shipped", ts: "2026-05-11T14:00:00Z", desc: "Colis expédié" }, { status: "delivered", ts: "2026-05-14T10:30:00Z", desc: "Livré à votre adresse" }] },
+      { orderId: "ZANKA-2026-0002", userId: "sarah@exemple.fr", clientName: "Sarah Martin", email: "sarah@exemple.fr", phone: "+33 6 98 76 54 32", items: [{ name: "Sac Cabas Aria", price: 1450, quantite: 1, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=80&q=60" }], subtotal: 1450, discount: 145, shipping: 5.90, tax: 262.18, total: 1573.08, status: "shipped", carrier: "Chronopost", trackingNumber: "FA987654321FR", shippingAddress: { line1: "8 Rue du Faubourg", city: "Lyon 69002", country: "France", phone: "+33 6 98 76 54 32" }, paymentMethod: "PayPal", paymentStatus: "Payé", createdAt: "2026-05-28", timeline: [{ status: "pending", ts: "2026-05-28T11:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-05-28T11:10:00Z", desc: "Paiement confirmé" }, { status: "preparing", ts: "2026-05-28T16:00:00Z", desc: "En préparation" }, { status: "shipped", ts: "2026-05-29T08:00:00Z", desc: "Colis expédié en Chronopost" }] },
+      { orderId: "ZANKA-2026-0003", userId: "marie@exemple.fr", clientName: "Marie Lambert", email: "marie@exemple.fr", phone: "+33 6 45 67 89 01", items: [{ name: "Sac à Main Lune", price: 1280, quantite: 1, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=80&q=60" }], subtotal: 1280, discount: 0, shipping: 5.90, tax: 257.18, total: 1543.08, status: "pending", carrier: "", trackingNumber: "", shippingAddress: { line1: "3 Avenue des Ternes", city: "Paris 75017", country: "France", phone: "+33 6 45 67 89 01" }, paymentMethod: "CB", paymentStatus: "En attente", createdAt: "2026-06-03", timeline: [{ status: "pending", ts: "2026-06-03T15:00:00Z", desc: "Commande reçue" }] },
+      { orderId: "ZANKA-2026-0004", userId: "paul@exemple.fr", clientName: "Paul Dubois", email: "paul@exemple.fr", phone: "+33 6 23 45 67 89", items: [{ name: "Sac à Dos Voyageur", price: 1200, quantite: 1, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=80&q=60" }], subtotal: 1200, discount: 0, shipping: 0, tax: 240, total: 1440, status: "confirmed", carrier: "", trackingNumber: "", shippingAddress: { line1: "15 Rue de la République", city: "Marseille 13001", country: "France", phone: "+33 6 23 45 67 89" }, paymentMethod: "CB", paymentStatus: "Payé", createdAt: "2026-06-04", timeline: [{ status: "pending", ts: "2026-06-04T09:30:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-06-04T09:45:00Z", desc: "Paiement confirmé" }] },
+      { orderId: "ZANKA-2026-0005", userId: "sophie@exemple.fr", clientName: "Sophie Petit", email: "sophie@exemple.fr", phone: "+33 6 56 78 90 12", items: [{ name: "Sac Bandoulière Nova", price: 890, quantite: 2, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=80&q=60" }], subtotal: 1780, discount: 0, shipping: 0, tax: 356, total: 2136, status: "preparing", carrier: "DHL", trackingNumber: "DHL-FR-98765", shippingAddress: { line1: "28 Boulevard Haussmann", city: "Paris 75009", country: "France", phone: "+33 6 56 78 90 12" }, paymentMethod: "Apple Pay", paymentStatus: "Payé", createdAt: "2026-06-04", timeline: [{ status: "pending", ts: "2026-06-04T14:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-06-04T14:10:00Z", desc: "Paiement confirmé" }, { status: "preparing", ts: "2026-06-04T15:30:00Z", desc: "En préparation dans notre atelier" }] },
+      { orderId: "ZANKA-2026-0006", userId: "lucas@exemple.fr", clientName: "Lucas Moreau", email: "lucas@exemple.fr", phone: "+33 6 34 56 78 90", items: [{ name: "Porte-Documents Executive", price: 890, quantite: 1, image: "https://images.unsplash.com/photo-1594226801341-41427b4e5c22?w=80&q=60" }], subtotal: 890, discount: 89, shipping: 5.90, tax: 161.38, total: 968.28, status: "cancelled", carrier: "", trackingNumber: "", shippingAddress: { line1: "5 Rue de la Paix", city: "Bordeaux 33000", country: "France", phone: "+33 6 34 56 78 90" }, paymentMethod: "CB", paymentStatus: "Remboursé", createdAt: "2026-05-25", timeline: [{ status: "pending", ts: "2026-05-25T10:00:00Z", desc: "Commande reçue" }, { status: "confirmed", ts: "2026-05-25T10:15:00Z", desc: "Paiement confirmé" }, { status: "cancelled", ts: "2026-05-26T09:00:00Z", desc: "Annulé par le client" }] }
+    ];
+    var params = new URLSearchParams(window.location.search);
+    var orderId = params.get('id');
+    var commande = null;
+    for (var i = 0; i < COMMANDES.length; i++) {
+      if (COMMANDES[i].orderId === orderId) { commande = COMMANDES[i]; break; }
+    }
+    if (!commande) {
+      document.getElementById('page-title').textContent = 'Commande introuvable';
+      document.querySelector('.admin-content').innerHTML = '<div class="admin-empty"><p>Commande introuvable.</p><a href="orders.html" class="btn-admin btn-admin-primary">Retour aux commandes</a></div>';
+    } else {
+      renderOrder(commande);
+    }
+    function renderOrder(c) {
+      document.getElementById('page-title').textContent = c.orderId;
+      document.getElementById('order-id-display').textContent = c.orderId;
+      document.getElementById('order-status-display').innerHTML = statusBadge(c.status);
+      document.getElementById('status-select').value = c.status;
+      document.getElementById('client-name').textContent = c.clientName;
+      document.getElementById('client-email').textContent = c.email;
+      document.getElementById('client-phone').textContent = c.phone || 'Non renseigné';
+      document.getElementById('address-line1').textContent = c.shippingAddress.line1;
+      document.getElementById('address-city').textContent = c.shippingAddress.city;
+      document.getElementById('address-country').textContent = c.shippingAddress.country;
+      document.getElementById('payment-method').textContent = c.paymentMethod;
+      document.getElementById('payment-status').textContent = c.paymentStatus;
+      document.getElementById('order-date').textContent = 'Créée le ' + c.createdAt;
+      var tbody = document.getElementById('items-body');
+      tbody.innerHTML = '';
+      c.items.forEach(function(item) {
+        tbody.innerHTML += '<tr><td><div class="product-cell"><img src="' + item.image + '" alt="">' + item.name + '</div></td><td>' + formatPrix(item.price) + '</td><td>' + item.quantite + '</td><td>' + formatPrix(item.price * item.quantite) + '</td></tr>';
+      });
+      var discountHtml = c.discount > 0 ? '<tr><td colspan="3" style="text-align:right;">Réduction</td><td style="color:var(--admin-success);">-' + formatPrix(c.discount) + '</td></tr>' : '';
+      document.getElementById('items-foot').innerHTML = discountHtml +
+        '<tr><td colspan="3" style="text-align:right;">Sous-total</td><td>' + formatPrix(c.subtotal) + '</td></tr>' +
+        '<tr><td colspan="3" style="text-align:right;">Livraison</td><td>' + (c.shipping === 0 ? 'Gratuite' : formatPrix(c.shipping)) + '</td></tr>' +
+        '<tr><td colspan="3" style="text-align:right;">TVA 20%</td><td>' + formatPrix(c.tax) + '</td></tr>' +
+        '<tr><td colspan="3" style="text-align:right;font-size:1.1rem;">Total</td><td style="font-size:1.1rem;">' + formatPrix(c.total) + '</td></tr>';
+      var timelineEl = document.getElementById('timeline-container');
+      timelineEl.innerHTML = '<div class="order-timeline">';
+      var ordreStatuts = ['pending', 'confirmed', 'preparing', 'shipped', 'delivered'];
+      var idxActuel = ordreStatuts.indexOf(c.status);
+      if (c.status === 'cancelled') {
+        var foundCancel = null;
+        for (var t = 0; t < c.timeline.length; t++) {
+          if (c.timeline[t].status === 'cancelled') foundCancel = c.timeline[t];
+        }
+        timelineEl.innerHTML = '<div class="order-timeline">' +
+          '<div class="order-timeline-step done"><div><div class="step-label">Commande annulée</div><div class="step-desc">' + (foundCancel ? foundCancel.desc : '') + '</div><div class="step-date">' + (foundCancel ? formatDateShort(foundCancel.ts) : '') + '</div></div></div>' +
+        '</div>';
+      } else {
+        ordreStatuts.forEach(function(s, idx) {
+          var etape = null;
+          for (var k = 0; k < c.timeline.length; k++) {
+            if (c.timeline[k].status === s) { etape = c.timeline[k]; break; }
+          }
+          var cls = idx <= idxActuel ? 'done' : '';
+          if (idx === idxActuel && c.status !== 'delivered') cls = 'active';
+          timelineEl.innerHTML += '<div class="order-timeline-step ' + cls + '"><div><div class="step-label">' + statusLabel(s) + '</div>' +
+            (etape ? '<div class="step-desc">' + etape.desc + '</div>' : '') +
+            (etape ? '<div class="step-date">' + formatDateShort(etape.ts) + '</div>' : '') +
+          '</div></div>';
+        });
+        timelineEl.innerHTML += '</div>';
+      }
+      if (c.carrier) {
+        document.getElementById('carrier-container').innerHTML =
+          '<p><strong>Transporteur :</strong> ' + c.carrier + '</p>' +
+          (c.trackingNumber ? '<p><strong>N° de suivi :</strong> ' + c.trackingNumber + '</p>' : '') +
+          '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;"><input type="text" id="carrier-input" value="' + (c.carrier || '') + '" placeholder="Transporteur" style="flex:1;padding:8px 12px;border:1px solid var(--admin-border);border-radius:4px;font-family:inherit;"><input type="text" id="tracking-input" value="' + (c.trackingNumber || '') + '" placeholder="N° de suivi" style="flex:1;padding:8px 12px;border:1px solid var(--admin-border);border-radius:4px;font-family:inherit;"><button class="btn-admin btn-admin-primary btn-admin-sm" id="btn-save-tracking">Enregistrer</button></div>';
+      }
+      document.getElementById('carrier-input').value = c.carrier || '';
+      document.getElementById('tracking-input').value = c.trackingNumber || '';
+    }
+    document.getElementById('btn-update-status').addEventListener('click', function() {
+      var newStatus = document.getElementById('status-select').value;
+      if (newStatus === commande.status) {
+        showToast('Le statut est déjà "' + statusLabel(newStatus) + '".', '');
+        return;
+      }
+      commande.status = newStatus;
+      var now = new Date().toISOString();
+      var alreadyExists = false;
+      for (var i = 0; i < commande.timeline.length; i++) {
+        if (commande.timeline[i].status === newStatus) alreadyExists = true;
+      }
+      if (!alreadyExists) {
+        commande.timeline.push({ status: newStatus, ts: now, desc: 'Statut mis à jour par l\'administrateur' });
+      }
+      renderOrder(commande);
+      showToast('Commande ' + commande.orderId + ' passée au statut "' + statusLabel(newStatus) + '"', 'success');
+      if (newStatus === 'shipped') {
+        showToast('N\'oubliez pas de renseigner le transporteur et le n° de suivi !', '');
+      }
+    });
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.id === 'btn-save-tracking') {
+        var carrier = document.getElementById('carrier-input').value.trim();
+        var tracking = document.getElementById('tracking-input').value.trim();
+        if (!carrier) { showToast('Veuillez entrer un transporteur.', 'error'); return; }
+        commande.carrier = carrier;
+        commande.trackingNumber = tracking;
+        showToast('Informations de suivi enregistrées.', 'success');
+      }
+    });
+    document.getElementById('btn-print').addEventListener('click', function() {
+      showToast('Facture générée (simulation).', 'success');
+    });
+    document.getElementById('btn-notify-client').addEventListener('click', function() {
+      showToast('Notification envoyée à ' + commande.email, 'success');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — ZANKA</title>
+  <meta name="description" content="Contactez l'équipe ZANKA. Atelier, service client, presse.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/pages/contact.html">
+  <meta property="og:title" content="Contact — ZANKA">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    .page-contact { padding: calc(var(--header-hauteur) + var(--space-xl)) 0 var(--space-3xl); }
+    .contact-header { text-align:center; margin-bottom: var(--space-2xl); }
+    .contact-header h1 { font-family:var(--font-titres); font-size:var(--texte-3xl); font-weight:var(--semibold); }
+
+    .contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-2xl); }
+    .contact-form { display:flex; flex-direction:column; gap:var(--space-md); }
+    .contact-form label { font-size:var(--texte-xs); font-weight:var(--semibold); text-transform:uppercase; letter-spacing:0.08em; }
+    .contact-form input, .contact-form select, .contact-form textarea {
+      width:100%; padding:var(--space-xs); border:1px solid var(--ecru); font-size:var(--texte-sm);
+      font-family:var(--font-corps);
+    }
+    .contact-form textarea { min-height:140px; resize:vertical; }
+
+    .contact-infos { display:flex; flex-direction:column; gap:var(--space-lg); }
+    .contact-info-card { padding:var(--space-md); border:var(--bordure-fine); }
+    .contact-info-card h3 { font-family:var(--font-titres); font-size:var(--texte-base); margin-bottom:var(--space-2xs); }
+    .contact-info-card p { font-size:var(--texte-sm); color:var(--brun-chaud); line-height:1.7; }
+
+    .contact-map { width:100%; height:250px; background:var(--beige-sable); display:flex; align-items:center; justify-content:center; color:var(--brun-chaud); font-size:var(--texte-sm); margin-top:var(--space-xl); }
+
+    @media (max-width:767px) { .contact-layout { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="../index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="../shop.html" class="header-lien">Backpacks</a>
+        <a href="../shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="../shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="about.html" class="header-lien">Notre Histoire</a>
+        <a href="contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="../account/login.html" class="header-icone" aria-label="Mon compte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <a href="../cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer" aria-label="Fermer le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="../shop.html">Backpacks</a>
+    <a href="../shop.html?categorie=hommes">Hommes</a>
+    <a href="../shop.html?categorie=femmes">Femmes</a>
+    <a href="about.html">Notre Histoire</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="conteneur page-contact">
+    <div class="contact-header">
+      <h1>Contactez-nous</h1>
+      <p style="color:var(--brun-chaud);">Une question, un projet sur mesure ? Nous sommes à votre écoute.</p>
+    </div>
+
+    <div class="contact-layout">
+      <form class="contact-form" id="form-contact">
+        <div>
+          <label for="contact-nom">Nom complet</label>
+          <input type="text" id="contact-nom" required>
+        </div>
+        <div>
+          <label for="contact-email">E-mail</label>
+          <input type="email" id="contact-email" required>
+        </div>
+        <div>
+          <label for="contact-sujet">Sujet</label>
+          <select id="contact-sujet">
+            <option>Service client</option>
+            <option>Commande & livraison</option>
+            <option>Retour & remboursement</option>
+            <option>Projet sur mesure</option>
+            <option>Presse & partenariats</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div>
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primaire">Envoyer</button>
+      </form>
+
+      <div class="contact-infos">
+        <div class="contact-info-card">
+          <h3>Service Client</h3>
+          <p>Réponse sous 24h ouvrées<br>
+          client@zanka-luxury.com<br>
+          +33 1 85 42 78 90</p>
+        </div>
+        <div class="contact-info-card">
+          <h3>Notre Atelier</h3>
+          <p>42 Rue du Faubourg Saint-Honoré<br>
+          75008 Paris, France</p>
+        </div>
+        <div class="contact-info-card">
+          <h3>Horaires</h3>
+          <p>Lun — Ven : 10h – 19h<br>
+          Sam : 11h – 18h</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-map">
+      <span>42 Rue du Faubourg Saint-Honoré, 75008 Paris — Carte</span>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="../shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="../shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="../shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="../shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/firebase-config.js" defer></script>
+  <script src="../js/utils.js" defer></script>
+  <script defer>
+  (function(){
+    var h=document.querySelector('.header');
+    function t(){h.classList.toggle('header-scrolle',window.scrollY>60)}
+    if(h){t();window.addEventListener('scroll',t,{passive:true})}
+    var b=document.querySelector('.js-burger'),m=document.querySelector('.js-menu-mobile'),f=document.querySelector('.js-menu-fermer');
+    function fm(){if(b)b.classList.remove('actif');if(m)m.classList.remove('ouvert');if(b)b.setAttribute('aria-expanded','false');document.body.style.overflow=''}
+    function om(){b.classList.add('actif');m.classList.add('ouvert');b.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}
+    if(b&&m){
+      b.addEventListener('click',function(){m.classList.contains('ouvert')?fm():om()});
+      if(f)f.addEventListener('click',fm);
+      m.querySelectorAll('a').forEach(function(l){l.addEventListener('click',fm)});
+      m.addEventListener('click',function(e){if(e.target===m)fm()});
+    }
+    document.getElementById('form-contact').addEventListener('submit',function(e){
+      e.preventDefault();
+      alert('Merci pour votre message. L\'équipe ZANKA vous répondra dans les plus brefs délais.');
+      this.reset();
+    });
+  })();
+  </script>
+</body>
+</html>

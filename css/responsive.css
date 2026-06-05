@@ -1,0 +1,21 @@
+/* =============================================================
+ * RESPONSIVE.CSS — Overrides globaux ZANKA
+ * =============================================================
+ * Ce fichier contient les ajustements globaux qui ne sont pas
+ * spécifiques à une page. Chaque page a déjà ses propres
+ * media queries dans son fichier CSS dédié.
+ * ============================================================= */
+
+@media (max-width: 767px) {
+  .conteneur {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+}
+
+@media (min-width: 1440px) {
+  .conteneur {
+    padding-left: var(--space-2xl);
+    padding-right: var(--space-2xl);
+  }
+}

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de Bord — ZANKA</title>
+  <meta name="description" content="Mon espace client ZANKA.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/account/dashboard.html">
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    /* ─── Layout compte ────────────────── */
+    .compte-page {
+      padding: calc(var(--header-hauteur) + var(--space-xl)) 0 var(--space-2xl);
+    }
+
+    .compte-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .compte-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--noir-doux);
+      color: var(--blanc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-titres);
+      font-size: 1.5rem;
+      font-weight: var(--semibold);
+      flex-shrink: 0;
+    }
+
+    .compte-bienvenue {
+      font-family: var(--font-titres);
+      font-size: var(--texte-xl);
+    }
+
+    .compte-points {
+      font-size: var(--texte-xs);
+      color: var(--brun-chaud);
+    }
+
+    /* ─── Menu latéral ──────────────────── */
+    .compte-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: var(--space-xl);
+    }
+
+    .compte-nav {
+      border-right: var(--bordure-fine);
+      padding-right: var(--space-lg);
+    }
+
+    .compte-nav-lien {
+      display: block;
+      padding: var(--space-sm) 0;
+      font-size: var(--texte-sm);
+      color: var(--brun-chaud);
+      border-bottom: var(--bordure-fine);
+      transition: color 0.2s;
+    }
+
+    .compte-nav-lien:hover,
+    .compte-nav-lien.actif {
+      color: var(--noir-doux);
+      font-weight: var(--medium);
+    }
+
+    .compte-nav-lien.deconnexion {
+      color: #c62828;
+      border-bottom: none;
+      margin-top: var(--space-lg);
+    }
+
+    /* ─── Cartes résumé ─────────────────── */
+    .compte-cartes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .compte-carte {
+      padding: var(--space-md);
+      border: var(--bordure-fine);
+      text-align: center;
+    }
+
+    .compte-carte-valeur {
+      font-family: var(--font-titres);
+      font-size: 1.8rem;
+      font-weight: var(--semibold);
+    }
+
+    .compte-carte-label {
+      font-size: var(--texte-xs);
+      color: var(--brun-chaud);
+      margin-top: var(--space-2xs);
+    }
+
+    /* ─── Sections dashboard ────────────── */
+    .compte-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .compte-section-titre {
+      font-family: var(--font-titres);
+      font-size: var(--texte-lg);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--bordure-fine);
+    }
+
+    .compte-section-lien {
+      font-size: var(--texte-xs);
+      color: var(--brun-chaud);
+      float: right;
+      margin-top: -2em;
+    }
+
+    /* ─── Commandes récentes ────────────── */
+    .compte-commande {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: var(--bordure-fine);
+      font-size: var(--texte-sm);
+    }
+
+    .compte-commande:last-child { border-bottom: none; }
+
+    .compte-commande-ref {
+      font-weight: var(--medium);
+    }
+
+    .compte-commande-total {
+      color: var(--brun-chaud);
+    }
+
+    /* ─── Wishlist ──────────────────────── */
+    .compte-wishlist {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .compte-wishlist-item img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+
+    .compte-wishlist-nom {
+      font-size: var(--texte-sm);
+      font-weight: var(--medium);
+      margin-top: var(--space-2xs);
+    }
+
+    .compte-wishlist-prix {
+      font-size: var(--texte-xs);
+      color: var(--brun-chaud);
+    }
+
+    /* ─── Adresses ──────────────────────── */
+    .compte-adresses {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    .compte-adresse {
+      padding: var(--space-md);
+      border: var(--bordure-fine);
+      font-size: var(--texte-sm);
+    }
+
+    .compte-adresse-titre {
+      font-weight: var(--medium);
+      margin-bottom: var(--space-2xs);
+    }
+
+    /* ─── Responsive ────────────────────── */
+    @media (max-width: 1023px) {
+      .compte-layout { grid-template-columns: 1fr; }
+      .compte-nav {
+        border-right: none;
+        padding-right: 0;
+        display: flex;
+        gap: var(--space-md);
+        overflow-x: auto;
+        padding-bottom: var(--space-md);
+        border-bottom: var(--bordure-fine);
+        margin-bottom: var(--space-lg);
+      }
+      .compte-nav-lien {
+        border-bottom: none;
+        white-space: nowrap;
+        padding: var(--space-xs) var(--space-sm);
+        border: var(--bordure-fine);
+      }
+      .compte-nav-lien.deconnexion { margin-top: 0; }
+    }
+
+    @media (max-width: 767px) {
+      .compte-cartes { grid-template-columns: 1fr; }
+      .compte-wishlist { grid-template-columns: repeat(2, 1fr); }
+      .compte-adresses { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="../index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="../shop.html" class="header-lien">Backpacks</a>
+        <a href="../shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="../shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="../pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="../pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="../cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenu -->
+  <div class="conteneur compte-page">
+
+    <!-- Header profil -->
+    <div class="compte-header">
+      <div class="compte-avatar">JD</div>
+      <div>
+        <h1 class="compte-bienvenue">Bonjour, Jeanne</h1>
+        <span class="compte-points">Membre depuis mai 2026 • 1 250 points fidélité</span>
+      </div>
+    </div>
+
+    <div class="compte-layout">
+
+      <!-- Navigation -->
+      <nav class="compte-nav">
+        <a href="dashboard.html" class="compte-nav-lien actif">Tableau de bord</a>
+        <a href="orders.html" class="compte-nav-lien">Mes commandes</a>
+        <a href="adresses.html" class="compte-nav-lien">Mes adresses</a>
+        <a href="profil.html" class="compte-nav-lien">Infos personnelles</a>
+        <a href="../index.html" class="compte-nav-lien deconnexion" onclick="localStorage.removeItem('zanka_user')">Déconnexion</a>
+      </nav>
+
+      <!-- Contenu -->
+      <div>
+
+        <!-- Cartes résumé -->
+        <div class="compte-cartes">
+          <div class="compte-carte">
+            <div class="compte-carte-valeur">3</div>
+            <div class="compte-carte-label">Commandes</div>
+          </div>
+          <div class="compte-carte">
+            <div class="compte-carte-valeur">1 739 €</div>
+            <div class="compte-carte-label">Panier moyen</div>
+          </div>
+          <div class="compte-carte">
+            <div class="compte-carte-valeur">1 250</div>
+            <div class="compte-carte-label">Points fidélité</div>
+          </div>
+        </div>
+
+        <!-- Dernières commandes -->
+        <div class="compte-section">
+          <h2 class="compte-section-titre">
+            Dernières commandes
+            <a href="orders.html" class="compte-section-lien">Voir tout</a>
+          </h2>
+          <div id="dernieres-commandes"></div>
+        </div>
+
+        <!-- Wishlist -->
+        <div class="compte-section">
+          <h2 class="compte-section-titre">Ma wishlist</h2>
+          <div class="compte-wishlist" id="dashboard-wishlist"></div>
+        </div>
+
+        <!-- Adresses -->
+        <div class="compte-section">
+          <h2 class="compte-section-titre">Mes adresses</h2>
+          <div class="compte-adresses">
+            <div class="compte-adresse">
+              <div class="compte-adresse-titre">🏠 Adresse de livraison</div>
+              12 Rue de la Paix<br>
+              75002 Paris<br>
+              France
+            </div>
+            <div class="compte-adresse">
+              <div class="compte-adresse-titre">🏢 Adresse de facturation</div>
+              12 Rue de la Paix<br>
+              75002 Paris<br>
+              France
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="../shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="../shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="../shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="../shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li><a href="../pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/firebase-config.js" defer></script>
+  <script src="../js/utils.js" defer></script>
+  <script src="../js/products.js" defer></script>
+  <script src="../js/orders.js" defer></script>
+
+  <script defer>
+  (function() {
+    // Header scroll
+    var header = document.querySelector('.header');
+    if (header) {
+      function toggleHeader() { header.classList.toggle('header-scrolle', window.scrollY > 60); }
+      toggleHeader();
+      window.addEventListener('scroll', toggleHeader, { passive: true });
+    }
+
+    // Dernières commandes
+    chargerCommandes({}, function(cmds) {
+      var container = document.getElementById('dernieres-commandes');
+      container.innerHTML = cmds.slice(0, 3).map(function(c) {
+        var s = STATUTS[c.status] || { label: c.status };
+        return '<div class="compte-commande">' +
+          '<div>' +
+            '<div class="compte-commande-ref">' + c.orderId + '</div>' +
+            '<div style="font-size:var(--texte-xs);color:var(--brun-chaud);">' + formaterDate(c.createdAt) + ' — ' + c.items.length + ' article(s)</div>' +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div class="compte-commande-total">' + formaterPrix(c.total) + '</div>' +
+            '<div>' + renderStatut(c.status) + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    });
+
+    // Wishlist (4 premiers produits démo)
+    var wishlistContainer = document.getElementById('dashboard-wishlist');
+    wishlistContainer.innerHTML = '';
+    var nomsCat = { backpacks: 'Backpacks', hommes: 'Hommes', femmes: 'Femmes' };
+    PRODUITS_DEMO.slice(0, 4).forEach(function(p) {
+      wishlistContainer.innerHTML +=
+        '<div>' +
+          '<a href="../product.html?id=' + p.id + '">' +
+            '<div class="compte-wishlist-item">' +
+              '<img src="' + p.images[0] + '" alt="' + p.name + '" loading="lazy">' +
+              '<div class="compte-wishlist-nom">' + p.name + '</div>' +
+              '<div class="compte-wishlist-prix">' + formaterPrix(p.price) + '</div>' +
+            '</div>' +
+          '</a>' +
+        '</div>';
+    });
+
+  })();
+  </script>
+
+</body>
+</html>

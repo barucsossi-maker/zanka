@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue — ZANKA | Sacs de Luxe Artisanaux</title>
+  <meta name="description" content="Découvrez la collection ZANKA : backpacks, sacs homme et femme en cuir pleine fleur. Artisanat français d'exception.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/shop.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Catalogue — ZANKA">
+  <meta property="og:description" content="Collection de sacs de luxe artisanaux.">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/shop.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+
+  <style>
+    .reveal { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * HEADER — identique à index.html
+  * ═══════════════════════════════════════════════════════════ -->
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="index.html" class="header-logo">ZANKA</a>
+
+      <nav class="header-nav">
+        <a href="shop.html" class="header-lien">Backpacks</a>
+        <a href="shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="pages/about.html" class="header-lien">Notre Histoire</a>
+        <a href="pages/contact.html" class="header-lien">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="header-icone" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+
+        <a href="account/login.html" class="header-icone" aria-label="Mon compte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+
+        <a href="cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu mobile -->
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer" aria-label="Fermer le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <a href="shop.html">Backpacks</a>
+    <a href="shop.html?categorie=hommes">Hommes</a>
+    <a href="shop.html?categorie=femmes">Femmes</a>
+    <a href="pages/about.html">Notre Histoire</a>
+    <a href="pages/contact.html">Contact</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * HERO CATALOGUE
+  * ═══════════════════════════════════════════════════════════ -->
+  <section class="shop-hero">
+    <div class="conteneur">
+      <p class="shop-fil-ariane">
+        <a href="index.html">Accueil</a> / <span>Collection</span>
+      </p>
+      <h1 class="shop-titre">Toute la Collection ZANKA</h1>
+      <p style="color: var(--brun-chaud); margin-top: var(--space-xs);">
+        Des pièces d'exception pour homme et femme, façonnées à la main en France.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * FILTRE MOBILE — Bouton drawer
+  * ═══════════════════════════════════════════════════════════ -->
+  <div class="conteneur">
+    <button class="shop-filtre-mobile-btn js-filtre-mobile-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/>
+      </svg>
+      Filtres
+      <span class="shop-filtres-compte js-filtres-compte" style="display:none;">0</span>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * LAYOUT PRINCIPAL
+  * ═══════════════════════════════════════════════════════════ -->
+  <div class="conteneur shop-layout">
+
+    <!-- ─── Sidebar Filtres ────────────────────────────────── -->
+    <aside class="shop-sidebar js-shop-sidebar" role="complementary" aria-label="Filtres produits">
+
+      <!-- Overlay pour fermeture mobile (généré par JS) -->
+
+      <div class="shop-filtres-header">
+        <span class="shop-filtres-titre">Filtres</span>
+        <button class="shop-filtres-effacer js-effacer-filtres">Tout effacer</button>
+      </div>
+
+      <!-- Catégorie -->
+      <div class="shop-filtre-groupe">
+        <span class="shop-filtre-label">Catégorie</span>
+        <label class="shop-filtre-check">
+          <input type="checkbox" value="backpacks" class="js-filtre-categorie"> Backpacks
+        </label>
+        <label class="shop-filtre-check">
+          <input type="checkbox" value="hommes" class="js-filtre-categorie"> Hommes
+        </label>
+        <label class="shop-filtre-check">
+          <input type="checkbox" value="femmes" class="js-filtre-categorie"> Femmes
+        </label>
+      </div>
+
+      <!-- Prix -->
+      <div class="shop-filtre-groupe">
+        <span class="shop-filtre-label">Prix</span>
+        <div class="shop-range">
+          <input type="number" class="js-prix-min" placeholder="Min" min="0" value="">
+          <span class="shop-range-sep">—</span>
+          <input type="number" class="js-prix-max" placeholder="Max" min="0" value="">
+        </div>
+      </div>
+
+      <!-- Couleur (swatches) -->
+      <div class="shop-filtre-groupe">
+        <span class="shop-filtre-label">Couleur</span>
+        <div class="shop-couleurs js-filtres-couleurs">
+          <button class="shop-couleur active" data-couleur="" title="Toutes" style="background: transparent; border: 2px solid var(--noir-doux); font-size: 10px; line-height: 28px; text-align: center;">T</button>
+          <button class="shop-couleur" data-couleur="Sable" title="Sable" style="background: #D4C5B5;"></button>
+          <button class="shop-couleur" data-couleur="Noir" title="Noir" style="background: #1C1C1C;"></button>
+          <button class="shop-couleur" data-couleur="Chocolat" title="Chocolat" style="background: #5C3D2E;"></button>
+          <button class="shop-couleur" data-couleur="Écru" title="Écru" style="background: #F5EFE6;"></button>
+          <button class="shop-couleur" data-couleur="Brun" title="Brun" style="background: #8B6F52;"></button>
+        </div>
+      </div>
+
+      <!-- Nouveautés / Stock -->
+      <div class="shop-filtre-groupe">
+        <span class="shop-filtre-label">Affinage</span>
+        <label class="shop-filtre-check">
+          <input type="checkbox" class="js-filtre-nouveau"> Nouveautés
+        </label>
+        <label class="shop-filtre-check">
+          <input type="checkbox" class="js-filtre-stock" checked> En stock uniquement
+        </label>
+      </div>
+
+    </aside>
+
+    <!-- ─── Contenu principal ─────────────────────────────── -->
+    <main>
+
+      <!-- Barre d'outils : compte + tri + toggle -->
+      <div class="shop-outils">
+        <div class="shop-outils-gauche">
+          <span class="shop-compte" id="resultats-compte">— produits</span>
+        </div>
+        <div class="shop-tri">
+          <label for="shop-tri-select" class="sr-only">Trier par</label>
+          <select id="shop-tri-select" class="js-tri">
+            <option value="pertinence">Pertinence</option>
+            <option value="prix-croissant">Prix croissant</option>
+            <option value="prix-decroissant">Prix décroissant</option>
+            <option value="nouveautes">Nouveautés</option>
+            <option value="bestsellers">Bestsellers</option>
+          </select>
+        </div>
+        <div class="shop-toggle">
+          <button class="js-toggle-grille active" aria-label="Vue grille">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </button>
+          <button class="js-toggle-liste" aria-label="Vue liste">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Grille produits -->
+      <div class="shop-grille js-shop-grille" id="grille-produits">
+        <!-- Skeleton loading -->
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * FOOTER — identique à index.html
+  * ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size: var(--texte-sm); color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.6;">
+            Maison de sacs de luxe artisanaux. L'excellence française
+            au service de votre élégance quotidienne.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="pages/contact.html">Contact</a></li>
+            <li><a href="pages/care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGV</a></li>
+            <li><a href="#">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color: inherit;">Instagram</a>
+          &middot;
+          <a href="#" style="color: inherit;">Facebook</a>
+          &middot;
+          <a href="#" style="color: inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * SCRIPTS
+  * ═══════════════════════════════════════════════════════════ -->
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/products.js" defer></script>
+
+  <!-- ═══════════════════════════════════════════════════════════
+  * SHOP.JS — Logique page catalogue (inline, fiable)
+  * ═══════════════════════════════════════════════════════════ -->
+    <script defer>
+    (function() {
+      'use strict';
+
+      /* ─── Header scroll + Burger (identique index.html) ───── */
+      var header = document.querySelector('.header');
+      if (header) {
+        function toggleHeader() {
+          header.classList.toggle('header-scrolle', window.scrollY > 60);
+        }
+        toggleHeader();
+        window.addEventListener('scroll', toggleHeader, { passive: true });
+      }
+
+      var burger = document.querySelector('.js-burger');
+      var menuMobile = document.querySelector('.js-menu-mobile');
+      var fermer = document.querySelector('.js-menu-fermer');
+
+      function fermerMenu() {
+        if (burger) burger.classList.remove('actif');
+        if (menuMobile) menuMobile.classList.remove('ouvert');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      function ouvrirMenu() {
+        burger.classList.add('actif');
+        menuMobile.classList.add('ouvert');
+        burger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      if (burger && menuMobile) {
+        burger.addEventListener('click', function() {
+          menuMobile.classList.contains('ouvert') ? fermerMenu() : ouvrirMenu();
+        });
+        if (fermer) fermer.addEventListener('click', fermerMenu);
+        menuMobile.querySelectorAll('a').forEach(function(l) { l.addEventListener('click', fermerMenu); });
+        menuMobile.addEventListener('click', function(e) { if (e.target === menuMobile) fermerMenu(); });
+      }
+
+      /* ─── État des filtres ──────────────────────────────────── */
+      var etatFiltres = {
+        categories: [],
+        prixMin: null,
+        prixMax: null,
+        couleur: '',
+        nouveau: false,
+        stock: true
+      };
+      var triActuel = 'pertinence';
+
+      /* ─── Lecture des paramètres URL ───────────────────────── */
+      var params = new URLSearchParams(window.location.search);
+      var catUrl = params.get('categorie');
+      var triUrl = params.get('tri');
+
+      if (catUrl) {
+        etatFiltres.categories = [catUrl];
+        document.querySelectorAll('.js-filtre-categorie').forEach(function(cb) {
+          cb.checked = (cb.value === catUrl);
+        });
+        // Met à jour le titre du hero
+        var nomsCat = { backpacks: 'Backpacks', hommes: 'Hommes', femmes: 'Femmes' };
+        if (nomsCat[catUrl]) {
+          document.querySelector('.shop-titre').textContent = 'Collection ' + nomsCat[catUrl];
+          document.querySelector('.shop-fil-ariane').innerHTML =
+            '<a href="index.html">Accueil</a> / <a href="shop.html">Collection</a> / <span>' + nomsCat[catUrl] + '</span>';
+        }
+      }
+
+      if (triUrl) {
+        triActuel = triUrl;
+        var sel = document.querySelector('.js-tri');
+        if (sel) sel.value = triUrl;
+      }
+
+      /* ─── Chargement et affichage ──────────────────────────── */
+      function appliquerFiltres() {
+        // Squelette
+        var grille = document.getElementById('grille-produits');
+        grille.innerHTML =
+          '<div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>';
+
+        var filtres = {
+          categorie: etatFiltres.categories.length === 1 ? etatFiltres.categories[0] : null,
+          prixMin: etatFiltres.prixMin,
+          prixMax: etatFiltres.prixMax,
+          nouveau: etatFiltres.nouveau,
+          stock: etatFiltres.stock
+        };
+
+        chargerProduits(filtres, triActuel, function(produits, total) {
+          afficherProduits(produits, 'grille-produits');
+          document.getElementById('resultats-compte').textContent = total + ' produit' + (total > 1 ? 's' : '');
+        });
+
+        // Compte filtres actifs
+        var compte = (etatFiltres.categories.length > 0 ? 1 : 0) +
+                     (etatFiltres.prixMin || etatFiltres.prixMax ? 1 : 0) +
+                     (etatFiltres.couleur ? 1 : 0) +
+                     (etatFiltres.nouveau ? 1 : 0);
+        var badge = document.querySelector('.js-filtres-compte');
+        if (badge) {
+          if (compte > 0) {
+            badge.textContent = compte;
+            badge.style.display = 'inline-flex';
+          } else {
+            badge.style.display = 'none';
+          }
+        }
+      }
+
+      /* ─── Événements filtres ────────────────────────────────── */
+      document.querySelectorAll('.js-filtre-categorie').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          etatFiltres.categories = [];
+          document.querySelectorAll('.js-filtre-categorie:checked').forEach(function(c) {
+            etatFiltres.categories.push(c.value);
+          });
+          appliquerFiltres();
+        });
+      });
+
+      document.querySelector('.js-prix-min').addEventListener('input', function() {
+        etatFiltres.prixMin = this.value ? parseInt(this.value) : null;
+        appliquerFiltres();
+      });
+
+      document.querySelector('.js-prix-max').addEventListener('input', function() {
+        etatFiltres.prixMax = this.value ? parseInt(this.value) : null;
+        appliquerFiltres();
+      });
+
+      document.querySelectorAll('.shop-couleur').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.shop-couleur').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          etatFiltres.couleur = this.dataset.couleur;
+          appliquerFiltres();
+        });
+      });
+
+      document.querySelector('.js-filtre-nouveau').addEventListener('change', function() {
+        etatFiltres.nouveau = this.checked;
+        appliquerFiltres();
+      });
+
+      document.querySelector('.js-filtre-stock').addEventListener('change', function() {
+        etatFiltres.stock = this.checked;
+        appliquerFiltres();
+      });
+
+      // Tri
+      document.querySelector('.js-tri').addEventListener('change', function() {
+        triActuel = this.value;
+        appliquerFiltres();
+      });
+
+      // Effacer tout
+      document.querySelector('.js-effacer-filtres').addEventListener('click', function() {
+        etatFiltres = {
+          categories: [],
+          prixMin: null,
+          prixMax: null,
+          couleur: '',
+          nouveau: false,
+          stock: true
+        };
+        document.querySelectorAll('.js-filtre-categorie').forEach(function(c) { c.checked = false; });
+        document.querySelector('.js-prix-min').value = '';
+        document.querySelector('.js-prix-max').value = '';
+        document.querySelectorAll('.shop-couleur').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelector('.shop-couleur[data-couleur=""]').classList.add('active');
+        document.querySelector('.js-filtre-nouveau').checked = false;
+        document.querySelector('.js-filtre-stock').checked = true;
+        appliquerFiltres();
+      });
+
+      /* ─── Toggle grille/liste ───────────────────────────────── */
+      document.querySelector('.js-toggle-grille').addEventListener('click', function() {
+        document.querySelector('.js-toggle-grille').classList.add('active');
+        document.querySelector('.js-toggle-liste').classList.remove('active');
+        document.getElementById('grille-produits').classList.remove('liste');
+      });
+
+      document.querySelector('.js-toggle-liste').addEventListener('click', function() {
+        document.querySelector('.js-toggle-liste').classList.add('active');
+        document.querySelector('.js-toggle-grille').classList.remove('active');
+        document.getElementById('grille-produits').classList.add('liste');
+      });
+
+      /* ─── Filtre mobile (drawer) ────────────────────────────── */
+      var btnFiltre = document.querySelector('.js-filtre-mobile-btn');
+      var sidebar = document.querySelector('.js-shop-sidebar');
+
+      if (btnFiltre && sidebar) {
+        btnFiltre.addEventListener('click', function() {
+          sidebar.classList.add('ouverte');
+        });
+
+        // Overlay pour fermeture sur mobile
+        var overlay = document.createElement('div');
+        overlay.style.cssText =
+          'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:1199;opacity:0;visibility:hidden;transition:all 0.3s;';
+        document.body.appendChild(overlay);
+
+        // Observe les changements de classe sur sidebar
+        var obs = new MutationObserver(function() {
+          if (sidebar.classList.contains('ouverte')) {
+            overlay.style.opacity = '1';
+            overlay.style.visibility = 'visible';
+          } else {
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+          }
+        });
+        obs.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
+
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('ouverte');
+        });
+      }
+
+      /* ─── Initialisation ────────────────────────────────────── */
+      appliquerFiltres();
+
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+/* =============================================================
+ * ANIMATIONS.CSS — Keyframes + effets visuels ZANKA
+ * =============================================================
+ * Contient les animations CSS pures (les animations GSAP sont
+ * dans animations.js). Pourquoi séparer ?
+ * - CSS : animations basiques (hover, fade, reveal)
+ * - JS : animations complexes (parallax, timeline, scrollTrigger)
+ * ============================================================= */
+
+/* ═══════════════════════════════════════════════════════════════
+ * 1. FADE IN (apparition progressive)
+ * ═══════════════════════════════════════════════════════════════
+ * Utilisé au scroll (via l'observateur d'intersection)
+ * ============================================================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInGauche {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInDroite {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInHaut {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Classe d'utilité appliquée par l'Intersection Observer ──
+ * ⚠️ Visible par défaut (fallback si JS ne charge pas).
+ * L'animation (opacity: 0) n'est appliquée que si GSAP
+ * est chargé et gère l'animation.
+ * ============================================================= */
+.reveal {
+  /* Pas de opacity:0 ou transform ici — visible par défaut */
+  /* GSAP animera depuis opacity:0 si chargé */
+  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-gauche {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-gauche.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-droite {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-droite.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 2. HOVER EFFECTS
+ * ═══════════════════════════════════════════════════════════════ */
+
+/* Image zoom subtil (cartographie) */
+.hover-zoom {
+  overflow: hidden;
+}
+
+.hover-zoom img {
+  transition: transform var(--transition-lente);
+}
+
+.hover-zoom:hover img {
+  transform: scale(1.04);
+}
+
+/* Soulignement animé (liens nav) */
+.hover-ligne {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-ligne::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width var(--transition-moyenne);
+}
+
+.hover-ligne:hover::after {
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 3. PARALLAX (version CSS pure)
+ * ═══════════════════════════════════════════════════════════════
+ * GSAP gérera le parallax principal dans animations.js
+ * Celui-ci est un fallback si JS est désactivé.
+ * ============================================================= */
+
+.parallax-conteneur {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 4. COUNTER ANIMATION (chiffres qui défilent)
+ * ═══════════════════════════════════════════════════════════════ */
+
+@keyframes compteur {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 5. LOADING SPINNER (pour async operations)
+ * ═══════════════════════════════════════════════════════════════ */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(var(--noir-doux-rgb), 0.1);
+  border-top-color: var(--noir-doux);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 6. NOTIFICATION TOAST
+ * ═══════════════════════════════════════════════════════════════ */
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+ * 7. SHIMMER (skeleton loading)
+ * ═══════════════════════════════════════════════════════════════ */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--beige-sable) 25%,
+    var(--ecru) 50%,
+    var(--beige-sable) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}

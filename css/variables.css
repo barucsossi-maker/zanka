@@ -1,0 +1,152 @@
+/* =============================================================
+ * VARIABLES.CSS — Tokens de design ZANKA
+ * =============================================================
+ * Centralise toutes les valeurs répétables du design system.
+ * Modifier ce fichier = modifier TOUT le site.
+ * Pourquoi ? Évite les incohérences et facilite le theming.
+ * ============================================================= */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════
+   * PALETTE COULEURS — Identité ZANKA
+   * ═══════════════════════════════════════════════════════════
+   * Inspirée du luxe neutre et chaleureux (Loewe, A.P.C.)
+   * Toutes les couleurs sont en HSL pour une accessibilité WCAG
+   * ============================================================= */
+
+  --beige-sable: #F5EFE6;
+  --beige-sable-rgb: 245, 239, 230;
+
+  --ecru: #EDE0D0;
+  --ecru-rgb: 237, 224, 208;
+
+  --brun-chaud: #8B6F52;
+  --brun-chaud-rgb: 139, 111, 82;
+
+  --noir-doux: #1C1C1C;
+  --noir-doux-rgb: 28, 28, 28;
+
+  --blanc-casse: #FAFAF8;
+  --blanc-casse-rgb: 250, 250, 248;
+
+  --or-mat: #C9A96E;
+  --or-mat-rgb: 201, 169, 110;
+
+  /* Couleurs fonctionnelles */
+  --blanc: #FFFFFF;
+  --noir: #000000;
+  --erreur: #C0392B;
+  --succes: #27AE60;
+  --info: #2C3E50;
+  --avertissement: #F39C12;
+
+  /* ═══════════════════════════════════════════════════════════
+   * TYPOGRAPHIE
+   * ═══════════════════════════════════════════════════════════
+   * Pourquoi ce choix ?
+   * - Cormorant Garamond : Serif français élégant, parfait
+   *   pour l'image luxe. Ses ligatures sont magnifiques.
+   * - DM Sans : Sans-serif géométrique neutre, lisible,
+   *   excellent ratio hauteur/largeur pour le e-commerce.
+   * ============================================================= */
+
+  --font-titres: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+  --font-corps: 'DM Sans', 'Inter', 'Segoe UI', sans-serif;
+
+  /* Tailles fluides (clamp) — voir responsive.css pour les breakpoints */
+  --texte-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --texte-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --texte-base: clamp(1rem, 0.9rem + 0.45vw, 1.125rem);
+  --texte-lg: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  --texte-xl: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+  --texte-2xl: clamp(1.75rem, 1.25rem + 1.8vw, 2.5rem);
+  --texte-3xl: clamp(2.25rem, 1.5rem + 2.8vw, 3.5rem);
+  --texte-4xl: clamp(2.75rem, 1.75rem + 4vw, 5rem);
+
+  /* Poids */
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --semibold: 600;
+  --bold: 700;
+
+  /* Interlignage */
+  --relache: 1.15;
+  --normal: 1.5;
+  --serre: 1.25;
+
+  /* ═══════════════════════════════════════════════════════════
+   * ESPACEMENTS
+   * ═══════════════════════════════════════════════════════════
+   * Système 4px base. Pourquoi 4 ? Car la plupart des écrans
+   * ont des résolutions multiples de 4 (retina, HD, 4K).
+   * ============================================================= */
+
+  --space-4xs: 0.125rem;  /*  2px */
+  --space-3xs: 0.25rem;   /*  4px */
+  --space-2xs: 0.5rem;    /*  8px */
+  --space-xs: 0.75rem;    /* 12px */
+  --space-sm: 1rem;       /* 16px */
+  --space-md: 1.5rem;     /* 24px */
+  --space-lg: 2rem;       /* 32px */
+  --space-xl: 3rem;       /* 48px */
+  --space-2xl: 4rem;      /* 64px */
+  --space-3xl: 6rem;      /* 96px */
+  --space-4xl: 8rem;      /* 128px */
+
+  /* ═══════════════════════════════════════════════════════════
+   * BORDURES ET COINS
+   * ═══════════════════════════════════════════════════════════
+   * Le luxe utilise des coins subtils, jamais arrondis.
+   * ============================================================= */
+
+  --rayon-xs: 2px;
+  --rayon-sm: 4px;
+  --rayon-md: 8px;
+  --rayon-lg: 12px;
+  --rayon-plein: 9999px;
+  --bordure-fine: 1px solid rgba(var(--noir-doux-rgb), 0.08);
+  --bordure-epaisse: 2px solid var(--noir-doux);
+
+  /* ═══════════════════════════════════════════════════════════
+   * OMBRES
+   * ═══════════════════════════════════════════════════════════
+   * Ombres subtiles et chaudes. Le luxe ne "flotte" pas.
+   * ============================================================= */
+
+  --ombre-legere: 0 2px 20px rgba(0, 0, 0, 0.04);
+  --ombre-moyenne: 0 8px 40px rgba(0, 0, 0, 0.06);
+  --ombre-lourde: 0 20px 60px rgba(0, 0, 0, 0.1);
+  --ombre-au-dessus: 0 -4px 20px rgba(0, 0, 0, 0.04);
+
+  /* ═══════════════════════════════════════════════════════════
+   * TRANSITIONS
+   * ═══════════════════════════════════════════════════════════
+   * Une seule vitesse = cohérence visuelle parfaite.
+   * ============================================================= */
+
+  --transition-rapide: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-moyenne: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-lente: 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* ═══════════════════════════════════════════════════════════
+   * Z-INDEX — Ordre d'empilement
+   * ═══════════════════════════════════════════════════════════
+   * Centralisé pour éviter les conflits de superposition.
+   * ============================================================= */
+
+  --z-header: 1000;
+  --z-menu: 1100;
+  --z-overlay: 1200;
+  --z-modal: 1300;
+  --z-notification: 1400;
+
+  /* ═══════════════════════════════════════════════════════════
+   * LARGEURS
+   * ═══════════════════════════════════════════════════════════ */
+
+  --max-width: 1440px;
+  --max-width-texte: 720px;
+  --header-hauteur: 80px;
+  --header-hauteur-mobile: 64px;
+}

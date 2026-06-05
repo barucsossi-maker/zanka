@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide d'Entretien — ZANKA | Prendre Soin de son Cuir</title>
+  <meta name="description" content="Guide complet d'entretien ZANKA : nettoyage, nourrissage, protection et réparation de votre sac en cuir pleine fleur.">
+  <link rel="canonical" href="https://zanka-luxury-bags.web.app/pages/care.html">
+  <meta property="og:title" content="Guide d'Entretien — ZANKA">
+  <meta property="og:description" content="Comment entretenir votre sac ZANKA pour qu'il traverse les saisons.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1560343776-97e42e6e5d47?w=1200&q=80">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    /* ─── Hero ─────────────────────────── */
+    .care-hero {
+      padding: calc(var(--header-hauteur) + var(--space-2xl)) 0 var(--space-2xl);
+      background: linear-gradient(135deg, var(--noir-doux) 0%, #2a2a2a 100%);
+      color: var(--blanc);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .care-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&q=80') center/cover;
+      opacity: 0.12; mix-blend-mode: overlay;
+    }
+    .care-hero h1 {
+      font-family: var(--font-titres); font-size: var(--texte-3xl); font-weight: var(--semibold);
+      position: relative; margin-bottom: var(--space-sm);
+    }
+    .care-hero p {
+      color: rgba(255,255,255,0.6); max-width: 550px; margin: 0 auto;
+      font-size: var(--texte-base); line-height: 1.7; position: relative;
+    }
+
+    /* ─── Intro ──────────────────────────── */
+    .care-intro {
+      max-width: var(--max-width-texte); margin: var(--space-2xl) auto var(--space-2xl);
+      text-align: center; padding: 0 var(--space-lg);
+    }
+    .care-intro h2 {
+      font-family: var(--font-titres); font-size: var(--texte-xl); margin-bottom: var(--space-sm);
+    }
+    .care-intro p {
+      color: var(--brun-chaud); line-height: 1.8; font-size: var(--texte-sm);
+    }
+
+    /* ─── Étapes ───────────────────────── */
+    .care-etape {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl);
+      align-items: center; margin-bottom: var(--space-2xl);
+      padding: 0 var(--space-lg);
+    }
+    .care-etape:nth-child(even) { direction: rtl; }
+    .care-etape:nth-child(even) > * { direction: ltr; }
+
+    .care-etape-image {
+      position: relative;
+    }
+    .care-etape-image img {
+      width: 100%; height: 340px; object-fit: cover;
+    }
+    .care-etape-numero {
+      position: absolute; top: var(--space-md); left: var(--space-md);
+      width: 48px; height: 48px; background: var(--noir-doux);
+      color: var(--blanc); display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-titres); font-size: 1.2rem;
+    }
+
+    .care-etape-contenu h3 {
+      font-family: var(--font-titres); font-size: var(--texte-xl);
+      margin-bottom: var(--space-sm);
+    }
+    .care-etape-contenu p {
+      color: var(--brun-chaud); line-height: 1.7; font-size: var(--texte-sm);
+      margin-bottom: var(--space-xs);
+    }
+    .care-etape-contenu ul {
+      list-style: none; padding: 0;
+    }
+    .care-etape-contenu li {
+      padding: var(--space-2xs) 0; font-size: var(--texte-sm); color: var(--noir-doux);
+      display: flex; align-items: flex-start; gap: var(--space-xs);
+    }
+    .care-etape-contenu li::before {
+      content: '—'; color: var(--or-mat); font-weight: var(--bold);
+    }
+
+    /* ─── CTA atelier ──────────────────── */
+    .care-atelier {
+      max-width: 600px; margin: var(--space-3xl) auto;
+      text-align: center; padding: var(--space-2xl) var(--space-lg);
+      border: 2px solid var(--or-mat);
+    }
+    .care-atelier h3 {
+      font-family: var(--font-titres); font-size: var(--texte-xl); margin-bottom: var(--space-sm);
+    }
+    .care-atelier p {
+      color: var(--brun-chaud); line-height: 1.7; font-size: var(--texte-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ─── Responsive ───────────────────── */
+    @media (max-width: 1023px) {
+      .care-etape { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .care-etape:nth-child(even) { direction: ltr; }
+      .care-etape-image img { height: 240px; }
+    }
+    @media (max-width: 767px) {
+      .care-hero { padding: calc(var(--header-hauteur-mobile) + var(--space-xl)) 0 var(--space-xl); }
+      .care-intro { padding: 0 var(--space-md); }
+      .care-etape { padding: 0 var(--space-md); }
+      .care-etape-image img { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" role="banner">
+    <div class="conteneur header-interieur">
+      <a href="../index.html" class="header-logo">ZANKA</a>
+      <nav class="header-nav">
+        <a href="../shop.html" class="header-lien">Backpacks</a>
+        <a href="../shop.html?categorie=hommes" class="header-lien">Hommes</a>
+        <a href="../shop.html?categorie=femmes" class="header-lien">Femmes</a>
+        <a href="about.html" class="header-lien">Notre Histoire</a>
+        <a href="contact.html" class="header-lien">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="../cart.html" class="header-icone" aria-label="Panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="header-panier-badge js-panier-compteur">0</span>
+        </a>
+        <button class="header-burger js-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="menu-mobile js-menu-mobile">
+    <button class="menu-mobile-fermer js-menu-fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <a href="../shop.html">Backpacks</a>
+    <a href="../shop.html?categorie=hommes">Hommes</a>
+    <a href="../shop.html?categorie=femmes">Femmes</a>
+    <a href="about.html">Notre Histoire</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <section class="care-hero">
+    <h1>Guide d'Entretien</h1>
+    <p>Un sac ZANKA est un investissement pour la vie. Prenez-en soin et il traversera les saisons avec vous, en gardant toute sa noblesse.</p>
+  </section>
+
+  <div class="care-intro">
+    <h2>Le Cuir Pleine Fleur : une Matière Vivante</h2>
+    <p>Chaque sac ZANKA est façonné dans les plus beaux cuirs pleine fleur d'Europe. Comme une peau, il respire, évolue et développe une patine unique au fil du temps. Un entretien régulier et attentionné préserve sa beauté originelle et prolonge sa longévité.</p>
+  </div>
+
+  <!-- Étape 1 -->
+  <div class="conteneur"><div class="care-etape">
+    <div class="care-etape-image">
+      <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=800&q=80" alt="Nettoyage d'un sac en cuir" loading="lazy">
+      <div class="care-etape-numero">01</div>
+    </div>
+    <div class="care-etape-contenu">
+      <h3>Nettoyage Quotidien</h3>
+      <p>La poussière et les particules sont les premiers ennemis du cuir. Un geste simple après chaque utilisation suffit.</p>
+      <ul>
+        <li>Essuyez votre sac avec un chiffon en microfibre propre et sec</li>
+        <li>Utilisez une brosse à poils très souples pour les coins et les coutures</li>
+        <li>Ne jamais utiliser de lingettes humides, d'alcool ou de produits ménagers</li>
+        <li>En cas de tache légère : un chiffon à peine humidifié, puis séchage immédiat</li>
+        <li>Pour une tache tenace : confiez-le à notre atelier sans attendre</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <!-- Étape 2 -->
+  <div class="conteneur"><div class="care-etape">
+    <div class="care-etape-image">
+      <img src="https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80" alt="Nourrir le cuir" loading="lazy">
+      <div class="care-etape-numero">02</div>
+    </div>
+    <div class="care-etape-contenu">
+      <h3>Nourrir le Cuir</h3>
+      <p>Le cuir est une matière vivante qui se dessèche avec le temps. Comme une peau, il a besoin d'être nourri 2 à 3 fois par an pour conserver sa souplesse et son éclat.</p>
+      <ul>
+        <li>Appliquez un baume ou une crème nourrissante incolore (pas de cire silicone)</li>
+        <li>Testez toujours le produit sur une zone cachée avant application complète</li>
+        <li>Laissez pénétrer 15 minutes, puis essuyez l'excédent avec un chiffon doux</li>
+        <li>Faites briller avec un mouvement circulaire, sans appuyer</li>
+        <li>Espacez les soins : un cuir sur-nourri perd son aspect mat naturel</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <!-- Étape 3 -->
+  <div class="conteneur"><div class="care-etape">
+    <div class="care-etape-image">
+      <img src="https://images.unsplash.com/photo-1585487000144-82c46059eaf4?w=800&q=80" alt="Rangement d'un sac de luxe" loading="lazy">
+      <div class="care-etape-numero">03</div>
+    </div>
+    <div class="care-etape-contenu">
+      <h3>Protection &amp; Stockage</h3>
+      <p>Quand vous ne portez pas votre sac, son rangement est aussi important que son entretien courant. Un mauvais stockage peut irrémédiablement abîmer le cuir.</p>
+      <ul>
+        <li>Conservez-le dans la housse en coton ZANKA (pas de plastique, le cuir doit respirer)</li>
+        <li>Placez du papier de soie froissé à l'intérieur pour maintenir la structure</li>
+        <li>Stockez dans un endroit sec, à l'abri de la lumière directe et des radiateurs</li>
+        <li>Évitez les pièces humides (salle de bain) ou trop chaudes (grenier)</li>
+        <li>Ne suspendez jamais un sac par ses anses : posez-le à plat ou debout</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <!-- Étape 4 -->
+  <div class="conteneur"><div class="care-etape">
+    <div class="care-etape-image">
+      <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=800&q=80" alt="Protection du cuir" loading="lazy">
+      <div class="care-etape-numero">04</div>
+    </div>
+    <div class="care-etape-contenu">
+      <h3>À Éviter Absolument</h3>
+      <p>Certains gestes, même anodins en apparence, peuvent irrémédiablement abîmer votre sac. Voici les erreurs les plus courantes.</p>
+      <ul>
+        <li>L'eau stagnante et la pluie battante : utilisez un imperméabilisant adapté</li>
+        <li>Le contact avec l'alcool, le parfum, les cosmétiques ou l'encre</li>
+        <li>Les surfaces rugueuses et les fermetures à scratch qui rayent le cuir</li>
+        <li>Le rangement dans un sac plastique hermétique (le cuir moisit)</li>
+        <li>Le remplissage excessif qui déforme définitivement la structure</li>
+        <li>L'exposition prolongée au soleil qui ternit et fragilise le cuir</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <div class="care-atelier">
+    <h3>Un Problème ? Notre Atelier est là.</h3>
+    <p>Nos artisans prennent soin de vos pièces préférées. Réparation, nettoyage professionnel, changement de fermeture : confiez-nous votre sac ZANKA.</p>
+    <a href="contact.html" class="btn btn-primaire">Contacter l'Atelier</a>
+  </div>
+
+  <footer class="footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <h4 class="footer-titre">ZANKA</h4>
+          <p style="font-size:var(--texte-sm);color:rgba(255,255,255,0.4);max-width:280px;line-height:1.6;">Maison de sacs de luxe artisanaux. L'excellence française au service de votre élégance quotidienne.</p>
+        </div>
+        <div>
+          <h4 class="footer-titre">Boutique</h4>
+          <ul class="footer-liste">
+            <li><a href="../shop.html?categorie=backpacks">Backpacks</a></li>
+            <li><a href="../shop.html?categorie=hommes">Sacs Homme</a></li>
+            <li><a href="../shop.html?categorie=femmes">Sacs Femme</a></li>
+            <li><a href="../shop.html">Tous les Produits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Aide</h4>
+          <ul class="footer-liste">
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="care.html">Guide d'Entretien</a></li>
+            <li><a href="#">Livraison & Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-titre">Légal</h4>
+          <ul class="footer-liste">
+            <li><a href="mentions-legales.html">Mentions Légales</a></li>
+            <li><a href="cgv.html">CGV</a></li>
+            <li><a href="confidentialite.html">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-infos">
+        <span>&copy; 2026 ZANKA. Tous droits réservés.</span>
+        <span>
+          <a href="#" style="color:inherit;">Instagram</a> &middot;
+          <a href="#" style="color:inherit;">Facebook</a> &middot;
+          <a href="#" style="color:inherit;">Pinterest</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/firebase-config.js" defer></script>
+  <script defer>
+  (function(){
+    var h=document.querySelector('.header');
+    function t(){h.classList.toggle('header-scrolle',window.scrollY>60)}
+    if(h){t();window.addEventListener('scroll',t,{passive:true})}
+    var b=document.querySelector('.js-burger'),m=document.querySelector('.js-menu-mobile'),f=document.querySelector('.js-menu-fermer');
+    function fm(){if(b)b.classList.remove('actif');if(m)m.classList.remove('ouvert');if(b)b.setAttribute('aria-expanded','false');document.body.style.overflow=''}
+    function om(){b.classList.add('actif');m.classList.add('ouvert');b.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}
+    if(b&&m){b.addEventListener('click',function(){m.classList.contains('ouvert')?fm():om()});if(f)f.addEventListener('click',fm);m.querySelectorAll('a').forEach(function(l){l.addEventListener('click',fm)});m.addEventListener('click',function(e){if(e.target===m)fm()});}
+  })();
+  </script>
+</body>
+</html>
