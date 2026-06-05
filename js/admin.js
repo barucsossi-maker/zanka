@@ -4,6 +4,8 @@ function adminAuthCheck() {
   }
 }
 
+var ADMIN_EMAILS = ['baruc.sossi@gmail.com'];
+
 function adminLogin(email, password) {
   if (typeof window.auth === 'undefined' || !window.auth) {
     return Promise.resolve({ success: false, message: 'Firebase Auth indisponible. Vérifiez votre connexion.' });
@@ -11,7 +13,8 @@ function adminLogin(email, password) {
   return window.auth.signInWithEmailAndPassword(email, password)
     .then(function(userCred) {
       return userCred.user.getIdTokenResult().then(function(idTokenResult) {
-        if (idTokenResult.claims.admin === true) {
+        var isAdmin = idTokenResult.claims.admin === true || ADMIN_EMAILS.indexOf(userCred.user.email) !== -1;
+        if (isAdmin) {
           localStorage.setItem('zanka_admin_token', 'authenticated');
           localStorage.setItem('zanka_admin_user', JSON.stringify({
             email: email,
