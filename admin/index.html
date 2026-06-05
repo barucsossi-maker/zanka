@@ -36,6 +36,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20 12H4"/><path d="M12 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg>
         Codes Promo
       </a>
+      <a href="messages.html" class="admin-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Messages
+      </a>
       <a href="newsletter.html" class="admin-nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Newsletter
@@ -71,6 +75,7 @@
         <div class="stat-card"><h3>Commandes (mois)</h3><div class="stat-value" id="stat-commandes">—</div></div>
         <div class="stat-card"><h3>Produits en stock</h3><div class="stat-value" id="stat-stock">—</div></div>
         <div class="stat-card"><h3>Clients inscrits</h3><div class="stat-value" id="stat-clients">—</div></div>
+        <div class="stat-card"><h3>Messages non lus</h3><div class="stat-value" id="stat-messages"><a href="messages.html" style="color:inherit;text-decoration:none;">—</a></div></div>
       </div>
       <div class="admin-grid-2">
         <div class="admin-card">
@@ -118,6 +123,26 @@
     document.getElementById('stat-commandes').textContent = COMMANDES_MOIS;
     document.getElementById('stat-stock').textContent = '47';
     document.getElementById('stat-clients').textContent = '128';
+
+    function compterMessages(msgs) {
+      var nonLus = msgs.filter(function(m) { return m.status === 'non-lu'; }).length;
+      document.getElementById('stat-messages').innerHTML = '<a href="messages.html" style="color:inherit;text-decoration:none;">' + nonLus + '</a>';
+    }
+    if (typeof window.db !== 'undefined' && window.db) {
+      window.db.collection('contacts').where('status', '==', 'non-lu').get().then(function(snap) {
+        compterMessages(snap.docs.map(function(d) { return d.data(); }));
+      }).catch(function() {
+        try {
+          var locaux = JSON.parse(localStorage.getItem('zanka_contacts') || '[]');
+          compterMessages(locaux);
+        } catch(e) {}
+      });
+    } else {
+      try {
+        var locaux = JSON.parse(localStorage.getItem('zanka_contacts') || '[]');
+        compterMessages(locaux);
+      } catch(e) {}
+    }
     var recentEl = document.getElementById('recent-orders');
     recentEl.innerHTML = '';
     COMMANDES_DEMO.slice(0, 5).forEach(function(c) {

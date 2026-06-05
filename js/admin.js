@@ -1,43 +1,32 @@
-var ADMIN_DEMO = {
-  email: 'admin@zanka.fr',
-  password: 'admin123',
-  name: 'Admin ZANKA'
-};
-
 function adminAuthCheck() {
-  var token = localStorage.getItem('zanka_admin_token');
-  if (!token || token !== 'authenticated') {
+  if (localStorage.getItem('zanka_admin_token') !== 'authenticated') {
     window.location.href = 'login.html';
   }
 }
 
 function adminLogin(email, password) {
-  if (typeof window.auth !== 'undefined' && window.auth) {
-    return window.auth.signInWithEmailAndPassword(email, password)
-      .then(function(userCred) {
-        return userCred.user.getIdTokenResult().then(function(idTokenResult) {
-          if (idTokenResult.claims.admin === true) {
-            localStorage.setItem('zanka_admin_token', 'authenticated');
-            localStorage.setItem('zanka_admin_user', JSON.stringify({
-              email: email,
-              name: userCred.user.displayName || email.split('@')[0]
-            }));
-            return { success: true };
-          }
-          window.auth.signOut();
-          return { success: false, message: 'Accès refusé : vous n\'êtes pas administrateur.' };
-        });
-      })
-      .catch(function(err) {
-        return { success: false, message: err.message };
+  if (typeof window.auth === 'undefined' || !window.auth) {
+    return Promise.resolve({ success: false, message: 'Firebase Auth indisponible. Vérifiez votre connexion.' });
+  }
+  return window.auth.signInWithEmailAndPassword(email, password)
+    .then(function(userCred) {
+      return userCred.user.getIdTokenResult().then(function(idTokenResult) {
+        if (idTokenResult.claims.admin === true) {
+          localStorage.setItem('zanka_admin_token', 'authenticated');
+          localStorage.setItem('zanka_admin_user', JSON.stringify({
+            email: email,
+            name: userCred.user.displayName || email.split('@')[0]
+          }));
+          return { success: true };
+        }
+        window.auth.signOut();
+        localStorage.removeItem('zanka_admin_token');
+        return { success: false, message: 'Accès refusé : vous n\'êtes pas administrateur.' };
       });
-  }
-  if (email === ADMIN_DEMO.email && password === ADMIN_DEMO.password) {
-    localStorage.setItem('zanka_admin_token', 'authenticated');
-    localStorage.setItem('zanka_admin_user', JSON.stringify({ email: email, name: 'Admin ZANKA' }));
-    return Promise.resolve({ success: true });
-  }
-  return Promise.resolve({ success: false, message: 'Email ou mot de passe incorrect.' });
+    })
+    .catch(function(err) {
+      return { success: false, message: err.message };
+    });
 }
 
 function adminLogout() {

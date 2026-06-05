@@ -71,5 +71,11 @@ service cloud.firestore {
       allow write: if request.auth.token.admin == true;
     }
 
+    // Messages contact : creation publique, lecture admin
+    match /contacts/{messageId} {
+      allow create: if true;
+      allow read, write, delete: if request.auth.token.admin == true;
+    }
+
   }
 }

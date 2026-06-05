@@ -203,8 +203,43 @@
     }
     document.getElementById('form-contact').addEventListener('submit',function(e){
       e.preventDefault();
-      alert('Merci pour votre message. L\'équipe ZANKA vous répondra dans les plus brefs délais.');
-      this.reset();
+      var btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Envoi...';
+
+      var data = {
+        nom: document.getElementById('contact-nom').value.trim(),
+        email: document.getElementById('contact-email').value.trim(),
+        sujet: document.getElementById('contact-sujet').value,
+        message: document.getElementById('contact-message').value.trim(),
+        date: new Date().toISOString(),
+        status: 'non-lu'
+      };
+
+      function envoyerFirestore(d) {
+        if (typeof window.db !== 'undefined' && window.db) {
+          return window.db.collection('contacts').add(d);
+        }
+        return Promise.reject('Firestore non disponible');
+      }
+
+      function succes() {
+        alert('Merci pour votre message. L\'équipe ZANKA vous répondra dans les plus brefs délais.');
+        document.getElementById('form-contact').reset();
+        btn.disabled = false;
+        btn.textContent = 'Envoyer';
+      }
+
+      function erreur(err) {
+        console.warn('Contact - fallback:', err);
+        // Fallback : on sauvegarde dans localStorage
+        var locaux = JSON.parse(localStorage.getItem('zanka_contacts') || '[]');
+        locaux.push(data);
+        localStorage.setItem('zanka_contacts', JSON.stringify(locaux));
+        succes();
+      }
+
+      envoyerFirestore(data).then(succes).catch(erreur);
     });
   })();
   </script>

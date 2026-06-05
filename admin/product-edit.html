@@ -18,6 +18,7 @@
       <a href="products.html" class="admin-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Produits</a>
       <a href="users.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Utilisateurs</a>
       <a href="coupons.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20 12H4"/><path d="M12 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg> Codes Promo</a>
+      <a href="messages.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Messages</a>
       <a href="newsletter.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Newsletter</a>
       <a href="settings.html" class="admin-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Paramètres</a>
     </nav>
@@ -87,6 +88,65 @@
             <input type="text" id="colors" placeholder="Sable, Noir, Chocolat">
           </div>
         </div>
+        <!-- Promotion -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="discountPercent">Réduction (%)</label>
+            <input type="number" id="discountPercent" min="0" max="100" placeholder="20">
+          </div>
+          <div class="form-group">
+            <label for="collection">Collection</label>
+            <input type="text" id="collection" placeholder="Ex: ete-2026, classique">
+          </div>
+        </div>
+
+        <!-- Accroche SEO -->
+        <div class="form-group">
+          <label for="shortDescription">Accroche courte (SEO)</label>
+          <textarea id="shortDescription" placeholder="Brève description pour le référencement..." rows="2"></textarea>
+        </div>
+
+        <!-- Images multiples -->
+        <div class="form-group">
+          <label for="images">Images (une URL par ligne — la 1ère = principale)</label>
+          <textarea id="images" placeholder="https://images.unsplash.com/photo-xxx" rows="3"></textarea>
+        </div>
+
+        <!-- Matériaux + Poids -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="materials">Matériaux (séparés par virgule)</label>
+            <input type="text" id="materials" placeholder="Cuir pleine fleur, Alcantara">
+          </div>
+          <div class="form-group">
+            <label for="weight">Poids (grammes)</label>
+            <input type="number" id="weight" min="0" placeholder="850">
+          </div>
+        </div>
+
+        <!-- Dimensions -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dimHeight">Hauteur (cm)</label>
+            <input type="number" id="dimHeight" step="0.1" min="0" placeholder="30">
+          </div>
+          <div class="form-group">
+            <label for="dimWidth">Largeur (cm)</label>
+            <input type="number" id="dimWidth" step="0.1" min="0" placeholder="25">
+          </div>
+          <div class="form-group">
+            <label for="dimDepth">Profondeur (cm)</label>
+            <input type="number" id="dimDepth" step="0.1" min="0" placeholder="12">
+          </div>
+        </div>
+
+        <!-- Caractéristiques -->
+        <div class="form-group">
+          <label for="features">Caractéristiques (une par ligne)</label>
+          <textarea id="features" placeholder="Compartiment rembourré pour ordinateur&#10;Fermeture à lacet et rabat aimanté&#10;Bandoulière ajustable" rows="4"></textarea>
+        </div>
+
+        <!-- Checkboxes -->
         <div class="form-row">
           <div class="form-group">
             <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
@@ -98,7 +158,26 @@
               <input type="checkbox" id="isBestseller"> <span>Best-seller</span>
             </label>
           </div>
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+              <input type="checkbox" id="isOnSale"> <span>En promotion</span>
+            </label>
+          </div>
         </div>
+
+        <!-- SEO -->
+        <h3 style="font-size:0.9rem;font-weight:600;margin:24px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--admin-border);">Référencement (SEO)</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="seoTitle">Titre SEO personnalisé</label>
+            <input type="text" id="seoTitle" placeholder="Sac à Dos Zephyr — ZANKA | Sacs de Luxe">
+          </div>
+          <div class="form-group">
+            <label for="seoDescription">Meta description SEO</label>
+            <input type="text" id="seoDescription" placeholder="Découvrez le sac à dos Zephyr en cuir pleine fleur...">
+          </div>
+        </div>
+
         <div class="form-actions">
           <button type="submit" class="btn-admin btn-admin-primary">Enregistrer le produit</button>
           <a href="products.html" class="btn-admin btn-admin-secondary">Annuler</a>
@@ -106,49 +185,77 @@
       </form>
     </div>
   </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+  <script src="../js/firebase-config.js"></script>
   <script src="../js/admin.js"></script>
   <script>
     adminAuthCheck();
     initAdminLayout();
-    var PRODUITS = [
-      { id: "zephyr", name: "Sac à Dos Zephyr", slug: "sac-a-dos-zephyr", category: "backpacks", price: 850, comparePrice: null, stock: 12, isNew: true, isBestseller: false, image: "https://images.unsplash.com/photo-1601924994987-69e26d50e8bf?w=600&q=80", colors: "Sable, Noir, Chocolat", description: "Sac à dos en cuir pleine fleur. Compartiment rembourré pour ordinateur 15 pouces." },
-      { id: "aria", name: "Sac Cabas Aria", slug: "sac-cabas-aria", category: "femmes", price: 1450, comparePrice: 1800, stock: 5, isNew: false, isBestseller: true, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80", colors: "Sable, Écru, Brun", description: "Cabas en cuir grainé. Anses en cuir tressé." },
-      { id: "berlinois", name: "Sacoche Berlinois", slug: "sacoche-berlinois", category: "hommes", price: 450, comparePrice: null, stock: 8, isNew: true, isBestseller: false, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&q=80", colors: "Noir, Brun", description: "Sacoche en cuir lisse. Bandoulière ajustable." },
-      { id: "lune", name: "Sac à Main Lune", slug: "sac-a-main-lune", category: "femmes", price: 1280, comparePrice: null, stock: 3, isNew: false, isBestseller: true, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80", colors: "Sable, Noir", description: "Sac à main en cuir souple. Forme demi-lune iconique." },
-      { id: "voyageur", name: "Sac à Dos Voyageur", slug: "sac-a-dos-voyageur", category: "backpacks", price: 1200, comparePrice: 1500, stock: 6, isNew: false, isBestseller: false, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80", colors: "Chocolat, Noir", description: "Grand sac à dos voyage en cuir pleine fleur." },
-      { id: "nova", name: "Sac Bandoulière Nova", slug: "sac-bandouliere-nova", category: "femmes", price: 890, comparePrice: null, stock: 10, isNew: true, isBestseller: false, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80", colors: "Écru, Sable, Noir", description: "Sac bandoulière en cuir grainé." },
-      { id: "executive", name: "Porte-Documents Executive", slug: "porte-documents-executive", category: "hommes", price: 890, comparePrice: null, stock: 4, isNew: false, isBestseller: false, image: "https://images.unsplash.com/photo-1594226801341-41427b4e5c22?w=600&q=80", colors: "Noir, Brun", description: "Porte-documents en cuir pleine fleur." },
-      { id: "soir", name: "Pochette du Soir", slug: "pochette-du-soir", category: "femmes", price: 650, comparePrice: null, stock: 2, isNew: true, isBestseller: false, image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?w=600&q=80", colors: "Noir, Sable", description: "Pochette du soir en cuir laqué." }
-    ];
     var params = new URLSearchParams(window.location.search);
     var productId = params.get('id');
     var editMode = false;
-    if (productId) {
-      editMode = true;
-      document.getElementById('page-title').textContent = 'Modifier le produit';
-      for (var i = 0; i < PRODUITS.length; i++) {
-        if (PRODUITS[i].id === productId) {
-          var p = PRODUITS[i];
-          document.getElementById('product-id').value = p.id;
-          document.getElementById('name').value = p.name;
-          document.getElementById('slug').value = p.slug;
-          document.getElementById('category').value = p.category;
-          document.getElementById('price').value = p.price;
-          document.getElementById('comparePrice').value = p.comparePrice || '';
-          document.getElementById('stock').value = p.stock;
-          document.getElementById('description').value = p.description;
-          document.getElementById('image').value = p.image;
-          document.getElementById('colors').value = p.colors;
-          document.getElementById('isNew').checked = p.isNew;
-          document.getElementById('isBestseller').checked = p.isBestseller;
-          break;
-        }
+
+    function chargerProduit(id) {
+      if (typeof window.db !== 'undefined' && window.db) {
+        window.db.collection('products').doc(id).get().then(function(doc) {
+          if (doc.exists) {
+            remplirFormulaire(doc.data(), doc.id);
+          } else {
+            showToast('Produit introuvable.', 'error');
+          }
+        }).catch(function(err) {
+          console.warn('Erreur chargement produit:', err);
+          showToast('Erreur de chargement.', 'error');
+        });
       }
     }
+
+    function remplirFormulaire(p, id) {
+      editMode = true;
+      document.getElementById('page-title').textContent = 'Modifier le produit';
+      document.getElementById('product-id').value = id || p.id || '';
+      document.getElementById('name').value = p.name || '';
+      document.getElementById('slug').value = p.slug || '';
+      document.getElementById('category').value = p.category || '';
+      document.getElementById('price').value = p.price || '';
+      document.getElementById('comparePrice').value = p.comparePrice || '';
+      document.getElementById('stock').value = p.stock || 0;
+      document.getElementById('description').value = p.description || '';
+      document.getElementById('image').value = (p.images && p.images[0]) || p.image || '';
+      document.getElementById('colors').value = Array.isArray(p.colors) ? p.colors.join(', ') : (p.colors || '');
+      document.getElementById('isNew').checked = !!p.isNew;
+      document.getElementById('isBestseller').checked = !!p.isBestseller;
+      document.getElementById('discountPercent').value = p.discountPercent || '';
+      document.getElementById('collection').value = p.collection || '';
+      document.getElementById('shortDescription').value = p.shortDescription || '';
+      document.getElementById('images').value = (p.images && p.images.length > 0) ? p.images.join('\n') : (p.image || '');
+      document.getElementById('materials').value = Array.isArray(p.materials) ? p.materials.join(', ') : (p.materials || '');
+      document.getElementById('weight').value = p.weight || '';
+      document.getElementById('dimHeight').value = (p.dimensions && p.dimensions.height) || '';
+      document.getElementById('dimWidth').value = (p.dimensions && p.dimensions.width) || '';
+      document.getElementById('dimDepth').value = (p.dimensions && p.dimensions.depth) || '';
+      document.getElementById('features').value = Array.isArray(p.features) ? p.features.join('\n') : (p.features || '');
+      document.getElementById('isOnSale').checked = !!p.isOnSale;
+      document.getElementById('seoTitle').value = (p.seo && p.seo.title) || '';
+      document.getElementById('seoDescription').value = (p.seo && p.seo.description) || '';
+    }
+
+    if (productId) {
+      chargerProduit(productId);
+    }
+
     document.getElementById('product-form').addEventListener('submit', function(e) {
       e.preventDefault();
+      var imagesText = document.getElementById('images').value.trim();
+      var imagesUrls = imagesText ? imagesText.split('\n').map(function(s) { return s.trim(); }).filter(Boolean) : [];
+      if (imagesUrls.length === 0) {
+        imagesUrls = [document.getElementById('image').value.trim()];
+      }
+
       var data = {
-        id: document.getElementById('product-id').value || Date.now().toString(36),
         name: document.getElementById('name').value.trim(),
         slug: document.getElementById('slug').value.trim(),
         category: document.getElementById('category').value,
@@ -156,25 +263,59 @@
         comparePrice: document.getElementById('comparePrice').value ? parseFloat(document.getElementById('comparePrice').value) : null,
         stock: parseInt(document.getElementById('stock').value),
         description: document.getElementById('description').value.trim(),
-        image: document.getElementById('image').value.trim(),
+        shortDescription: document.getElementById('shortDescription').value.trim(),
+        collection: document.getElementById('collection').value.trim(),
+        image: imagesUrls[0] || document.getElementById('image').value.trim(),
+        images: imagesUrls,
         colors: document.getElementById('colors').value.split(',').map(function(s) { return s.trim(); }).filter(Boolean),
+        materials: document.getElementById('materials').value.split(',').map(function(s) { return s.trim(); }).filter(Boolean),
+        dimensions: {
+          height: parseFloat(document.getElementById('dimHeight').value) || null,
+          width: parseFloat(document.getElementById('dimWidth').value) || null,
+          depth: parseFloat(document.getElementById('dimDepth').value) || null
+        },
+        weight: parseInt(document.getElementById('weight').value) || null,
+        features: document.getElementById('features').value.split('\n').map(function(s) { return s.trim(); }).filter(Boolean),
+        discountPercent: document.getElementById('discountPercent').value ? parseInt(document.getElementById('discountPercent').value) : null,
         isNew: document.getElementById('isNew').checked,
-        isBestseller: document.getElementById('isBestseller').checked
+        isBestseller: document.getElementById('isBestseller').checked,
+        isOnSale: document.getElementById('isOnSale').checked,
+        seo: {
+          title: document.getElementById('seoTitle').value.trim(),
+          description: document.getElementById('seoDescription').value.trim()
+        },
+        updatedAt: new Date().toISOString()
       };
-      if (editMode) {
-        for (var i = 0; i < PRODUITS.length; i++) {
-          if (PRODUITS[i].id === productId) {
-            PRODUITS[i] = data;
-            break;
-          }
-        }
-        showToast('Produit "' + data.name + '" mis à jour avec succès.', 'success');
-      } else {
-        PRODUITS.push(data);
-        showToast('Produit "' + data.name + '" créé avec succès.', 'success');
+
+      function apresSauvegarde() {
+        showToast('Produit "' + data.name + '" ' + (editMode ? 'mis à jour' : 'créé') + ' avec succès.', 'success');
+        setTimeout(function() { window.location.href = 'products.html'; }, 1000);
       }
-      setTimeout(function() { window.location.href = 'products.html'; }, 1000);
+
+      function erreurSauvegarde(err) {
+        console.error('Erreur Firebase:', err);
+        showToast('Erreur de sauvegarde: ' + err.message, 'error');
+      }
+
+      if (typeof window.db !== 'undefined' && window.db) {
+        if (editMode) {
+          var docId = document.getElementById('product-id').value;
+          data.id = docId;
+          window.db.collection('products').doc(docId).set(data, { merge: true })
+            .then(apresSauvegarde)
+            .catch(erreurSauvegarde);
+        } else {
+          data.id = Date.now().toString(36);
+          data.createdAt = new Date().toISOString();
+          window.db.collection('products').doc(data.id).set(data)
+            .then(apresSauvegarde)
+            .catch(erreurSauvegarde);
+        }
+      } else {
+        showToast('Mode démo : Firestore non disponible.', 'error');
+      }
     });
+
     document.getElementById('name').addEventListener('input', function() {
       if (!editMode) {
         var slug = this.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();

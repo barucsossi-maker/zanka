@@ -13,6 +13,8 @@
 
 # ─── Fichiers de configuration sensibles ────────────────────────
 firebase-config.local.json
+zanka-luxury-bag-firebase-adminsdk-*.json
+set-admin-claim.js
 
 # ─── Node / Dépendances ────────────────────────────────────────
 node_modules/
